@@ -110,15 +110,15 @@ public class FormListado extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(esNuevaHistoria)
         {
-            FormHistoria fh = new FormHistoria();
+            Vista.FormHistoria fh = new Vista.FormHistoria();
             fh.setPaciente((String)listaPacientes.get(list1.getSelectedIndex()));
             fh.setVisible(true);
             dispose();
         } else
         if(esNuevoMiniControl)
         {
-            FormMiniControl fmc = new FormMiniControl();
-            fmc.cedPaciente = (String)listaPacientes.get(list1.getSelectedIndex());
+            Vista.FormMiniControl fmc = new Vista.FormMiniControl();
+            fmc.setCedPaciente((String)listaPacientes.get(list1.getSelectedIndex()));
             fmc.setVisible(true);
             dispose();
         } else

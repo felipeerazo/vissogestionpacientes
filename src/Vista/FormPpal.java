@@ -6,19 +6,59 @@
 
 package Vista;
 
+import Controlador.Conn;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.LinkedList;
+
 /**
  *
  * @author Felipe Erazo
  */
 public class FormPpal extends javax.swing.JFrame {
     
+    FormBackUp formBackUp;
     FormBuscador formBuscador;
+    FormBuscador fb1;
+    FormBuscador fb2;
+    FormListado fl;
+    Conn conn;
+    LinkedList listaPacientes;
+    LinkedList listaPacientes2;
 
     /**
      * Creates new form FormPpal
      */
     public FormPpal() {
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((d.width - 543) / 2, (d.height - 430) / 2);
         initComponents();
+        setTitle("Men\372 principal");
+        setResizable(false);
+        formBackUp = null;
+        formBuscador = null;
+        fb1 = null;
+        fb2 = null;
+        fl = null;
+        conn = new Conn();
+        listaPacientes = new LinkedList();
+        listaPacientes2 = new LinkedList();
+        cargarCumpleanos();
+        cargarControlesHoy();
+    }
+    
+    public void cargarCumpleanos()
+    {
+        for(LinkedList l = conn.reporteSQL("SELECT cc, nombre, date_part('year', current_date)-date_part('year', fechanac) FROM pacientes WHERE date_part('month', fechanac)=date_part('month', current_date) AND date_part('day', fechanac)=date_part('day', current_date);"); !l.isEmpty(); list1.add((new StringBuilder()).append((String)l.removeFirst()).append(" (").append((String)l.removeFirst()).append(" a\361os)").toString()))
+            listaPacientes.add(l.removeFirst());
+
+    }
+
+    public void cargarControlesHoy()
+    {
+        for(LinkedList l = conn.reporteSQL("SELECT p.cc, p.nombre FROM pacientes p, historias h WHERE p.cc=h.cc_paciente AND h.control=current_date;"); !l.isEmpty(); list2.add((new StringBuilder()).append((String)listaPacientes2.getLast()).append(" - ").append((String)l.removeFirst()).toString()))
+            listaPacientes2.addLast(l.removeFirst());
+
     }
 
     /**
@@ -30,12 +70,12 @@ public class FormPpal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnHistoriaClinica = new javax.swing.JButton();
+        btnMiniControl = new javax.swing.JButton();
+        btnMostrarTodo = new javax.swing.JButton();
+        btnPaciente = new javax.swing.JButton();
+        btnBackUp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         list1 = new java.awt.List();
         jLabel2 = new javax.swing.JLabel();
@@ -43,28 +83,53 @@ public class FormPpal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/lupa.png"))); // NOI18N
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/lupa.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/hist.png"))); // NOI18N
-        jButton2.setText("Nueva historia clínica");
+        btnHistoriaClinica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/hist.png"))); // NOI18N
+        btnHistoriaClinica.setText("Nueva Historia Clínica");
+        btnHistoriaClinica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoriaClinicaActionPerformed(evt);
+            }
+        });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/mini.png"))); // NOI18N
-        jButton3.setText("Nuevo mini control");
+        btnMiniControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/mini.png"))); // NOI18N
+        btnMiniControl.setText("Nuevo Mini Control");
+        btnMiniControl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMiniControlActionPerformed(evt);
+            }
+        });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/listar.png"))); // NOI18N
-        jButton4.setText("Mostrar todo");
+        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/listar.png"))); // NOI18N
+        btnMostrarTodo.setText("Mostrar todo");
+        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodoActionPerformed(evt);
+            }
+        });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/user-paciente.png"))); // NOI18N
-        jButton5.setText("Nuevo Paciente");
+        btnPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/user-paciente.png"))); // NOI18N
+        btnPaciente.setText("Nuevo Paciente");
+        btnPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPacienteActionPerformed(evt);
+            }
+        });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/cajafuerte.png"))); // NOI18N
-        jButton6.setText("Backup");
+        btnBackUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/cajafuerte.png"))); // NOI18N
+        btnBackUp.setText("Backup");
+        btnBackUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackUpActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Cumpleaños:");
 
@@ -80,24 +145,24 @@ public class FormPpal extends javax.swing.JFrame {
                     .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton1)
+                            .addComponent(btnBuscar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton2)
+                            .addComponent(btnHistoriaClinica)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton3))
+                            .addComponent(btnMiniControl))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton4)
+                            .addComponent(btnMostrarTodo)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton5)
+                            .addComponent(btnPaciente)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton6)))
+                            .addComponent(btnBackUp)))
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(list2, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBackUp, btnBuscar, btnHistoriaClinica, btnMiniControl, btnMostrarTodo, btnPaciente});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {list1, list2});
 
@@ -106,14 +171,14 @@ public class FormPpal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnBuscar)
+                    .addComponent(btnHistoriaClinica)
+                    .addComponent(btnMiniControl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
+                    .addComponent(btnMostrarTodo)
+                    .addComponent(btnPaciente)
+                    .addComponent(btnBackUp))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -125,20 +190,65 @@ public class FormPpal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBackUp, btnBuscar, btnHistoriaClinica, btnMiniControl, btnMostrarTodo, btnPaciente});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {list1, list2});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         if(formBuscador != null)
             formBuscador.dispose();
         formBuscador = new FormBuscador();
         formBuscador.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
+        // TODO add your handling code here:
+        if(fl != null)
+            fl.dispose();
+        fl = new FormListado();
+        fl.cargarTodo();
+        fl.setVisible(true);
+    }//GEN-LAST:event_btnMostrarTodoActionPerformed
+
+    private void btnBackUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackUpActionPerformed
+        // TODO add your handling code here:
+        if(formBackUp != null)
+            formBackUp.dispose();
+        formBackUp = new FormBackUp();
+        formBackUp.setVisible(true);
+    }//GEN-LAST:event_btnBackUpActionPerformed
+
+    private void btnMiniControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiniControlActionPerformed
+        // TODO add your handling code here:
+        if(fb2 != null)
+            fb2.dispose();
+        fb2 = new FormBuscador();
+        fb2.setEtiqueta("Busque el paciente para el nuevo mini control:");
+        fb2.esNuevoMiniControl = true;
+        fb2.setVisible(true);
+    }//GEN-LAST:event_btnMiniControlActionPerformed
+
+    private void btnPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacienteActionPerformed
+        // TODO add your handling code here:
+        FormPaciente fp = new FormPaciente();
+        fp.limpiarForm();
+        fp.setSize(723, 386);
+        fp.setVisible(true);
+    }//GEN-LAST:event_btnPacienteActionPerformed
+
+    private void btnHistoriaClinicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoriaClinicaActionPerformed
+        // TODO add your handling code here:
+        if(fb1 != null)
+            fb1.dispose();
+        fb1 = new FormBuscador();
+        fb1.setEtiqueta("Busque el paciente para la nueva historia cl\355nica:");
+        fb1.esNuevaHistoria = true;
+        fb1.setVisible(true);
+    }//GEN-LAST:event_btnHistoriaClinicaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,12 +286,12 @@ public class FormPpal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnBackUp;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnHistoriaClinica;
+    private javax.swing.JButton btnMiniControl;
+    private javax.swing.JButton btnMostrarTodo;
+    private javax.swing.JButton btnPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private java.awt.List list1;

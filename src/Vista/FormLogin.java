@@ -94,12 +94,10 @@ public class FormLogin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(jPasswordField1.getText().equals("contraste"))
-        {
+        if(jPasswordField1.getText().equals("contraste")) {
             new FormPpal().setVisible(true);
             dispose();
-        } else
-        {
+        } else {
             JOptionPane.showMessageDialog(null, "Clave incorrecta!", "Ingreso", 0);
             jPasswordField1.setText(null);
         }

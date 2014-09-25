@@ -5,7 +5,6 @@
 
 package Controlador;
 
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.sql.*;
 import java.util.LinkedList;
@@ -18,7 +17,7 @@ public class Conn
     public Conn()
     {
         res = null;
-        con = null;
+        conn = null;
         st = null;
         driver = "org.postgresql.Driver";
         url = "jdbc:postgresql://localhost:5432/v6.1";
@@ -40,7 +39,7 @@ public class Conn
         }
         try
         {
-            con = DriverManager.getConnection(url, userDB, passDB);
+            conn = DriverManager.getConnection(url, userDB, passDB);
         }
         catch(SQLException e)
         {
@@ -72,7 +71,7 @@ public class Conn
     {
         try
         {
-            st = getCon().createStatement();
+            st = getConn().createStatement();
             st.execute(sql);
             st.close();
             return "";
@@ -87,7 +86,7 @@ public class Conn
     {
         try
         {
-            st = getCon().createStatement();
+            st = getConn().createStatement();
             res = st.executeQuery(sql);
         }
         catch(SQLException e)
@@ -99,7 +98,7 @@ public class Conn
 
     public int verificar(String sql) throws SQLException
     {
-        st = getCon().createStatement();
+        st = getConn().createStatement();
         res = st.executeQuery(sql);
         if(res.next())
             return 1;
@@ -118,7 +117,7 @@ public class Conn
     {
         try
         {
-            st = getCon().createStatement();
+            st = getConn().createStatement();
             st.executeUpdate(sql);
             st.close();
             return "1";
@@ -129,9 +128,9 @@ public class Conn
         }
     }
 
-    public Connection getCon()
+    public Connection getConn()
     {
-        return con;
+        return conn;
     }
 
     public LinkedList reporteSQL(String sql)
@@ -139,7 +138,7 @@ public class Conn
         LinkedList sb = new LinkedList();
         try
         {
-            st = getCon().createStatement();
+            st = getConn().createStatement();
             for(res = st.executeQuery(sql); res.next();)
             {
                 int x = 1;
@@ -162,7 +161,7 @@ public class Conn
     {
         try
         {
-            st = getCon().createStatement();
+            st = getConn().createStatement();
             st.execute((new StringBuilder()).append("COPY (select 'insert into pacientes values('||cc||', '''||nombre||''', '''||fechanac||''', '''||sexo||''', '''||tel||''', '''||direcc||''', '''||celular||''', '''||email||''', '''||ocup  ||''', '''||observ||''', '''||mas||''');' as a from pacientes union select 'insert into historias values('||historia_id||', '||cc_paciente||', '''||fecha||''', '''||tipo||''', '''||acomp||''', '''||parentesco||''', '''||tel||''', '''||motivo||''', '''||antec||''', '''||sc_vl_d ||''', '''||sc_vl_i||''', '''||vp||''', '''||cc_vl_d||''', '''||cc_vl_i||''', '''||vp2||''', '''||ph_d||''', '''||ph_i||''', '''||rx_d||''', '''||rx_i||''', '''||rx_add||''', '''||db_d||''', '''||db_i||''', '''||pio_d||''', '''||pio_i||''', '''||dfo_d||''', '''||dfo_i||''', '''||cvt_vl||''', '''||cvt_vp||''', '''||cvt_ppc||''', '''||q_d||''', '''||q_i||''', '''||refr_d||''', '''||refr_i||''', '''||av_d||''', '''||av_i||''', '''||subjetivo_d||''', '''||subjetivo_i||''', '''||add_d||''', '''||add_i||''', '''||avcc_d||''', '''||avcc_i||''', '''||prescrip_f_d||''', '''||prescrip_f_i||''', '''||add_f_d||''', '''||add_f_i||''', '''||av_vl_d||''', '''||av_vl_i||''', '''||av_vp_d||''', '''||av_vp_i||''', '''||dp||''', '''||ao||''', '''||tipo_lente||''', '''||uso||''', '''||test_color||''', '''||test_profund||''', '''||diagnostico||''', '''||codg_rips||''', '''||conducta||''', '''||control||''', '''||observaciones||''');' from historias union select 'insert into minicontroles values('||minicontrol_id||', '||cc_paciente||', '''||fecha||''', '''||motivo||''', '''||observaciones||''');' from minicontroles order by a desc) TO '").append(ruta).append("';").toString());
             st.close();
             JOptionPane.showMessageDialog(null, "La copia de seguridad finaliz\363 sin errores.", "Guardado correctamente", 1);
@@ -178,7 +177,7 @@ public class Conn
     {
         try
         {
-            st = getCon().createStatement();
+            st = getConn().createStatement();
             st.execute(sql);
             st.close();
         }
@@ -193,7 +192,7 @@ public class Conn
     {
         try
         {
-            st = getCon().createStatement();
+            st = getConn().createStatement();
             st.execute((new StringBuilder()).append(sql).append("commit;").toString());
             st.close();
             JOptionPane.showMessageDialog(null, "La base de datos fu\351 restaurada sin errores.", "Completo", 1);
@@ -205,7 +204,7 @@ public class Conn
     }
 
     ResultSet res;
-    private Connection con;
+    private Connection conn;
     Statement st;
     String driver;
     String url;

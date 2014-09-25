@@ -11,8 +11,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
-import recuperados.FormListado;
-import recuperados.FormPaciente;
 
 /**
  *
@@ -119,12 +117,12 @@ public class FormBuscador extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        FormListado fl;
+        Vista.FormListado fl;
         if(jTextField1.getText() == null)
             return;
-        fl = new FormListado();
-        fl.esNuevaHistoria = esNuevaHistoria;
-        fl.esNuevoMiniControl = esNuevoMiniControl;
+        fl = new Vista.FormListado();
+        fl.setEsNuevaHistoria(esNuevaHistoria);
+        fl.setEsNuevoMiniControl(esNuevoMiniControl);
         if(jRadioButton1.isSelected())
         {
             lista = (new Conn()).reporteSQL((new StringBuilder()).append("select cc, nombre from pacientes where cc=").append(jTextField1.getText()).toString());

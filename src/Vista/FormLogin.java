@@ -19,6 +19,7 @@ public class FormLogin extends javax.swing.JFrame {
      */
     public FormLogin() {
         initComponents();
+        new FormPpal().setVisible(true);
     }
 
     /**
@@ -40,6 +41,12 @@ public class FormLogin extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/visso1.jpg"))); // NOI18N
 
         jLabel2.setText("Clave:");
+
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
 
         jButton1.setText("Ingresar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +104,14 @@ public class FormLogin extends javax.swing.JFrame {
             jPasswordField1.setText(null);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        // TODO add your handling code here:
+        //System.out.println("keyPressed="+evt.getKeyText(evt.getKeyCode()));
+        if(evt.getKeyChar()=='\n'){
+            jButton1.doClick();
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
 
     /**
      * @param args the command line arguments

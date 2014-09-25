@@ -11,9 +11,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
-import recuperados.FormHistoria;
-import recuperados.FormMiniControl;
-import recuperados.FormPaciente;
 
 /**
  *
@@ -24,9 +21,9 @@ public class FormListado extends javax.swing.JFrame {
     LinkedList listaPacientes;
     LinkedList listaControles;
     Conn conn;
-    boolean esNuevaHistoria;
+    private boolean esNuevaHistoria;
     String cedPaciente;
-    boolean esNuevoMiniControl;
+    private boolean esNuevoMiniControl;
     
     /**
      * Creates new form FormListado
@@ -108,14 +105,14 @@ public class FormListado extends javax.swing.JFrame {
 
     private void list1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_list1ActionPerformed
         // TODO add your handling code here:
-        if(esNuevaHistoria)
+        if(isEsNuevaHistoria())
         {
             Vista.FormHistoria fh = new Vista.FormHistoria();
             fh.setPaciente((String)listaPacientes.get(list1.getSelectedIndex()));
             fh.setVisible(true);
             dispose();
         } else
-        if(esNuevoMiniControl)
+        if(isEsNuevoMiniControl())
         {
             Vista.FormMiniControl fmc = new Vista.FormMiniControl();
             fmc.setCedPaciente((String)listaPacientes.get(list1.getSelectedIndex()));
@@ -177,4 +174,32 @@ public class FormListado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private java.awt.List list1;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the esNuevaHistoria
+     */
+    public boolean isEsNuevaHistoria() {
+        return esNuevaHistoria;
+    }
+
+    /**
+     * @param esNuevaHistoria the esNuevaHistoria to set
+     */
+    public void setEsNuevaHistoria(boolean esNuevaHistoria) {
+        this.esNuevaHistoria = esNuevaHistoria;
+    }
+
+    /**
+     * @return the esNuevoMiniControl
+     */
+    public boolean isEsNuevoMiniControl() {
+        return esNuevoMiniControl;
+    }
+
+    /**
+     * @param esNuevoMiniControl the esNuevoMiniControl to set
+     */
+    public void setEsNuevoMiniControl(boolean esNuevoMiniControl) {
+        this.esNuevoMiniControl = esNuevoMiniControl;
+    }
 }

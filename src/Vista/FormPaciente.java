@@ -161,7 +161,7 @@ public class FormPaciente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, (new StringBuilder()).append("El paciente no ha sido editado.\nError: ").append(res).toString(), "Error al editar", 0);
             } else
             {
-                recuperados.FormPaciente formPaciente = new recuperados.FormPaciente();
+                FormPaciente formPaciente = new FormPaciente();
                 formPaciente.cargarPaciente(fldCc.getText());
                 formPaciente.cargarHistorias();
                 formPaciente.cargarMiniControles();
@@ -178,7 +178,7 @@ public class FormPaciente extends javax.swing.JFrame {
                     dispose();
                 } else
                 {
-                    recuperados.FormHistoria fh = new recuperados.FormHistoria();
+                    FormHistoria fh = new FormHistoria();
                     fh.setTitle("Nueva historia...");
                     fh.setPaciente(fldCc.getText());
                     fh.setVisible(true);

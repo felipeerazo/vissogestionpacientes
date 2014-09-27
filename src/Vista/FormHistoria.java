@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class FormHistoria extends javax.swing.JFrame {
 
     String historiaId;
-    String cedPaciente;
+    int cedPaciente;
     Conn conn;
     FormPaciente formPaciente;
     
@@ -31,6 +31,7 @@ public class FormHistoria extends javax.swing.JFrame {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((d.width - 847) / 2, (d.height - 584) / 2);
         initComponents();
+        setDefaultCloseOperation(2);
         setTitle("Historia cl\355nica");
         jButton1.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif")));
         cargarListaCodG();
@@ -54,7 +55,7 @@ public class FormHistoria extends javax.swing.JFrame {
         btnCancelar.setVisible(false);
     }
 
-    void setPaciente(String ced)
+    void setPaciente(int ced)
     {
         cedPaciente = ced;
 //        jTextField48.setText(cedPaciente);

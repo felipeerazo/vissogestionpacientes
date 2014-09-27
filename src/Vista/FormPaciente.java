@@ -7,6 +7,7 @@
 package Vista;
 
 import Controlador.Conn;
+import Modelo.Paciente;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.LinkedList;
@@ -21,7 +22,7 @@ public class FormPaciente extends javax.swing.JFrame {
     Conn conn;
     LinkedList listaCodHistorias;
     LinkedList listaCodMiniControles;
-    String cedPaciente;
+    int cedPaciente;
     boolean edicion;
     
     /**
@@ -31,6 +32,7 @@ public class FormPaciente extends javax.swing.JFrame {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((d.width - 722) / 2, (d.height - 564) / 2);
         initComponents();
+        setDefaultCloseOperation(2);
         setTitle("Nuevo paciente...");
         conn = new Conn();
         listaCodHistorias = new LinkedList();
@@ -42,33 +44,32 @@ public class FormPaciente extends javax.swing.JFrame {
         edicion = false;
     }
     
-    public void cargarPaciente(String cc)
+    public void cargarPaciente(Paciente paciente)
     {
         setTitle("Paciente");
         fldFuc.setVisible(true);
         lblFuc.setVisible(true);
-        LinkedList l = conn.reporteSQL((new StringBuilder()).append("SELECT * FROM pacientes WHERE cc=").append(cc).toString());
-        fldCc.setText((String)l.removeFirst());
-        cedPaciente = fldCc.getText();
-        fldNombre.setText((String)l.removeFirst());
-        fldEdad.setText((new StringBuilder()).append((String)conn.reporteSQL((new StringBuilder()).append("SELECT (current_date -fechanac)/365 FROM pacientes WHERE cc=").append(cc).toString()).getFirst()).append(" a\361os").toString());
+        //LinkedList l = conn.reporteSQL((new StringBuilder()).append("SELECT * FROM pacientes WHERE cc=").append(cc).toString());
+        fldCc.setText(String.valueOf(paciente.getCc()));
+        cedPaciente = paciente.getCc();
+        fldNombre.setText(paciente.getNombre());
+        fldEdad.setText(String.valueOf(paciente.getEdad()));
         lblEdad.setVisible(true);
-        fldFechaNac.setText((String)l.removeFirst());
-        String aux = (String)l.remove();
+        fldFechaNac.setText(paciente.getFechanac());
+        String aux = paciente.getSexo();
         if(aux != null && aux.equals("MASCULINO"))
             radMasculino.setSelected(true);
         else
             radFemenino.setSelected(true);
-        fldTelefono.setText((String)l.removeFirst());
-        fldDireccion.setText((String)l.removeFirst());
-        fldFuc.setText(conn.reporteSQL((new StringBuilder()).append("select fecha from historias where cc_paciente=").append(cc).append(" order by fecha desc limit 1;").toString()).toString());
-        fldCelular.setText((String)l.removeFirst());
-        fldEmail.setText((String)l.removeFirst());
-        fldOcupacion.setText((String)l.removeFirst());
-        areObservaciones.setText((String)l.remove());
-        areDetalles.setText((String)l.remove());
+        fldTelefono.setText(String.valueOf(paciente.getTel()));
+        fldDireccion.setText(paciente.getDirecc());
+        fldFuc.setText(conn.reporteSQL((new StringBuilder()).append("select fecha from historias where cc_paciente=").append(paciente.getCc()).append(" order by fecha desc limit 1;").toString()).toString());
+        fldCelular.setText(String.valueOf(paciente.getCelular()));
+        fldEmail.setText(paciente.getEmail());
+        fldOcupacion.setText(paciente.getOcup());
+        areObservaciones.setText(paciente.getObserv());
+        areDetalles.setText(paciente.getMas());
         bloquearCampos();
-        
     }
     
     public void cargarHistorias()
@@ -95,9 +96,9 @@ public class FormPaciente extends javax.swing.JFrame {
         btnEditar.setVisible(false);
     }
 
-    private void activarEdicion(String cedPaciente)
+    private void activarEdicion(int cedPaciente)
     {
-        cargarPaciente(cedPaciente);
+//        cargarPaciente(cedPaciente);
         fldFuc.setVisible(false);
         ajustarParaEdicion();
         edicion = true;
@@ -162,7 +163,7 @@ public class FormPaciente extends javax.swing.JFrame {
             } else
             {
                 FormPaciente formPaciente = new FormPaciente();
-                formPaciente.cargarPaciente(fldCc.getText());
+//                formPaciente.cargarPaciente(Integer.parseInt(fldCc.getText()));
                 formPaciente.cargarHistorias();
                 formPaciente.cargarMiniControles();
                 formPaciente.setVisible(true);
@@ -180,7 +181,7 @@ public class FormPaciente extends javax.swing.JFrame {
                 {
                     FormHistoria fh = new FormHistoria();
                     fh.setTitle("Nueva historia...");
-                    fh.setPaciente(fldCc.getText());
+//                    fh.setPaciente(fldCc.getText());
                     fh.setVisible(true);
                     dispose();
                 }

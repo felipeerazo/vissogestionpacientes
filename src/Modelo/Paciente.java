@@ -18,9 +18,12 @@ public class Paciente {
     private String sexo;
     private int tel;
     private String direcc;
-    private int celular;
+    private Long celular;
     private String email;
     private String ocup;
+    private String observ;
+  private String mas;
+    
 
     public Paciente() {
     }
@@ -126,14 +129,14 @@ public class Paciente {
     /**
      * @return the celular
      */
-    public int getCelular() {
+    public Long getCelular() {
         return celular;
     }
 
     /**
      * @param celular the celular to set
      */
-    public void setCelular(int celular) {
+    public void setCelular(Long celular) {
         this.celular = celular;
     }
 
@@ -163,6 +166,34 @@ public class Paciente {
      */
     public void setOcup(String ocup) {
         this.ocup = ocup;
+    }
+
+    /**
+     * @return the observ
+     */
+    public String getObserv() {
+        return observ;
+    }
+
+    /**
+     * @param observ the observ to set
+     */
+    public void setObserv(String observ) {
+        this.observ = observ;
+    }
+
+    /**
+     * @return the mas
+     */
+    public String getMas() {
+        return mas;
+    }
+
+    /**
+     * @param mas the mas to set
+     */
+    public void setMas(String mas) {
+        this.mas = mas;
     }
     
     

@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class FormMiniControl extends javax.swing.JFrame {
 
     Conn conn;
-    private String cedPaciente;
+    private int cedPaciente;
     FormPaciente formPaciente;
     
     /**
@@ -30,6 +30,7 @@ public class FormMiniControl extends javax.swing.JFrame {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((d.width - 402) / 2, (d.height - 298) / 2);
         initComponents();
+        setDefaultCloseOperation(2);
         setTitle("Mini control");
         conn = new Conn();
         formPaciente = null;
@@ -221,14 +222,14 @@ public class FormMiniControl extends javax.swing.JFrame {
     /**
      * @return the cedPaciente
      */
-    public String getCedPaciente() {
+    public int getCedPaciente() {
         return cedPaciente;
     }
 
     /**
      * @param cedPaciente the cedPaciente to set
      */
-    public void setCedPaciente(String cedPaciente) {
+    public void setCedPaciente(int cedPaciente) {
         this.cedPaciente = cedPaciente;
     }
 }

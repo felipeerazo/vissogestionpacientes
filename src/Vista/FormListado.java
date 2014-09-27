@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Vista;
 
 import Controlador.Conn;
+import Modelo.Paciente;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.LinkedList;
@@ -18,13 +18,13 @@ import javax.swing.JOptionPane;
  */
 public class FormListado extends javax.swing.JFrame {
 
-    LinkedList listaPacientes;
+    LinkedList<Paciente> listaPacientes;
     LinkedList listaControles;
     Conn conn;
     private boolean esNuevaHistoria;
     String cedPaciente;
     private boolean esNuevoMiniControl;
-    
+
     /**
      * Creates new form FormListado
      */
@@ -32,6 +32,7 @@ public class FormListado extends javax.swing.JFrame {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((d.width - 569) / 2, (d.height - 456) / 2);
         initComponents();
+        setDefaultCloseOperation(2);
         setTitle("Lista de pacientes");
         listaPacientes = new LinkedList();
         listaControles = new LinkedList();
@@ -41,16 +42,18 @@ public class FormListado extends javax.swing.JFrame {
         cedPaciente = "";
         jLabel1.setText("Se han encontrado los siguientes pacientes:");
     }
-    
-    public void cargarPacientes(LinkedList l)
-    {
-        for(; !l.isEmpty(); list1.add((new StringBuilder()).append((String)listaPacientes.getLast()).append(" - ").append((String)l.removeFirst()).toString()))
-            listaPacientes.addLast(l.remove());
+
+    public void cargarPacientes(LinkedList<Paciente> l) {
+//        for(; !l.isEmpty(); list1.add((new StringBuilder()).append((String)listaPacientes.getLast()).append(" - ").append((String)l.removeFirst()).toString()))
+//            listaPacientes.addLast(l.remove());
+        for (int i = 0; i < l.size(); i++) {
+            lstVistaPacientes.add(l.get(i).getCc() + " - " + l.get(i).getNombre());
+        }
+        listaPacientes=l;
 
     }
 
-    public void cargarTodo()
-    {
+    public void cargarTodo() {
         LinkedList l = conn.reporteSQL("SELECT cc, nombre FROM pacientes;");
         cargarPacientes(l);
     }
@@ -64,14 +67,14 @@ public class FormListado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        list1 = new java.awt.List();
+        lstVistaPacientes = new java.awt.List();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        list1.addActionListener(new java.awt.event.ActionListener() {
+        lstVistaPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                list1ActionPerformed(evt);
+                lstVistaPacientesActionPerformed(evt);
             }
         });
 
@@ -84,7 +87,7 @@ public class FormListado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(lstVistaPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -96,44 +99,37 @@ public class FormListado extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lstVistaPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void list1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_list1ActionPerformed
+    private void lstVistaPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstVistaPacientesActionPerformed
         // TODO add your handling code here:
-        if(isEsNuevaHistoria())
-        {
-            Vista.FormHistoria fh = new Vista.FormHistoria();
-            fh.setPaciente((String)listaPacientes.get(list1.getSelectedIndex()));
-            fh.setVisible(true);
+        if (isEsNuevaHistoria()) {
+            Vista.FormHistoria formHistoria = new Vista.FormHistoria();
+            formHistoria.setPaciente(listaPacientes.get(lstVistaPacientes.getSelectedIndex()).getCc());
+            formHistoria.setVisible(true);
             dispose();
-        } else
-        if(isEsNuevoMiniControl())
-        {
+        } else if (isEsNuevoMiniControl()) {
             Vista.FormMiniControl fmc = new Vista.FormMiniControl();
-            fmc.setCedPaciente((String)listaPacientes.get(list1.getSelectedIndex()));
+            fmc.setCedPaciente(listaPacientes.get(lstVistaPacientes.getSelectedIndex()).getCc());
             fmc.setVisible(true);
             dispose();
-        } else
-        {
-            try
-            {
-                FormPaciente fp = new FormPaciente();
-                fp.cargarPaciente((String)listaPacientes.get(list1.getSelectedIndex()));
-                fp.cargarHistorias();
-                fp.cargarMiniControles();
-                fp.setVisible(true);
-            }
-            catch(Exception e)
-            {
+        } else {
+            try {
+                FormPaciente formPaciente = new FormPaciente();
+                formPaciente.cargarPaciente(listaPacientes.get(lstVistaPacientes.getSelectedIndex()));
+                formPaciente.cargarHistorias();
+                formPaciente.cargarMiniControles();
+                formPaciente.setVisible(true);
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.toString());
             }
         }
-    }//GEN-LAST:event_list1ActionPerformed
+    }//GEN-LAST:event_lstVistaPacientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,7 +168,7 @@ public class FormListado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private java.awt.List list1;
+    private java.awt.List lstVistaPacientes;
     // End of variables declaration//GEN-END:variables
 
     /**

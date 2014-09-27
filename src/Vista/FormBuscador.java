@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Vista;
 
 import Controlador.Conn;
+import Controlador.CtrlPaciente;
+import Modelo.Paciente;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.LinkedList;
@@ -18,10 +19,10 @@ import javax.swing.JOptionPane;
  */
 public class FormBuscador extends javax.swing.JFrame {
 
-    LinkedList lista;
+    LinkedList<Paciente> lista;
     boolean esNuevaHistoria;
     boolean esNuevoMiniControl;
-    
+
     /**
      * Creates new form FormBuscador
      */
@@ -29,6 +30,7 @@ public class FormBuscador extends javax.swing.JFrame {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((d.width - 520) / 2, (d.height - 169) / 2);
         initComponents();
+        setDefaultCloseOperation(2);
         setTitle("Buscar...");
         lista = new LinkedList();
         esNuevaHistoria = false;
@@ -46,18 +48,18 @@ public class FormBuscador extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        fldCampoBusqueda = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Buscar paciente:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        fldCampoBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fldCampoBusquedaKeyPressed(evt);
             }
         });
 
@@ -68,10 +70,10 @@ public class FormBuscador extends javax.swing.JFrame {
         jRadioButton2.setSelected(true);
         jRadioButton2.setText("Nombre (o parte del nombre)");
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -88,12 +90,12 @@ public class FormBuscador extends javax.swing.JFrame {
                         .addComponent(jRadioButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(109, 109, 109)
-                        .addComponent(jButton1))
+                        .addComponent(btnBuscar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fldCampoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -102,62 +104,59 @@ public class FormBuscador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fldCampoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnBuscar)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        if(jTextField1.getText() == null)
+        if (fldCampoBusqueda.getText() == null) {
             return;
-        Vista.FormListado fl;        
-        fl = new Vista.FormListado();
-        fl.setEsNuevaHistoria(esNuevaHistoria);
-        fl.setEsNuevoMiniControl(esNuevoMiniControl);
-        if(jRadioButton1.isSelected())
-        {
-            lista = (new Conn()).reporteSQL((new StringBuilder()).append("select cc, nombre from pacientes where cc=").append(jTextField1.getText()).toString());
+        }
+        Vista.FormListado formListado;
+        formListado = new Vista.FormListado();
+        formListado.setEsNuevaHistoria(esNuevaHistoria);
+        formListado.setEsNuevoMiniControl(esNuevoMiniControl);
+        if (jRadioButton1.isSelected()) {
+            //lista = (new Conn()).reporteSQL((new StringBuilder()).append("select cc, nombre from pacientes where cc=").append(jTextField1.getText()).toString());
+            lista= new CtrlPaciente().listarPacientes("cc", fldCampoBusqueda.getText());
             FormPaciente fp = new FormPaciente();
-            fp.cargarPaciente((String)lista.getFirst());
+            fp.cargarPaciente(lista.getFirst());
             fp.cargarHistorias();
             fp.setVisible(true);
             dispose();
             return;
         }
-        try
-        {
-            lista = (new Conn()).reporteSQL((new StringBuilder()).append("select cc, nombre from pacientes where lower(nombre) like lower('%").append(jTextField1.getText()).append("%');").toString());
-        }
-        catch(Exception e) {
+        try {
+            //lista = (new Conn()).reporteSQL((new StringBuilder()).append("select cc, nombre from pacientes where lower(nombre) like lower('%").append(jTextField1.getText()).append("%');").toString());
+            lista= new CtrlPaciente().listarPacientes("nombre", fldCampoBusqueda.getText());
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        if(lista.isEmpty())
-        {
+        if (lista.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay resultados para esta b\372squeda.", "Resultado de la b\372squeda", 0);
-        } else
-        {
-            fl.cargarPacientes(lista);
-            fl.setVisible(true);
+        } else {
+            formListado.cargarPacientes(lista);
+            formListado.setVisible(true);
             dispose();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void fldCampoBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fldCampoBusquedaKeyPressed
         // TODO add your handling code here:
-        //falta programar que cuando oprima enter haga la búsqueda
-        if(false){
-            jButton1.doClick();
+        if(evt.getKeyChar()=='\n' && !fldCampoBusqueda.getText().equals("")){
+            btnBuscar.doClick();
         }
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_fldCampoBusquedaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -193,18 +192,17 @@ public class FormBuscador extends javax.swing.JFrame {
             }
         });
     }
-    
-    void setEtiqueta(String string)
-    {
+
+    void setEtiqueta(String string) {
         jLabel1.setText(string);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField fldCampoBusqueda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

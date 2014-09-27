@@ -39,10 +39,11 @@ public class FormBackUp extends javax.swing.JFrame {
         setLocation((d.width - 642) / 2, (d.height - 155) / 2);
         initComponents();
         setTitle("Backup");
+        setDefaultCloseOperation(2);
         conn = new Conn();
         jButton1.setText("Hacer copia de seguridad");
         jButton1.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/backup.png")));
-        jButton2.setIcon(new ImageIcon(getClass().getResource("/Vista/Im\341genes/restore.png")));
+        jButton2.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/restore.png")));
         jButton2.setText("Restaurar desde una copia de seguridad");
         jButton3.setText("Volver");
     }

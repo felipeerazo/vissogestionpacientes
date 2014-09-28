@@ -101,15 +101,16 @@ public class FormPaciente extends javax.swing.JFrame {
 
     private void activarEdicion(Paciente paciente) {
         cargarPaciente(paciente);
-        fldFuc.setVisible(false);
         ajustarParaEdicion();
         edicion = true;
     }
 
     public void ajustarParaEdicion() {
-        setSize(723, 386);
+        setSize(680, 430);
+        fldFuc.setVisible(false);
         lblFuc.setVisible(false);
         lblEdad.setVisible(false);
+        fldEdad.setVisible(false);
         fldCc.setEditable(true);
         fldNombre.setEditable(true);
         fldFechaNac.setEditable(true);
@@ -157,12 +158,25 @@ public class FormPaciente extends javax.swing.JFrame {
             sexo = "MASCULINO";
         }
         if (edicion) {
-            String res = conn.actualizar((new StringBuilder()).append("UPDATE pacientes SET nombre='").append(fldNombre.getText()).append("', cc=").append(fldCc.getText()).append(", fechanac='").append(fldFechaNac.getText()).append("', sexo='").append(sexo).append("', tel='").append(fldTelefono.getText()).append("', direcc='").append(fldDireccion.getText()).append("', celular='").append(fldCelular.getText()).append("', email='").append(fldEmail.getText()).append("', ocup='").append(fldOcupacion.getText()).append("', observ='").append(areObservaciones.getText()).append("',mas='").append(areDetalles.getText()).append("' where cc=").append(getPaciente().getCc()).append(";").toString());
+            Paciente nuevoPaciente = new Paciente();
+            nuevoPaciente.setCc(Integer.parseInt(fldCc.getText()));
+            nuevoPaciente.setNombre(fldNombre.getText());
+            nuevoPaciente.setFechanac(fldFechaNac.getText());
+            nuevoPaciente.setSexo(sexo);
+            nuevoPaciente.setTel(Integer.parseInt(fldTelefono.getText()));
+            nuevoPaciente.setDirecc(fldDireccion.getText());
+            nuevoPaciente.setCelular(Long.parseLong(fldCelular.getText()));
+            nuevoPaciente.setEmail(fldEmail.getText());
+            nuevoPaciente.setOcup(fldOcupacion.getText());
+            nuevoPaciente.setObserv(areObservaciones.getText());
+            nuevoPaciente.setMas(areDetalles.getText());
+            //String res = conn.actualizar((new StringBuilder()).append("UPDATE pacientes SET nombre='").append(fldNombre.getText()).append("', cc=").append(fldCc.getText()).append(", fechanac='").append(fldFechaNac.getText()).append("', sexo='").append(sexo).append("', tel='").append(fldTelefono.getText()).append("', direcc='").append(fldDireccion.getText()).append("', celular='").append(fldCelular.getText()).append("', email='").append(fldEmail.getText()).append("', ocup='").append(fldOcupacion.getText()).append("', observ='").append(areObservaciones.getText()).append("',mas='").append(areDetalles.getText()).append("' where cc=").append(getPaciente().getCc()).append(";").toString());
+            String res = new CtrlPaciente().actualizar(paciente.getCc(), nuevoPaciente);
             if (!res.equals("1")) {
                 JOptionPane.showMessageDialog(null, (new StringBuilder()).append("El paciente no ha sido editado.\nError: ").append(res).toString(), "Error al editar", 0);
             } else {
                 FormPaciente formPaciente = new FormPaciente();
-//                formPaciente.cargarPaciente(Integer.parseInt(fldCc.getText()));
+                formPaciente.cargarPaciente(new CtrlPaciente().consultar(Integer.parseInt(fldCc.getText())));
                 formPaciente.cargarHistorias();
                 formPaciente.cargarMiniControles();
                 formPaciente.setVisible(true);

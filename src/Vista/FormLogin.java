@@ -19,6 +19,8 @@ public class FormLogin extends javax.swing.JFrame {
      */
     public FormLogin() {
         initComponents();
+        setLocationRelativeTo(null);
+        setTitle("Acceder");
         new FormPpal().setVisible(true);
     }
 

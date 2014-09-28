@@ -27,9 +27,8 @@ public class FormMiniControl extends javax.swing.JFrame {
      * Creates new form FormMiniControl
      */
     public FormMiniControl() {
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((d.width - 402) / 2, (d.height - 298) / 2);
         initComponents();
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Mini control");
         conn = new Conn();
@@ -42,7 +41,7 @@ public class FormMiniControl extends javax.swing.JFrame {
     void setFormPaciente(FormPaciente aThis)
     {
         formPaciente = aThis;
-        setCedPaciente(formPaciente.cedPaciente);
+        setCedPaciente(formPaciente.getPaciente().getCc());
     }
 
     void cargarMiniControl(LinkedList l)

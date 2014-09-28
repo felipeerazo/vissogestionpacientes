@@ -35,9 +35,8 @@ public class FormBackUp extends javax.swing.JFrame {
      * Creates new form FormBackUp
      */
     public FormBackUp() {
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((d.width - 642) / 2, (d.height - 155) / 2);
         initComponents();
+        setLocationRelativeTo(null);
         setTitle("Backup");
         setDefaultCloseOperation(2);
         conn = new Conn();

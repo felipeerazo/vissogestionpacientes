@@ -162,5 +162,21 @@ public class Conn implements Serializable {
             JOptionPane.showMessageDialog(null, e.toString(), "Error al Restaurar", 0);
         }
     }
+
+    public void cerrar() {
+        try {            
+            if (st != null) {
+                st.close();
+            }
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Excepción método CtrlPaciente.cerrar= " + e.getMessage());
+        }
+    }
     
 }

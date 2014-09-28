@@ -21,7 +21,7 @@ public class FormPpal extends javax.swing.JFrame {
     FormBuscador formBuscador;
     FormBuscador fb1;
     FormBuscador fb2;
-    FormListado fl;
+    FormListado formListado;
     Conn conn;
     LinkedList listaPacientes;
     LinkedList listaPacientes2;
@@ -30,16 +30,15 @@ public class FormPpal extends javax.swing.JFrame {
      * Creates new form FormPpal
      */
     public FormPpal() {
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((d.width - 543) / 2, (d.height - 430) / 2);
         initComponents();
+        setLocationRelativeTo(null);
         setTitle("Men\372 principal");
         setResizable(false);
         formBackUp = null;
         formBuscador = null;
         fb1 = null;
         fb2 = null;
-        fl = null;
+        formListado = null;
         conn = new Conn();
         listaPacientes = new LinkedList();
         listaPacientes2 = new LinkedList();
@@ -207,11 +206,11 @@ public class FormPpal extends javax.swing.JFrame {
 
     private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
         // TODO add your handling code here:
-        if(fl != null)
-            fl.dispose();
-        fl = new FormListado();
-        fl.cargarTodo();
-        fl.setVisible(true);
+        if(formListado != null)
+            formListado.dispose();
+        formListado = new FormListado();
+        formListado.cargarTodo();
+        formListado.setVisible(true);
     }//GEN-LAST:event_btnMostrarTodoActionPerformed
 
     private void btnBackUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackUpActionPerformed
@@ -234,10 +233,10 @@ public class FormPpal extends javax.swing.JFrame {
 
     private void btnPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacienteActionPerformed
         // TODO add your handling code here:
-        FormPaciente fp = new FormPaciente();
-        fp.limpiarForm();
-        fp.setSize(723, 386);
-        fp.setVisible(true);
+        FormPaciente formPaciente = new FormPaciente();
+        formPaciente.limpiarForm();
+        formPaciente.setSize(723, 386);
+        formPaciente.setVisible(true);
     }//GEN-LAST:event_btnPacienteActionPerformed
 
     private void btnHistoriaClinicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoriaClinicaActionPerformed

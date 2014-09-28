@@ -27,9 +27,8 @@ public class FormBuscador extends javax.swing.JFrame {
      * Creates new form FormBuscador
      */
     public FormBuscador() {
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((d.width - 520) / 2, (d.height - 169) / 2);
         initComponents();
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Buscar...");
         lista = new LinkedList();
@@ -128,7 +127,7 @@ public class FormBuscador extends javax.swing.JFrame {
         formListado.setEsNuevoMiniControl(esNuevoMiniControl);
         if (jRadioButton1.isSelected()) {
             //lista = (new Conn()).reporteSQL((new StringBuilder()).append("select cc, nombre from pacientes where cc=").append(jTextField1.getText()).toString());
-            lista= new CtrlPaciente().listarPacientes("cc", fldCampoBusqueda.getText());
+            lista= new CtrlPaciente().listar("cc", fldCampoBusqueda.getText());
             FormPaciente fp = new FormPaciente();
             fp.cargarPaciente(lista.getFirst());
             fp.cargarHistorias();
@@ -138,7 +137,7 @@ public class FormBuscador extends javax.swing.JFrame {
         }
         try {
             //lista = (new Conn()).reporteSQL((new StringBuilder()).append("select cc, nombre from pacientes where lower(nombre) like lower('%").append(jTextField1.getText()).append("%');").toString());
-            lista= new CtrlPaciente().listarPacientes("nombre", fldCampoBusqueda.getText());
+            lista= new CtrlPaciente().listar("nombre", fldCampoBusqueda.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

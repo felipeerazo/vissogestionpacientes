@@ -6,9 +6,8 @@
 package Vista;
 
 import Controlador.Conn;
+import Controlador.CtrlPaciente;
 import Modelo.Paciente;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
@@ -29,9 +28,8 @@ public class FormListado extends javax.swing.JFrame {
      * Creates new form FormListado
      */
     public FormListado() {
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((d.width - 569) / 2, (d.height - 456) / 2);
         initComponents();
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Lista de pacientes");
         listaPacientes = new LinkedList();
@@ -54,7 +52,7 @@ public class FormListado extends javax.swing.JFrame {
     }
 
     public void cargarTodo() {
-        LinkedList l = conn.reporteSQL("SELECT cc, nombre FROM pacientes;");
+        LinkedList<Paciente> l = new CtrlPaciente().listarTodos();
         cargarPacientes(l);
     }
 

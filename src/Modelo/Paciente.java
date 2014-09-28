@@ -13,7 +13,7 @@ public class Paciente {
 
     private int cc;
     private String nombre;
-    private int edad;
+    //private int edad;
     private String fechanac;
     private String sexo;
     private int tel;
@@ -59,16 +59,16 @@ public class Paciente {
     /**
      * @return the edad
      */
-    public int getEdad() {
-        return edad;
-    }
+//    public int getEdad() {
+//        return edad;
+//    }
 
     /**
      * @param edad the edad to set
      */
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
+//    public void setEdad(int edad) {
+//        this.edad = edad;
+//    }
 
     /**
      * @return the fechanac

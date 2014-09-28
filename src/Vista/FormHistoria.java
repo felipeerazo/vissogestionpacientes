@@ -28,9 +28,8 @@ public class FormHistoria extends javax.swing.JFrame {
      * Creates new form FormHistoria
      */
     public FormHistoria() {
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((d.width - 847) / 2, (d.height - 584) / 2);
         initComponents();
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Historia cl\355nica");
         jButton1.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif")));

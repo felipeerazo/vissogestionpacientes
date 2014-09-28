@@ -21,7 +21,7 @@ public class CtrlPaciente {
     }
 
     public LinkedList<Paciente> listar(String campo, String valor) {
-        LinkedList<Paciente> pacientes = new LinkedList<>();
+        LinkedList<Paciente> pacientes = new LinkedList();
         Conn conn = new Conn();
         ResultSet resultSet = null;
         if(campo.equals("cc")){
@@ -69,7 +69,7 @@ public class CtrlPaciente {
     }
     
     public LinkedList<Paciente> listarTodos(){
-        LinkedList<Paciente> pacientes = new LinkedList<>();
+        LinkedList<Paciente> pacientes = new LinkedList();
         Conn conn = new Conn();
         ResultSet resultSet = null;        
             resultSet = conn.consultar("select * from pacientes;");
@@ -99,7 +99,7 @@ public class CtrlPaciente {
     public String consultarFuc(int cc){
         Conn conn = new Conn();
         ResultSet resultSet = conn.consultar("select fecha from historias where cc_paciente="+cc+" order by fecha desc limit 1;");
-        String fuc="";
+        String fuc="No tiene";
         try {
             while(resultSet.next()){
                 fuc= resultSet.getString("fecha");

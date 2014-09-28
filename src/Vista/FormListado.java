@@ -120,11 +120,11 @@ public class FormListado extends javax.swing.JFrame {
             try {
                 FormPaciente formPaciente = new FormPaciente();
                 formPaciente.cargarPaciente(listaPacientes.get(lstVistaPacientes.getSelectedIndex()));
-                formPaciente.cargarHistorias();
-                formPaciente.cargarMiniControles();
+//                formPaciente.cargarHistorias();
+//                formPaciente.cargarMiniControles();
                 formPaciente.setVisible(true);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.toString());
+                JOptionPane.showMessageDialog(this, "Error al abrir historia: "+e.toString());
             }
         }
     }//GEN-LAST:event_lstVistaPacientesActionPerformed

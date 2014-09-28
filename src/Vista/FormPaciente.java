@@ -8,8 +8,6 @@ package Vista;
 import Controlador.Conn;
 import Controlador.CtrlPaciente;
 import Modelo.Paciente;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
@@ -48,12 +46,16 @@ public class FormPaciente extends javax.swing.JFrame {
         setTitle("Paciente");
         fldFuc.setVisible(true);
         lblFuc.setVisible(true);
-        //LinkedList l = conn.reporteSQL((new StringBuilder()).append("SELECT * FROM pacientes WHERE cc=").append(cc).toString());
-        fldCc.setText(String.valueOf(paciente.getCc()));        
-        fldNombre.setText(paciente.getNombre());
-        fldEdad.setText(""+new CtrlPaciente().consultarEdad(paciente.getCc()));
-        System.out.println("edad= "+new CtrlPaciente().consultarEdad(paciente.getCc()));
+        fldEdad.setVisible(true);
         lblEdad.setVisible(true);
+        //LinkedList l = conn.reporteSQL((new StringBuilder()).append("SELECT * FROM pacientes WHERE cc=").append(cc).toString());
+        fldCc.setText(String.valueOf(paciente.getCc()));
+        fldNombre.setText(paciente.getNombre());
+        fldEdad.setText("" + new CtrlPaciente().consultarEdad(paciente.getCc()));
+//        fldEdad.setVisible(true);
+//        fldEdad.setText(""+22);
+//        System.out.println("edad= "+new CtrlPaciente().consultarEdad(paciente.getCc()));
+
         fldFechaNac.setText(paciente.getFechanac());
         String aux = paciente.getSexo();
         if (aux != null && aux.equals("MASCULINO")) {
@@ -64,8 +66,8 @@ public class FormPaciente extends javax.swing.JFrame {
         fldTelefono.setText(String.valueOf(paciente.getTel()));
         fldDireccion.setText(paciente.getDirecc());
         fldFuc.setText(new CtrlPaciente().consultarFuc(paciente.getCc()));
-        System.out.println("fuc: "+new CtrlPaciente().consultarFuc(paciente.getCc()));
-        
+//        System.out.println("fuc: "+new CtrlPaciente().consultarFuc(paciente.getCc()));
+//        
         fldCelular.setText(String.valueOf(paciente.getCelular()));
         fldEmail.setText(paciente.getEmail());
         fldOcupacion.setText(paciente.getOcup());
@@ -133,6 +135,7 @@ public class FormPaciente extends javax.swing.JFrame {
         fldCc.setEditable(false);
         fldNombre.setEditable(false);
         fldFechaNac.setEditable(false);
+        fldEdad.setEditable(false);
         radMasculino.setEnabled(false);
         radFemenino.setEnabled(false);
         fldTelefono.setEditable(false);
@@ -297,55 +300,50 @@ public class FormPaciente extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblGenero, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblCelular, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblOcupacion, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(radFemenino)
+                        .addGap(18, 18, 18)
+                        .addComponent(radMasculino))
+                    .addComponent(fldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fldOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTelefono, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDireccion, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblGenero, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblCelular, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblOcupacion, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(fldCc, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fldFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFuc, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblEdad, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fldOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTelefono, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblDireccion, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fldCc, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fldFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblFuc, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblEdad, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fldEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fldFuc, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(fldDireccion)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(radFemenino)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(radMasculino))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(fldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFechaNac, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblDocumento, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(320, 320, 320)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addComponent(fldEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fldFuc, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(fldDireccion))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFechaNac, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDocumento, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(344, 344, 344))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {fldCc, fldCelular, fldEdad, fldEmail, fldFechaNac, fldFuc, fldNombre, fldOcupacion, fldTelefono});

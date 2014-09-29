@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Vista;
 
-import Controlador.Conn;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import Controlador.CtrlMiniControl;
+import Modelo.MiniControl;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
@@ -19,10 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class FormMiniControl extends javax.swing.JFrame {
 
-    Conn conn;
     private Long cedPaciente;
     FormPaciente formPaciente;
-    
+
     /**
      * Creates new form FormMiniControl
      */
@@ -35,20 +32,19 @@ public class FormMiniControl extends javax.swing.JFrame {
         Date utilDate = new Date();
         long lnMilisegundos = utilDate.getTime();
         java.sql.Date sqlDate = new java.sql.Date(lnMilisegundos);
+        fldFecha.setText(sqlDate.toString());
     }
-    
-    void setFormPaciente(FormPaciente aThis)
-    {
+
+    void setFormPaciente(FormPaciente aThis) {
         formPaciente = aThis;
         //setCedPaciente(formPaciente.getPaciente().getCc());
     }
 
-    void cargarMiniControl(LinkedList l)
-    {
+    void cargarMiniControl(LinkedList l) {
         btnAceptar.setVisible(false);
-        fldFecha.setText((String)l.remove());
-        fldMotivo.setText((String)l.remove());
-        areObservaciones.setText((String)l.remove());
+        fldFecha.setText((String) l.remove());
+        fldMotivo.setText((String) l.remove());
+        areObservaciones.setText((String) l.remove());
         areObservaciones.setEditable(false);
         fldMotivo.setEditable(false);
         fldFecha.setEditable(false);
@@ -105,19 +101,15 @@ public class FormMiniControl extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblFecha)
-                        .addGap(76, 76, 76)
-                        .addComponent(fldFecha))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblMotivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fldMotivo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblObservaciones)
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFecha, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblMotivo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblObservaciones, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fldFecha)
+                    .addComponent(fldMotivo)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -126,10 +118,13 @@ public class FormMiniControl extends javax.swing.JFrame {
                 .addComponent(btnCancelar)
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {fldFecha, fldMotivo, jScrollPane1});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFecha))
@@ -141,11 +136,11 @@ public class FormMiniControl extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblObservaciones)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,14 +153,22 @@ public class FormMiniControl extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
-        String res = conn.insertar((new StringBuilder()).append("INSERT INTO minicontroles VALUES ((select nextval('secuencia_minicontroles')), ").append(getCedPaciente()).append(", '").append(fldFecha.getText()).append("', '").append(fldMotivo.getText()).append("','").append(areObservaciones.getText()).append("');").toString());
-        if(res.equals(""))
-        {
+        MiniControl nuevoMiniControl = new MiniControl();
+        try {
+            nuevoMiniControl.setCcPaciente(formPaciente.getPaciente().getCc());
+            nuevoMiniControl.setFecha(fldFecha.getText());
+            nuevoMiniControl.setMotivo(fldMotivo.getText());
+            nuevoMiniControl.setObservaciones(areObservaciones.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al leer los campos: " + e.getMessage(), "Error", 0);
+        }
+        String res = new CtrlMiniControl().crear(nuevoMiniControl);
+        if (res.equals("1")) {
             dispose();
-            if(formPaciente != null)
+            if (formPaciente != null) {
                 formPaciente.cargarMiniControles();
-        } else
-        {
+            }
+        } else {
             JOptionPane.showMessageDialog(null, res, "Error al guardar minicontrol", 0);
         }
     }//GEN-LAST:event_btnAceptarActionPerformed

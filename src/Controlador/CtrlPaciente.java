@@ -153,7 +153,7 @@ public class CtrlPaciente {
         return res;
     }
 
-    public String crearNuevo(Paciente paciente) {
+    public String crear(Paciente paciente) {
         Conn conn = new Conn();
         String res=conn.insertar("insert into pacientes values "
                 + "(" + paciente.getCc() + ", "

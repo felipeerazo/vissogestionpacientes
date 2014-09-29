@@ -5,7 +5,6 @@
  */
 package Vista;
 
-import Controlador.Conn;
 import Controlador.CtrlPaciente;
 import Modelo.Paciente;
 import java.util.LinkedList;
@@ -166,8 +165,9 @@ public class FormPaciente extends javax.swing.JFrame {
                 nuevoPaciente.setOcup(fldOcupacion.getText());
                 nuevoPaciente.setObserv(areObservaciones.getText());
                 nuevoPaciente.setMas(areDetalles.getText());
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error al leer los campos: " + e.getMessage(), "Error", 0);
+                return;
             }
         if (edicion) {            
             //String res = conn.actualizar((new StringBuilder()).append("UPDATE pacientes SET nombre='").append(fldNombre.getText()).append("', cc=").append(fldCc.getText()).append(", fechanac='").append(fldFechaNac.getText()).append("', sexo='").append(sexo).append("', tel='").append(fldTelefono.getText()).append("', direcc='").append(fldDireccion.getText()).append("', celular='").append(fldCelular.getText()).append("', email='").append(fldEmail.getText()).append("', ocup='").append(fldOcupacion.getText()).append("', observ='").append(areObservaciones.getText()).append("',mas='").append(areDetalles.getText()).append("' where cc=").append(getPaciente().getCc()).append(";").toString());
@@ -185,7 +185,7 @@ public class FormPaciente extends javax.swing.JFrame {
             }
         } else {
             //String res = conn.insertar((new StringBuilder()).append("insert into pacientes values (").append(fldCc.getText()).append(",'").append(fldNombre.getText()).append("','").append(fldFechaNac.getText()).append("','").append(sexo).append("',").append(fldTelefono.getText()).append(",'").append(fldDireccion.getText()).append("', ").append(fldCelular.getText()).append(", '").append(fldEmail.getText()).append("', '").append(fldOcupacion.getText()).append("', '").append(areObservaciones.getText()).append("', '").append(areDetalles.getText()).append("');").toString());
-            String res = new CtrlPaciente().crearNuevo(nuevoPaciente);
+            String res = new CtrlPaciente().crear(nuevoPaciente);
             if ("1".equals(res)) {
                 if (n == 0) {
                     dispose();
@@ -580,7 +580,7 @@ public class FormPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
         FormMiniControl formMiniControl = new FormMiniControl();
         formMiniControl.setTitle("Nuevo minicontrol...");
-        formMiniControl.setFormPaciente(this);
+        formMiniControl.setFormPaciente(this);        
         formMiniControl.setVisible(true);
     }//GEN-LAST:event_btnNuevoControlActionPerformed
 

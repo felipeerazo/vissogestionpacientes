@@ -11,7 +11,7 @@ package Modelo;
  */
 public class Paciente {
 
-    private int cc;
+    private Long cc;
     private String nombre;
     //private int edad;
     private String fechanac;
@@ -31,14 +31,14 @@ public class Paciente {
     /**
      * @return the cc
      */
-    public int getCc() {
+    public Long getCc() {
         return cc;
     }
 
     /**
      * @param cc the cc to set
      */
-    public void setCc(int cc) {
+    public void setCc(Long cc) {
         this.cc = cc;
     }
 

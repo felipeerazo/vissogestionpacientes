@@ -66,7 +66,7 @@ public class Conn implements Serializable {
             st = getConn().createStatement();
             st.execute(sql);
             st.close();
-            return "";
+            return "1";
         } catch (SQLException e) {
             return e.toString();
         }

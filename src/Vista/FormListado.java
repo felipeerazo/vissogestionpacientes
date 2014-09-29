@@ -108,7 +108,7 @@ public class FormListado extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (isEsNuevaHistoria()) {
             Vista.FormHistoria formHistoria = new Vista.FormHistoria();
-            formHistoria.setPaciente(listaPacientes.get(lstVistaPacientes.getSelectedIndex()).getCc());
+            formHistoria.setPaciente(listaPacientes.get(lstVistaPacientes.getSelectedIndex()));
             formHistoria.setVisible(true);
             dispose();
         } else if (isEsNuevoMiniControl()) {

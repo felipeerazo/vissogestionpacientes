@@ -8,6 +8,7 @@ package Vista;
 
 import Controlador.Conn;
 import Controlador.PDF;
+import Modelo.Paciente;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
@@ -23,6 +24,7 @@ public class FormHistoria extends javax.swing.JFrame {
     int cedPaciente;
     Conn conn;
     FormPaciente formPaciente;
+    private Paciente paciente;
     
     /**
      * Creates new form FormHistoria
@@ -54,9 +56,9 @@ public class FormHistoria extends javax.swing.JFrame {
         btnCancelar.setVisible(false);
     }
 
-    void setPaciente(int ced)
+    void setPaciente(Paciente paciente)
     {
-        cedPaciente = ced;
+        this.paciente=paciente;
 //        jTextField48.setText(cedPaciente);
 //        jTextField47.setText((String)conn.reporteSQL((new StringBuilder()).append("SELECT nombre FROM pacientes where cc=").append(cedPaciente).append(";").toString()).remove());
 //        jTextField46.setText((String)conn.reporteSQL("SELECT last_value+1 FROM secuencia;").remove());

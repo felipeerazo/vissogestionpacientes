@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class FormMiniControl extends javax.swing.JFrame {
 
     Conn conn;
-    private int cedPaciente;
+    private Long cedPaciente;
     FormPaciente formPaciente;
     
     /**
@@ -31,7 +31,6 @@ public class FormMiniControl extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Mini control");
-        conn = new Conn();
         formPaciente = null;
         Date utilDate = new Date();
         long lnMilisegundos = utilDate.getTime();
@@ -41,7 +40,7 @@ public class FormMiniControl extends javax.swing.JFrame {
     void setFormPaciente(FormPaciente aThis)
     {
         formPaciente = aThis;
-        setCedPaciente(formPaciente.getPaciente().getCc());
+        //setCedPaciente(formPaciente.getPaciente().getCc());
     }
 
     void cargarMiniControl(LinkedList l)
@@ -221,14 +220,14 @@ public class FormMiniControl extends javax.swing.JFrame {
     /**
      * @return the cedPaciente
      */
-    public int getCedPaciente() {
+    public Long getCedPaciente() {
         return cedPaciente;
     }
 
     /**
      * @param cedPaciente the cedPaciente to set
      */
-    public void setCedPaciente(int cedPaciente) {
+    public void setCedPaciente(Long cedPaciente) {
         this.cedPaciente = cedPaciente;
     }
 }

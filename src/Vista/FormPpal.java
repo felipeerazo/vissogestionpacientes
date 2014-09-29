@@ -235,7 +235,7 @@ public class FormPpal extends javax.swing.JFrame {
         // TODO add your handling code here:
         FormPaciente formPaciente = new FormPaciente();
         formPaciente.limpiarForm();
-        formPaciente.setSize(723, 386);
+        formPaciente.setSize(680, 430);
         formPaciente.setVisible(true);
     }//GEN-LAST:event_btnPacienteActionPerformed
 

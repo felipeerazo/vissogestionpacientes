@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
  */
 public class FormPaciente extends javax.swing.JFrame {
 
-    Conn conn;
     LinkedList listaCodHistorias;
     LinkedList listaCodMiniControles;
     private Paciente paciente;
@@ -31,7 +30,6 @@ public class FormPaciente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Nuevo paciente...");
-        conn = new Conn();
         listaCodHistorias = new LinkedList();
         listaCodMiniControles = new LinkedList();
         lblFuc.setVisible(false);
@@ -77,21 +75,19 @@ public class FormPaciente extends javax.swing.JFrame {
     }
 
     public void cargarHistorias() {
-        lstMinicontroles.removeAll();
-        listaCodHistorias = new LinkedList();
-        for (LinkedList lh = conn.reporteSQL((new StringBuilder()).append("SELECT historia_id, fecha, motivo FROM historias WHERE cc_paciente=").append(getPaciente().getCc()).toString()); !lh.isEmpty(); lstMinicontroles.add((new StringBuilder()).append((String) lh.remove()).append(" - MOTIVO: ").append((String) lh.remove()).toString())) {
-            listaCodHistorias.add(lh.remove());
-        }
-
+//        lstMinicontroles.removeAll();
+//        listaCodHistorias = new LinkedList();
+//        for (LinkedList lh = conn.reporteSQL((new StringBuilder()).append("SELECT historia_id, fecha, motivo FROM historias WHERE cc_paciente=").append(getPaciente().getCc()).toString()); !lh.isEmpty(); lstMinicontroles.add((new StringBuilder()).append((String) lh.remove()).append(" - MOTIVO: ").append((String) lh.remove()).toString())) {
+//            listaCodHistorias.add(lh.remove());
+//        }
     }
 
     public void cargarMiniControles() {
-        lstHistorias.removeAll();
-        listaCodMiniControles = new LinkedList();
-        for (LinkedList lmc = conn.reporteSQL((new StringBuilder()).append("SELECT minicontrol_id, fecha, motivo FROM minicontroles WHERE cc_paciente=").append(fldCc.getText()).toString()); !lmc.isEmpty(); lstHistorias.add((new StringBuilder()).append((String) lmc.remove()).append(" - MOTIVO: ").append((String) lmc.remove()).toString())) {
-            listaCodMiniControles.add(lmc.remove());
-        }
-
+//        lstHistorias.removeAll();
+//        listaCodMiniControles = new LinkedList();
+//        for (LinkedList lmc = conn.reporteSQL((new StringBuilder()).append("SELECT minicontrol_id, fecha, motivo FROM minicontroles WHERE cc_paciente=").append(fldCc.getText()).toString()); !lmc.isEmpty(); lstHistorias.add((new StringBuilder()).append((String) lmc.remove()).append(" - MOTIVO: ").append((String) lmc.remove()).toString())) {
+//            listaCodMiniControles.add(lmc.remove());
+//        }
     }
 
     void limpiarForm() {
@@ -157,34 +153,40 @@ public class FormPaciente extends javax.swing.JFrame {
         if (radMasculino.isSelected()) {
             sexo = "MASCULINO";
         }
-        if (edicion) {
-            Paciente nuevoPaciente = new Paciente();
-            nuevoPaciente.setCc(Integer.parseInt(fldCc.getText()));
-            nuevoPaciente.setNombre(fldNombre.getText());
-            nuevoPaciente.setFechanac(fldFechaNac.getText());
-            nuevoPaciente.setSexo(sexo);
-            nuevoPaciente.setTel(Integer.parseInt(fldTelefono.getText()));
-            nuevoPaciente.setDirecc(fldDireccion.getText());
-            nuevoPaciente.setCelular(Long.parseLong(fldCelular.getText()));
-            nuevoPaciente.setEmail(fldEmail.getText());
-            nuevoPaciente.setOcup(fldOcupacion.getText());
-            nuevoPaciente.setObserv(areObservaciones.getText());
-            nuevoPaciente.setMas(areDetalles.getText());
+        Paciente nuevoPaciente = new Paciente();
+            try {
+                nuevoPaciente.setCc(Long.parseLong(fldCc.getText()));
+                nuevoPaciente.setNombre(fldNombre.getText());
+                nuevoPaciente.setFechanac(fldFechaNac.getText());
+                nuevoPaciente.setSexo(sexo);
+                nuevoPaciente.setTel(Integer.parseInt(fldTelefono.getText()));
+                nuevoPaciente.setDirecc(fldDireccion.getText());
+                nuevoPaciente.setCelular(Long.parseLong(fldCelular.getText()));
+                nuevoPaciente.setEmail(fldEmail.getText());
+                nuevoPaciente.setOcup(fldOcupacion.getText());
+                nuevoPaciente.setObserv(areObservaciones.getText());
+                nuevoPaciente.setMas(areDetalles.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al leer los campos: " + e.getMessage(), "Error", 0);
+            }
+        if (edicion) {            
             //String res = conn.actualizar((new StringBuilder()).append("UPDATE pacientes SET nombre='").append(fldNombre.getText()).append("', cc=").append(fldCc.getText()).append(", fechanac='").append(fldFechaNac.getText()).append("', sexo='").append(sexo).append("', tel='").append(fldTelefono.getText()).append("', direcc='").append(fldDireccion.getText()).append("', celular='").append(fldCelular.getText()).append("', email='").append(fldEmail.getText()).append("', ocup='").append(fldOcupacion.getText()).append("', observ='").append(areObservaciones.getText()).append("',mas='").append(areDetalles.getText()).append("' where cc=").append(getPaciente().getCc()).append(";").toString());
             String res = new CtrlPaciente().actualizar(paciente.getCc(), nuevoPaciente);
             if (!res.equals("1")) {
                 JOptionPane.showMessageDialog(null, (new StringBuilder()).append("El paciente no ha sido editado.\nError: ").append(res).toString(), "Error al editar", 0);
             } else {
                 FormPaciente formPaciente = new FormPaciente();
-                formPaciente.cargarPaciente(new CtrlPaciente().consultar(Integer.parseInt(fldCc.getText())));
+                //formPaciente.cargarPaciente(new CtrlPaciente().consultar(Long.parseLong(fldCc.getText())));
+                formPaciente.cargarPaciente(nuevoPaciente);
                 formPaciente.cargarHistorias();
                 formPaciente.cargarMiniControles();
                 formPaciente.setVisible(true);
                 dispose();
             }
         } else {
-            String res = conn.insertar((new StringBuilder()).append("insert into pacientes values (").append(fldCc.getText()).append(",'").append(fldNombre.getText()).append("','").append(fldFechaNac.getText()).append("','").append(sexo).append("',").append(fldTelefono.getText()).append(",'").append(fldDireccion.getText()).append("', ").append(fldCelular.getText()).append(", '").append(fldEmail.getText()).append("', '").append(fldOcupacion.getText()).append("', '").append(areObservaciones.getText()).append("', '").append(areDetalles.getText()).append("');").toString());
-            if ("".equals(res)) {
+            //String res = conn.insertar((new StringBuilder()).append("insert into pacientes values (").append(fldCc.getText()).append(",'").append(fldNombre.getText()).append("','").append(fldFechaNac.getText()).append("','").append(sexo).append("',").append(fldTelefono.getText()).append(",'").append(fldDireccion.getText()).append("', ").append(fldCelular.getText()).append(", '").append(fldEmail.getText()).append("', '").append(fldOcupacion.getText()).append("', '").append(areObservaciones.getText()).append("', '").append(areDetalles.getText()).append("');").toString());
+            String res = new CtrlPaciente().crearNuevo(nuevoPaciente);
+            if ("1".equals(res)) {
                 if (n == 0) {
                     dispose();
                 } else {
@@ -576,10 +578,10 @@ public class FormPaciente extends javax.swing.JFrame {
 
     private void btnNuevoControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoControlActionPerformed
         // TODO add your handling code here:
-        FormMiniControl fmc = new FormMiniControl();
-        fmc.setTitle("Nuevo minicontrol...");
-        fmc.setFormPaciente(this);
-        fmc.setVisible(true);
+        FormMiniControl formMiniControl = new FormMiniControl();
+        formMiniControl.setTitle("Nuevo minicontrol...");
+        formMiniControl.setFormPaciente(this);
+        formMiniControl.setVisible(true);
     }//GEN-LAST:event_btnNuevoControlActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

@@ -27,7 +27,7 @@ public class CtrlPaciente {
         try {
             while (resultSet.next()) {
                 Paciente p = new Paciente();
-                p.setCc(resultSet.getInt("cc"));
+                p.setCc(resultSet.getLong("cc"));
                 p.setNombre(resultSet.getString("nombre"));
                 p.setFechanac(resultSet.getString("fechanac"));
                 p.setSexo(resultSet.getString("sexo"));
@@ -59,7 +59,7 @@ public class CtrlPaciente {
         try {
             while (resultSet.next()) {
                 Paciente p = new Paciente();
-                p.setCc(resultSet.getInt("cc"));
+                p.setCc(resultSet.getLong("cc"));
                 p.setNombre(resultSet.getString("nombre"));
                 p.setFechanac(resultSet.getString("fechanac"));
                 p.setSexo(resultSet.getString("sexo"));
@@ -79,14 +79,14 @@ public class CtrlPaciente {
         return pacientes;
     }
 
-    public Paciente consultar(int cc) {
+    public Paciente consultar(Long cc) {
         Paciente paciente = new Paciente();
         Conn conn = new Conn();
         ResultSet resultSet = null;
         resultSet = conn.consultar("select * from pacientes where cc = " + cc + ";");
         try {
             while (resultSet.next()) {
-                paciente.setCc(resultSet.getInt("cc"));
+                paciente.setCc(resultSet.getLong("cc"));
                 paciente.setNombre(resultSet.getString("nombre"));
                 paciente.setFechanac(resultSet.getString("fechanac"));
                 paciente.setSexo(resultSet.getString("sexo"));
@@ -105,7 +105,7 @@ public class CtrlPaciente {
         return paciente;
     }
 
-    public int consultarEdad(int cc) {
+    public int consultarEdad(Long cc) {
         Conn conn = new Conn();
         ResultSet resultSet = conn.consultar("SELECT (current_date -fechanac)/365 as edad FROM pacientes WHERE cc = " + cc);
         int edad = -1;
@@ -120,7 +120,7 @@ public class CtrlPaciente {
         return edad;
     }
 
-    public String consultarFuc(int cc) {
+    public String consultarFuc(Long cc) {
         Conn conn = new Conn();
         ResultSet resultSet = conn.consultar("select fecha from historias where cc_paciente=" + cc + " order by fecha desc limit 1;");
         String fuc = "No tiene";
@@ -135,9 +135,9 @@ public class CtrlPaciente {
         return fuc;
     }
 
-    public String actualizar(int ccVieja, Paciente nuevoPaciente) {
+    public String actualizar(Long ccVieja, Paciente nuevoPaciente) {
         Conn conn = new Conn();
-        String res=conn.actualizar("update pacientes SET nombre='" + nuevoPaciente.getNombre() + "', "
+        String res = conn.actualizar("update pacientes SET nombre='" + nuevoPaciente.getNombre() + "', "
                 + "cc=" + nuevoPaciente.getCc() + ", "
                 + "fechanac='" + nuevoPaciente.getFechanac() + "', "
                 + "sexo='" + nuevoPaciente.getSexo() + "', "
@@ -149,6 +149,24 @@ public class CtrlPaciente {
                 + "observ='" + nuevoPaciente.getObserv() + "', "
                 + "mas='" + nuevoPaciente.getMas() + "' "
                 + "where cc=" + ccVieja + ";");
+        conn.cerrar();
+        return res;
+    }
+
+    public String crearNuevo(Paciente paciente) {
+        Conn conn = new Conn();
+        String res=conn.insertar("insert into pacientes values "
+                + "(" + paciente.getCc() + ", "
+                + "'" + paciente.getNombre() + "', "
+                + "'" + paciente.getFechanac() + "', "
+                + "'" + paciente.getSexo() + "', "
+                + paciente.getTel() + ", "
+                + "'" + paciente.getDirecc() + "', "
+                + paciente.getCelular() + ", "
+                + "'" + paciente.getEmail() + "', "
+                + "'" + paciente.getOcup() + "', "
+                + "'" + paciente.getObserv() + "', "
+                + "'" + paciente.getMas() + "');");
         conn.cerrar();
         return res;
     }

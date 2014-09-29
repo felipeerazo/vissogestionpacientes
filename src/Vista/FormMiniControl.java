@@ -7,6 +7,7 @@ package Vista;
 
 import Controlador.CtrlMiniControl;
 import Modelo.MiniControl;
+import Modelo.Paciente;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
@@ -17,8 +18,11 @@ import javax.swing.JOptionPane;
  */
 public class FormMiniControl extends javax.swing.JFrame {
 
-    private Long cedPaciente;
+    //private Long cedPaciente;
     FormPaciente formPaciente;
+    private MiniControl miniControl;
+    private Paciente paciente;
+    
 
     /**
      * Creates new form FormMiniControl
@@ -40,14 +44,14 @@ public class FormMiniControl extends javax.swing.JFrame {
         //setCedPaciente(formPaciente.getPaciente().getCc());
     }
 
-    void cargarMiniControl(LinkedList l) {
-        btnAceptar.setVisible(false);
-        fldFecha.setText((String) l.remove());
-        fldMotivo.setText((String) l.remove());
-        areObservaciones.setText((String) l.remove());
+    void cargarMiniControl(MiniControl miniControl) {        
+        fldFecha.setText(miniControl.getFecha());
+        fldMotivo.setText(miniControl.getMotivo());
+        areObservaciones.setText(miniControl.getObservaciones());
         areObservaciones.setEditable(false);
         fldMotivo.setEditable(false);
         fldFecha.setEditable(false);
+        btnAceptar.setVisible(false);
     }
 
     /**
@@ -153,16 +157,17 @@ public class FormMiniControl extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
-        MiniControl nuevoMiniControl = new MiniControl();
+        miniControl= new MiniControl();
         try {
-            nuevoMiniControl.setCcPaciente(formPaciente.getPaciente().getCc());
-            nuevoMiniControl.setFecha(fldFecha.getText());
-            nuevoMiniControl.setMotivo(fldMotivo.getText());
-            nuevoMiniControl.setObservaciones(areObservaciones.getText());
+            miniControl.setCcPaciente(paciente.getCc());
+            miniControl.setFecha(fldFecha.getText());
+            miniControl.setMotivo(fldMotivo.getText());
+            miniControl.setObservaciones(areObservaciones.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al leer los campos: " + e.getMessage(), "Error", 0);
+            return;
         }
-        String res = new CtrlMiniControl().crear(nuevoMiniControl);
+        String res = new CtrlMiniControl().crear(miniControl);
         if (res.equals("1")) {
             dispose();
             if (formPaciente != null) {
@@ -221,16 +226,30 @@ public class FormMiniControl extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     /**
-     * @return the cedPaciente
+     * @return the miniControl
      */
-    public Long getCedPaciente() {
-        return cedPaciente;
+    public MiniControl getMiniControl() {
+        return miniControl;
     }
 
     /**
-     * @param cedPaciente the cedPaciente to set
+     * @param miniControl the miniControl to set
      */
-    public void setCedPaciente(Long cedPaciente) {
-        this.cedPaciente = cedPaciente;
+    public void setMiniControl(MiniControl miniControl) {
+        this.miniControl = miniControl;
+    }
+
+    /**
+     * @return the paciente
+     */
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    /**
+     * @param paciente the paciente to set
+     */
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 }

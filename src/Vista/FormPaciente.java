@@ -5,7 +5,9 @@
  */
 package Vista;
 
+import Controlador.CtrlMiniControl;
 import Controlador.CtrlPaciente;
+import Modelo.MiniControl;
 import Modelo.Paciente;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
@@ -17,7 +19,7 @@ import javax.swing.JOptionPane;
 public class FormPaciente extends javax.swing.JFrame {
 
     LinkedList listaCodHistorias;
-    LinkedList listaCodMiniControles;
+    LinkedList<MiniControl> listaMiniControles;
     private Paciente paciente;
     boolean edicion;
 
@@ -30,7 +32,7 @@ public class FormPaciente extends javax.swing.JFrame {
         setDefaultCloseOperation(2);
         setTitle("Nuevo paciente...");
         listaCodHistorias = new LinkedList();
-        listaCodMiniControles = new LinkedList();
+        listaMiniControles = new LinkedList();
         lblFuc.setVisible(false);
         fldFuc.setVisible(false);
         lblEdad.setVisible(false);
@@ -74,7 +76,7 @@ public class FormPaciente extends javax.swing.JFrame {
     }
 
     public void cargarHistorias() {
-//        lstMinicontroles.removeAll();
+        lstVistaHistorias.removeAll();
 //        listaCodHistorias = new LinkedList();
 //        for (LinkedList lh = conn.reporteSQL((new StringBuilder()).append("SELECT historia_id, fecha, motivo FROM historias WHERE cc_paciente=").append(getPaciente().getCc()).toString()); !lh.isEmpty(); lstMinicontroles.add((new StringBuilder()).append((String) lh.remove()).append(" - MOTIVO: ").append((String) lh.remove()).toString())) {
 //            listaCodHistorias.add(lh.remove());
@@ -82,11 +84,11 @@ public class FormPaciente extends javax.swing.JFrame {
     }
 
     public void cargarMiniControles() {
-//        lstHistorias.removeAll();
-//        listaCodMiniControles = new LinkedList();
-//        for (LinkedList lmc = conn.reporteSQL((new StringBuilder()).append("SELECT minicontrol_id, fecha, motivo FROM minicontroles WHERE cc_paciente=").append(fldCc.getText()).toString()); !lmc.isEmpty(); lstHistorias.add((new StringBuilder()).append((String) lmc.remove()).append(" - MOTIVO: ").append((String) lmc.remove()).toString())) {
-//            listaCodMiniControles.add(lmc.remove());
-//        }
+        lstVistaMinicontroles.removeAll();
+        listaMiniControles = new CtrlMiniControl().listar(paciente.getCc());
+        for (int i = 0; i < listaMiniControles.size(); i++) {
+            lstVistaMinicontroles.add(listaMiniControles.get(i).getFecha()+" - Motivo: "+listaMiniControles.get(i).getMotivo());            
+        }
     }
 
     void limpiarForm() {
@@ -248,8 +250,8 @@ public class FormPaciente extends javax.swing.JFrame {
         areDetalles = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        lstMinicontroles = new java.awt.List();
-        lstHistorias = new java.awt.List();
+        lstVistaMinicontroles = new java.awt.List();
+        lstVistaHistorias = new java.awt.List();
         lbHistorias = new javax.swing.JLabel();
         lbHistorias1 = new javax.swing.JLabel();
         btnNuevoControl = new javax.swing.JButton();
@@ -459,6 +461,12 @@ public class FormPaciente extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lstVistaMinicontroles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lstVistaMinicontrolesActionPerformed(evt);
+            }
+        });
+
         lbHistorias.setText("Historias:");
 
         lbHistorias1.setText("Controles:");
@@ -483,14 +491,14 @@ public class FormPaciente extends javax.swing.JFrame {
                         .addComponent(lbHistorias)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNuevaHistoria))
-                    .addComponent(lstHistorias, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lstVistaHistorias, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lbHistorias1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNuevoControl))
-                    .addComponent(lstMinicontroles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lstVistaMinicontroles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -504,8 +512,8 @@ public class FormPaciente extends javax.swing.JFrame {
                     .addComponent(btnNuevaHistoria))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lstMinicontroles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lstHistorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lstVistaMinicontroles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lstVistaHistorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -580,7 +588,8 @@ public class FormPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
         FormMiniControl formMiniControl = new FormMiniControl();
         formMiniControl.setTitle("Nuevo minicontrol...");
-        formMiniControl.setFormPaciente(this);        
+        formMiniControl.setFormPaciente(this);
+        formMiniControl.setPaciente(paciente);
         formMiniControl.setVisible(true);
     }//GEN-LAST:event_btnNuevoControlActionPerformed
 
@@ -591,6 +600,14 @@ public class FormPaciente extends javax.swing.JFrame {
         formPaciente.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void lstVistaMinicontrolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstVistaMinicontrolesActionPerformed
+        // TODO add your handling code here:
+        Vista.FormMiniControl formMiniControl = new Vista.FormMiniControl();
+            //formMiniControl.setMiniControl(listaMiniControles.get(lstVistaMinicontroles.getSelectedIndex()));
+            formMiniControl.cargarMiniControl(listaMiniControles.get(lstVistaMinicontroles.getSelectedIndex()));
+            formMiniControl.setVisible(true);
+    }//GEN-LAST:event_lstVistaMinicontrolesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -667,8 +684,8 @@ public class FormPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblOcupacion;
     private javax.swing.JLabel lblTelefono;
-    private java.awt.List lstHistorias;
-    private java.awt.List lstMinicontroles;
+    private java.awt.List lstVistaHistorias;
+    private java.awt.List lstVistaMinicontroles;
     private javax.swing.JRadioButton radFemenino;
     private javax.swing.JRadioButton radMasculino;
     // End of variables declaration//GEN-END:variables

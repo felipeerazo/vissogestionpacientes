@@ -432,7 +432,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnNuevaHistoria" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lstHistorias" min="-2" pref="297" max="-2" attributes="0"/>
+                      <Component id="lstVistaHistorias" min="-2" pref="297" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -441,7 +441,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnNuevoControl" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lstMinicontroles" max="32767" attributes="0"/>
+                      <Component id="lstVistaMinicontroles" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -459,8 +459,8 @@
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lstMinicontroles" min="-2" max="-2" attributes="0"/>
-                      <Component id="lstHistorias" min="-2" max="-2" attributes="0"/>
+                      <Component id="lstVistaMinicontroles" min="-2" max="-2" attributes="0"/>
+                      <Component id="lstVistaHistorias" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -468,9 +468,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="java.awt.List" name="lstMinicontroles">
+        <Component class="java.awt.List" name="lstVistaMinicontroles">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lstVistaMinicontrolesActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="java.awt.List" name="lstHistorias">
+        <Component class="java.awt.List" name="lstVistaHistorias">
         </Component>
         <Component class="javax.swing.JLabel" name="lbHistorias">
           <Properties>

@@ -233,7 +233,5 @@ ALTER TABLE secuencia_minicontroles
   OWNER TO postgres;
 
   insert into pacientes values (1, 'felipe', '1992-08-06', 'MASCULINO', 8776834, 'direccion', 3136108026, 'email', 'ocup', 'observ', 'mas');
-insert into pacientes values (2, 'ana lisa meltroso', '1892-08-06', 'FEMENINO', 8772222, 'direccion2', 3132222222, 'email2', 'ocup2', 'observ2', 'mas2');
-insert into pacientes values (3, 'Jacoboo Jodorowski', '1942-08-06', 'MASCULINO', 8773333, 'direccion3', 3133333333, 'email3', 'ocup3', 'observ3', 'mas3');
-
-
+insert into pacientes values (2, 'Adriana Clemencia del Corazon de Jesus y de la Santisima Trinidad', '1892-08-06', 'FEMENINO', 8772222, 'direccion2', 3132222222, 'email2', 'ocup2', 'observ2', 'mas2');
+insert into pacientes values (3, 'Wilson Libardo', '1942-08-06', 'MASCULINO', 8773333, 'direccion3', 3133333333, 'email3', 'ocup3', 'observ3', 'mas3');

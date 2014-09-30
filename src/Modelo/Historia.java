@@ -9,7 +9,7 @@ package Modelo;
  *
  * @author usuario
  */
-public class Historias {
+public class Historia {
 
     private int historia_id;
     private int cc_paciente;
@@ -71,7 +71,7 @@ public class Historias {
     private String control;
     private String observaciones;
 
-    public Historias() {
+    public Historia() {
     }
 
     /**

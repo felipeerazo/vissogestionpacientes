@@ -3,14 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Vista;
 
-import Controlador.Conn;
-import Controlador.PDF;
+import Controlador.CtrlHistoria;
 import Modelo.Paciente;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -22,10 +18,9 @@ public class FormHistoria extends javax.swing.JFrame {
 
     String historiaId;
     int cedPaciente;
-    Conn conn;
-    FormPaciente formPaciente;
+    private FormPaciente formPaciente;
     private Paciente paciente;
-    
+
     /**
      * Creates new form FormHistoria
      */
@@ -37,31 +32,33 @@ public class FormHistoria extends javax.swing.JFrame {
         jButton1.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif")));
         cargarListaCodG();
     }
-    
-    private void cargarListaCodG()
-    {
+
+    private void cargarListaCodG() {
         String lista[] = {
-            "", "H000 Orzuelo", "H010 Blefaritis", "H102 Otras conjuntivitis agudas", "H110 Pterigio", "H250 Catarata senil incipiente", "H521 Miop\355a", "H522 Astigmatismo", "H523 Anisometrop\355a y aniseiconia", "H524 Presbicie", 
+            "", "H000 Orzuelo", "H010 Blefaritis", "H102 Otras conjuntivitis agudas", "H110 Pterigio", "H250 Catarata senil incipiente", "H521 Miop\355a", "H522 Astigmatismo", "H523 Anisometrop\355a y aniseiconia", "H524 Presbicie",
             "H525 Transtornos de acomodaci\363n"
         };
-        for(int i = 0; i < lista.length; i++)
+        for (int i = 0; i < lista.length; i++) {
             jComboBox1.addItem(lista[i]);
+        }
 
     }
-    
-    void setFormPaciente(FormPaciente aThis)
-    {
+
+    void setFormPaciente(FormPaciente aThis) {
         formPaciente = aThis;
 //        cedPaciente = aThis.cedPaciente;
-        btnCancelar.setVisible(false);
+        //btnCancelar.setVisible(false);
     }
 
-    void setPaciente(Paciente paciente)
-    {
-        this.paciente=paciente;
+    void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
 //        jTextField48.setText(cedPaciente);
 //        jTextField47.setText((String)conn.reporteSQL((new StringBuilder()).append("SELECT nombre FROM pacientes where cc=").append(cedPaciente).append(";").toString()).remove());
 //        jTextField46.setText((String)conn.reporteSQL("SELECT last_value+1 FROM secuencia;").remove());
+    }
+    
+    public void cargarProximoId(){
+        fldHistoria_Id.setText(""+new CtrlHistoria().consultarProximoId());
     }
 
     /**
@@ -76,7 +73,7 @@ public class FormHistoria extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lblHistoriaNum = new javax.swing.JLabel();
-        fldNumHistoria = new javax.swing.JTextField();
+        fldHistoria_Id = new javax.swing.JTextField();
         lblDocumento = new javax.swing.JLabel();
         fldDocumento = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -240,7 +237,7 @@ public class FormHistoria extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblHistoriaNum)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fldNumHistoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fldHistoria_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblDocumento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -257,7 +254,7 @@ public class FormHistoria extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHistoriaNum)
-                    .addComponent(fldNumHistoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fldHistoria_Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDocumento)
                     .addComponent(fldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
@@ -1285,8 +1282,8 @@ public class FormHistoria extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            new PDF(conn.reporteSQL((new StringBuilder()).append("select * from pacientes where cc=").append(cedPaciente).append(";").toString()), conn.reporteSQL((new StringBuilder()).append("select * from historias where historia_id=").append(historiaId).append(";").toString()));
-        } catch(Exception e) {
+            //new PDF(conn.reporteSQL((new StringBuilder()).append("select * from pacientes where cc=").append(cedPaciente).append(";").toString()), conn.reporteSQL((new StringBuilder()).append("select * from historias where historia_id=").append(historiaId).append(";").toString()));
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1356,9 +1353,9 @@ public class FormHistoria extends javax.swing.JFrame {
     private javax.swing.JTextField fldDocumento;
     private javax.swing.JTextField fldDp;
     private javax.swing.JTextField fldFecha;
+    private javax.swing.JTextField fldHistoria_Id;
     private javax.swing.JTextField fldNombre;
     private javax.swing.JTextField fldNombreAcompanante;
-    private javax.swing.JTextField fldNumHistoria;
     private javax.swing.JTextField fldParentesco;
     private javax.swing.JTextField fldPh_d;
     private javax.swing.JTextField fldPh_i;
@@ -1476,4 +1473,18 @@ public class FormHistoria extends javax.swing.JFrame {
     private javax.swing.JRadioButton radEmpresa;
     private javax.swing.JRadioButton radParticular;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the formPaciente
+     */
+    public FormPaciente getFormPaciente() {
+        return formPaciente;
+    }
+
+    /**
+     * @return the paciente
+     */
+    public Paciente getPaciente() {
+        return paciente;
+    }
 }

@@ -77,7 +77,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblHistoriaNum" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="fldNumHistoria" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="fldHistoria_Id" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="lblDocumento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -96,7 +96,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblHistoriaNum" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="fldNumHistoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fldHistoria_Id" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblDocumento" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="fldDocumento" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
             <Property name="text" type="java.lang.String" value="Historia No. :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="fldNumHistoria">
+        <Component class="javax.swing.JTextField" name="fldHistoria_Id">
         </Component>
         <Component class="javax.swing.JLabel" name="lblDocumento">
           <Properties>

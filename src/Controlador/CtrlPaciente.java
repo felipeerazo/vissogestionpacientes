@@ -107,7 +107,7 @@ public class CtrlPaciente {
 
     public int consultarEdad(Long cc) {
         Conn conn = new Conn();
-        ResultSet resultSet = conn.consultar("SELECT (current_date -fechanac)/365 as edad FROM pacientes WHERE cc = " + cc);
+        ResultSet resultSet = conn.consultar("select (current_date -fechanac)/365 as edad from pacientes where cc = " + cc);
         int edad = -1;
         try {
             while (resultSet.next()) {

@@ -87,7 +87,7 @@ public class FormPaciente extends javax.swing.JFrame {
         lstVistaMinicontroles.removeAll();
         listaMiniControles = new CtrlMiniControl().listar(paciente.getCc());
         for (int i = 0; i < listaMiniControles.size(); i++) {
-            lstVistaMinicontroles.add(listaMiniControles.get(i).getFecha()+" - Motivo: "+listaMiniControles.get(i).getMotivo());            
+            lstVistaMinicontroles.add(listaMiniControles.get(i).getFecha() + " - Motivo: " + listaMiniControles.get(i).getMotivo());
         }
     }
 
@@ -155,23 +155,23 @@ public class FormPaciente extends javax.swing.JFrame {
             sexo = "MASCULINO";
         }
         Paciente nuevoPaciente = new Paciente();
-            try {
-                nuevoPaciente.setCc(Long.parseLong(fldCc.getText()));
-                nuevoPaciente.setNombre(fldNombre.getText());
-                nuevoPaciente.setFechanac(fldFechaNac.getText());
-                nuevoPaciente.setSexo(sexo);
-                nuevoPaciente.setTel(Integer.parseInt(fldTelefono.getText()));
-                nuevoPaciente.setDirecc(fldDireccion.getText());
-                nuevoPaciente.setCelular(Long.parseLong(fldCelular.getText()));
-                nuevoPaciente.setEmail(fldEmail.getText());
-                nuevoPaciente.setOcup(fldOcupacion.getText());
-                nuevoPaciente.setObserv(areObservaciones.getText());
-                nuevoPaciente.setMas(areDetalles.getText());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Error al leer los campos: " + e.getMessage(), "Error", 0);
-                return;
-            }
-        if (edicion) {            
+        try {
+            nuevoPaciente.setCc(Long.parseLong(fldCc.getText()));
+            nuevoPaciente.setNombre(fldNombre.getText());
+            nuevoPaciente.setFechanac(fldFechaNac.getText());
+            nuevoPaciente.setSexo(sexo);
+            nuevoPaciente.setTel(Integer.parseInt(fldTelefono.getText()));
+            nuevoPaciente.setDirecc(fldDireccion.getText());
+            nuevoPaciente.setCelular(Long.parseLong(fldCelular.getText()));
+            nuevoPaciente.setEmail(fldEmail.getText());
+            nuevoPaciente.setOcup(fldOcupacion.getText());
+            nuevoPaciente.setObserv(areObservaciones.getText());
+            nuevoPaciente.setMas(areDetalles.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer los campos: " + e.getMessage(), "Error", 0);
+            return;
+        }
+        if (edicion) {
             //String res = conn.actualizar((new StringBuilder()).append("UPDATE pacientes SET nombre='").append(fldNombre.getText()).append("', cc=").append(fldCc.getText()).append(", fechanac='").append(fldFechaNac.getText()).append("', sexo='").append(sexo).append("', tel='").append(fldTelefono.getText()).append("', direcc='").append(fldDireccion.getText()).append("', celular='").append(fldCelular.getText()).append("', email='").append(fldEmail.getText()).append("', ocup='").append(fldOcupacion.getText()).append("', observ='").append(areObservaciones.getText()).append("',mas='").append(areDetalles.getText()).append("' where cc=").append(getPaciente().getCc()).append(";").toString());
             String res = new CtrlPaciente().actualizar(paciente.getCc(), nuevoPaciente);
             if (!res.equals("1")) {
@@ -479,6 +479,11 @@ public class FormPaciente extends javax.swing.JFrame {
         });
 
         btnNuevaHistoria.setText("Nueva Historia");
+        btnNuevaHistoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaHistoriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -604,10 +609,18 @@ public class FormPaciente extends javax.swing.JFrame {
     private void lstVistaMinicontrolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstVistaMinicontrolesActionPerformed
         // TODO add your handling code here:
         Vista.FormMiniControl formMiniControl = new Vista.FormMiniControl();
-            //formMiniControl.setMiniControl(listaMiniControles.get(lstVistaMinicontroles.getSelectedIndex()));
-            formMiniControl.cargarMiniControl(listaMiniControles.get(lstVistaMinicontroles.getSelectedIndex()));
-            formMiniControl.setVisible(true);
+        formMiniControl.cargarMiniControl(listaMiniControles.get(lstVistaMinicontroles.getSelectedIndex()));
+        formMiniControl.setVisible(true);
     }//GEN-LAST:event_lstVistaMinicontrolesActionPerformed
+
+    private void btnNuevaHistoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaHistoriaActionPerformed
+        // TODO add your handling code here:
+        FormHistoria formHistoria = new FormHistoria();
+        formHistoria.setFormPaciente(this);
+        formHistoria.setPaciente(paciente);
+        formHistoria.con
+        formHistoria.setVisible(true);
+    }//GEN-LAST:event_btnNuevaHistoriaActionPerformed
 
     /**
      * @param args the command line arguments

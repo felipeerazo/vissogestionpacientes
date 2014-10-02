@@ -9,7 +9,6 @@ import Controlador.CtrlMiniControl;
 import Modelo.MiniControl;
 import Modelo.Paciente;
 import java.util.Date;
-import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**

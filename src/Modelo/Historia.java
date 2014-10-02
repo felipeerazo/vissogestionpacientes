@@ -12,7 +12,7 @@ package Modelo;
 public class Historia {
 
     private int historia_id;
-    private int cc_paciente;
+    private Long cc_paciente;
     private String fecha;
     private String tipo;
     private String acomp;
@@ -91,14 +91,14 @@ public class Historia {
     /**
      * @return the cc_paciente
      */
-    public int getCc_paciente() {
+    public Long getCc_paciente() {
         return cc_paciente;
     }
 
     /**
      * @param cc_paciente the cc_paciente to set
      */
-    public void setCc_paciente(int cc_paciente) {
+    public void setCc_paciente(Long cc_paciente) {
         this.cc_paciente = cc_paciente;
     }
 

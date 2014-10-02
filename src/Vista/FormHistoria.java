@@ -6,7 +6,9 @@
 package Vista;
 
 import Controlador.CtrlHistoria;
+import Modelo.Historia;
 import Modelo.Paciente;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -16,10 +18,9 @@ import javax.swing.JOptionPane;
  */
 public class FormHistoria extends javax.swing.JFrame {
 
-    String historiaId;
-    int cedPaciente;
-    private FormPaciente formPaciente;
+       private FormPaciente formPaciente;
     private Paciente paciente;
+    Historia historia;
 
     /**
      * Creates new form FormHistoria
@@ -31,6 +32,10 @@ public class FormHistoria extends javax.swing.JFrame {
         setTitle("Historia cl\355nica");
         btnGenerarPdf.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif")));
         cargarListaCodG();
+        Date utilDate = new Date();
+        long lnMilisegundos = utilDate.getTime();
+        java.sql.Date sqlDate = new java.sql.Date(lnMilisegundos);
+        fldFecha.setText(sqlDate.toString());
     }
 
     private void cargarListaCodG() {
@@ -56,9 +61,9 @@ public class FormHistoria extends javax.swing.JFrame {
 //        jTextField47.setText((String)conn.reporteSQL((new StringBuilder()).append("SELECT nombre FROM pacientes where cc=").append(cedPaciente).append(";").toString()).remove());
 //        jTextField46.setText((String)conn.reporteSQL("SELECT last_value+1 FROM secuencia;").remove());
     }
-    
-    public void cargarProximoId(){
-        fldHistoria_Id.setText(""+new CtrlHistoria().consultarProximoId());
+
+    public void cargarProximoId() {
+        fldHistoria_Id.setText("" + new CtrlHistoria().consultarProximoId());
     }
 
     /**
@@ -106,15 +111,15 @@ public class FormHistoria extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         radParticular = new javax.swing.JRadioButton();
         radEmpresa = new javax.swing.JRadioButton();
-        fldNombreAcompanante = new javax.swing.JTextField();
+        fldAcomp = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         fldParentesco = new javax.swing.JTextField();
-        fldTelefonoAcompanante = new javax.swing.JTextField();
+        fldTel = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        areMotivo = new javax.swing.JTextArea();
         jPanel7 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -415,9 +420,9 @@ public class FormHistoria extends javax.swing.JFrame {
 
         jLabel11.setText("Motivo de la Consulta:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        areMotivo.setColumns(20);
+        areMotivo.setRows(5);
+        jScrollPane2.setViewportView(areMotivo);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -426,36 +431,32 @@ public class FormHistoria extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
+                        .addComponent(fldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2))
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radParticular)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radEmpresa)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radParticular)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radEmpresa))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fldNombreAcompanante, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fldParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fldTelefonoAcompanante, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(187, 187, 187))
+                        .addComponent(fldAcomp, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fldParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fldTel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,11 +471,11 @@ public class FormHistoria extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(fldNombreAcompanante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fldAcomp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(fldParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(fldTelefonoAcompanante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fldTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
@@ -1165,7 +1166,6 @@ public class FormHistoria extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1181,7 +1181,8 @@ public class FormHistoria extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1194,7 +1195,7 @@ public class FormHistoria extends javax.swing.JFrame {
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel10, jPanel12, jPanel2, jPanel8});
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel13, jPanel14, jPanel15, jPanel16, jPanel17, jPanel18, jPanel19});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel13, jPanel14, jPanel15, jPanel16, jPanel17, jPanel18, jPanel19, jPanel6});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1267,7 +1268,7 @@ public class FormHistoria extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 889, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnGuardar)
@@ -1311,7 +1312,20 @@ public class FormHistoria extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
+        historia= new Historia();
+        historia.setHistoria_id(Integer.parseInt(fldHistoria_Id.getText()));
+        historia.setCc_paciente(paciente.getCc());
+        historia.setFecha(fldFecha.getText());
+        if(radParticular.isSelected()){
+            historia.setTipo("particular");
+        } else{
+            historia.setTipo("empresa");
+        }
+        historia.setAcomp(fldAcomp.getText());
+        historia.setParentesco(fldParentesco.getText());
+        historia.setTel(fldTel.getText());
+        historia.setMotivo(areMotivo.getText());
+        historia.setAntec(null);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
@@ -1350,11 +1364,13 @@ public class FormHistoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areMotivo;
     private javax.swing.JTextArea areObservaciones;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGenerarPdf;
     private javax.swing.JButton btnGuardar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField fldAcomp;
     private javax.swing.JTextField fldAdd_d;
     private javax.swing.JTextField fldAdd_f_d;
     private javax.swing.JTextField fldAdd_f_i;
@@ -1383,7 +1399,6 @@ public class FormHistoria extends javax.swing.JFrame {
     private javax.swing.JTextField fldFecha;
     private javax.swing.JTextField fldHistoria_Id;
     private javax.swing.JTextField fldNombre;
-    private javax.swing.JTextField fldNombreAcompanante;
     private javax.swing.JTextField fldParentesco;
     private javax.swing.JTextField fldPh_d;
     private javax.swing.JTextField fldPh_i;
@@ -1408,7 +1423,7 @@ public class FormHistoria extends javax.swing.JFrame {
     private javax.swing.JTextField fldSc_vl_i;
     private javax.swing.JTextField fldSubjetivo_d;
     private javax.swing.JTextField fldSubjetivo_i;
-    private javax.swing.JTextField fldTelefonoAcompanante;
+    private javax.swing.JTextField fldTel;
     private javax.swing.JTextField fldTest_color;
     private javax.swing.JTextField fldTest_profund;
     private javax.swing.JTextField fldTipo_lente;
@@ -1492,7 +1507,6 @@ public class FormHistoria extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblDocumento;
     private javax.swing.JLabel lblHistoriaNum;
@@ -1514,4 +1528,14 @@ public class FormHistoria extends javax.swing.JFrame {
     public Paciente getPaciente() {
         return paciente;
     }
+
+    void cargarPaciente() {
+        fldDocumento.setText(String.valueOf(paciente.getCc()));
+        fldNombre.setText(paciente.getNombre());
+    }
+
+    void ocultarBtnGenerarPdf(){
+        btnGenerarPdf.setVisible(false);
+    }
+    
 }

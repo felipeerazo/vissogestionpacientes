@@ -619,6 +619,9 @@ public class FormPaciente extends javax.swing.JFrame {
         formHistoria.setFormPaciente(this);
         formHistoria.setPaciente(paciente);
         formHistoria.cargarProximoId();
+        formHistoria.cargarPaciente();
+        formHistoria.ocultarBtnGenerarPdf();
+        formHistoria.setTitle("Nueva Historia Clinica...");
         formHistoria.setVisible(true);
     }//GEN-LAST:event_btnNuevaHistoriaActionPerformed
 

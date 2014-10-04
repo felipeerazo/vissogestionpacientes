@@ -61,6 +61,7 @@ public class Historia {
     private String av_vp_d;
     private String av_vp_i;
     private String dp;
+    private String ao;
     private String tipo_lente;
     private String uso;
     private String test_color;
@@ -898,6 +899,20 @@ public class Historia {
      */
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    /**
+     * @return the ao
+     */
+    public String getAo() {
+        return ao;
+    }
+
+    /**
+     * @param ao the ao to set
+     */
+    public void setAo(String ao) {
+        this.ao = ao;
     }
 
     

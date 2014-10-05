@@ -44,7 +44,7 @@ public class FormHistoria extends javax.swing.JFrame {
             "H525 Transtornos de acomodaci\363n"
         };
         for (int i = 0; i < lista.length; i++) {
-            jComboBox1.addItem(lista[i]);
+            cmbCodg_rips.addItem(lista[i]);
         }
 
     }
@@ -215,7 +215,7 @@ public class FormHistoria extends javax.swing.JFrame {
         jLabel50 = new javax.swing.JLabel();
         fldDiagnostico = new javax.swing.JTextField();
         jLabel51 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbCodg_rips = new javax.swing.JComboBox();
         jPanel17 = new javax.swing.JPanel();
         jLabel52 = new javax.swing.JLabel();
         fldConducta = new javax.swing.JTextField();
@@ -1078,7 +1078,7 @@ public class FormHistoria extends javax.swing.JFrame {
 
         jLabel51.setText("CODG RIPS:");
 
-        jComboBox1.setEditable(true);
+        cmbCodg_rips.setEditable(true);
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -1094,7 +1094,7 @@ public class FormHistoria extends javax.swing.JFrame {
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel51)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, 754, Short.MAX_VALUE)))
+                        .addComponent(cmbCodg_rips, 0, 754, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel16Layout.setVerticalGroup(
@@ -1107,7 +1107,7 @@ public class FormHistoria extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel51)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCodg_rips, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1403,11 +1403,11 @@ public class FormHistoria extends javax.swing.JFrame {
         historia.setUso(fldUso.getText());
         historia.setTest_color(fldTest_color.getText());
         historia.setTest_profund(fldTest_profund.getText());
-//        diagnostico character varying,
-//  codg_rips character varying,
-//  conducta character varying,
-//  control date,
-//  observaciones character varying,
+        historia.setDiagnostico(fldDiagnostico.getText());
+        historia.setCodg_rips(cmbCodg_rips.getSelectedItem().toString());
+        historia.setConducta(fldConducta.getText());
+        historia.setControl(fldControl.getText());
+        historia.setObservaciones(areObservaciones.getText());
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
@@ -1453,6 +1453,7 @@ public class FormHistoria extends javax.swing.JFrame {
     private javax.swing.JButton btnGenerarPdf;
     private javax.swing.JButton btnGuardar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox cmbCodg_rips;
     private javax.swing.JTextField fldAcomp;
     private javax.swing.JTextField fldAdd_d;
     private javax.swing.JTextField fldAdd_f_d;
@@ -1515,7 +1516,6 @@ public class FormHistoria extends javax.swing.JFrame {
     private javax.swing.JTextField fldUso;
     private javax.swing.JTextField fldVp;
     private javax.swing.JTextField fldVp2;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

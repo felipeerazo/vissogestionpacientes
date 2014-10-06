@@ -474,6 +474,9 @@
           </Events>
         </Component>
         <Component class="java.awt.List" name="lstVistaHistorias">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lstVistaHistoriasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbHistorias">
           <Properties>

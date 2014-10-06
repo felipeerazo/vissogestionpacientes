@@ -147,8 +147,7 @@ public class Conn implements Serializable {
             st.execute(sql);
             st.close();
         } catch (SQLException e) {
-            System.out.println((new StringBuilder()).append("Error en el m\351todo ejecutar(): ").append(sql).toString());
-            JOptionPane.showMessageDialog(null, "Se produjo un error y no se ejecut\363 la orden.", "Error al ejecutar", 0);
+            System.out.println("Excpecion Conn.ejecutar: "+e);
         }
     }
 

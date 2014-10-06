@@ -17,7 +17,7 @@ public class Historia {
     private String tipo;
     private String acomp;
     private String parentesco;
-    private String tel;
+    private Long tel;
     private String motivo;
     private String antec;
     private String sc_vl_d;
@@ -162,14 +162,14 @@ public class Historia {
     /**
      * @return the tel
      */
-    public String getTel() {
+    public Long getTel() {
         return tel;
     }
 
     /**
      * @param tel the tel to set
      */
-    public void setTel(String tel) {
+    public void setTel(Long tel) {
         this.tel = tel;
     }
 

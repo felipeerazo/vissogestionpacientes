@@ -5,8 +5,10 @@
  */
 package Vista;
 
+import Controlador.CtrlHistoria;
 import Controlador.CtrlMiniControl;
 import Controlador.CtrlPaciente;
+import Modelo.Historia;
 import Modelo.MiniControl;
 import Modelo.Paciente;
 import java.util.LinkedList;
@@ -18,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class FormPaciente extends javax.swing.JFrame {
 
-    LinkedList listaCodHistorias;
+    LinkedList<Historia> listaHistorias;
     LinkedList<MiniControl> listaMiniControles;
     private Paciente paciente;
     boolean edicion;
@@ -31,7 +33,7 @@ public class FormPaciente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Nuevo paciente...");
-        listaCodHistorias = new LinkedList();
+        listaHistorias = new LinkedList();
         listaMiniControles = new LinkedList();
         lblFuc.setVisible(false);
         fldFuc.setVisible(false);
@@ -77,10 +79,10 @@ public class FormPaciente extends javax.swing.JFrame {
 
     public void cargarHistorias() {
         lstVistaHistorias.removeAll();
-//        listaCodHistorias = new LinkedList();
-//        for (LinkedList lh = conn.reporteSQL((new StringBuilder()).append("SELECT historia_id, fecha, motivo FROM historias WHERE cc_paciente=").append(getPaciente().getCc()).toString()); !lh.isEmpty(); lstMinicontroles.add((new StringBuilder()).append((String) lh.remove()).append(" - MOTIVO: ").append((String) lh.remove()).toString())) {
-//            listaCodHistorias.add(lh.remove());
-//        }
+        listaHistorias = new CtrlHistoria().listar(paciente.getCc());
+        for (int i = 0; i < listaHistorias.size(); i++) {
+            lstVistaHistorias.add(listaHistorias.get(i).getFecha() + " - Motivo: " + listaHistorias.get(i).getMotivo());
+        }
     }
 
     public void cargarMiniControles() {
@@ -467,6 +469,12 @@ public class FormPaciente extends javax.swing.JFrame {
             }
         });
 
+        lstVistaHistorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lstVistaHistoriasActionPerformed(evt);
+            }
+        });
+
         lbHistorias.setText("Historias:");
 
         lbHistorias1.setText("Controles:");
@@ -624,6 +632,14 @@ public class FormPaciente extends javax.swing.JFrame {
         formHistoria.setTitle("Nueva Historia Clinica...");
         formHistoria.setVisible(true);
     }//GEN-LAST:event_btnNuevaHistoriaActionPerformed
+
+    private void lstVistaHistoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstVistaHistoriasActionPerformed
+        // TODO add your handling code here:
+        FormHistoria formHistoria = new FormHistoria();
+        formHistoria.cargarHistoria(listaHistorias.get(lstVistaHistorias.getSelectedIndex()));
+        formHistoria.ocultarBtnGuardar();
+        formHistoria.setVisible(true);
+    }//GEN-LAST:event_lstVistaHistoriasActionPerformed
 
     /**
      * @param args the command line arguments

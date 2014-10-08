@@ -629,6 +629,9 @@ public class FormPaciente extends javax.swing.JFrame {
         formHistoria.cargarProximoId();
         formHistoria.cargarPaciente();
         formHistoria.ocultarBtnGenerarPdf();
+        formHistoria.cargarFechaActual();
+        formHistoria.cargarFechaProximoControl();
+        formHistoria.seleccionarTipoParticular();
         formHistoria.setTitle("Nueva Historia Clinica...");
         formHistoria.setVisible(true);
     }//GEN-LAST:event_btnNuevaHistoriaActionPerformed
@@ -638,6 +641,7 @@ public class FormPaciente extends javax.swing.JFrame {
         FormHistoria formHistoria = new FormHistoria();
         formHistoria.cargarHistoria(listaHistorias.get(lstVistaHistorias.getSelectedIndex()));
         formHistoria.ocultarBtnGuardar();
+        formHistoria.bloquearCampos();
         formHistoria.setVisible(true);
     }//GEN-LAST:event_lstVistaHistoriasActionPerformed
 

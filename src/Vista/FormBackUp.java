@@ -40,11 +40,6 @@ public class FormBackUp extends javax.swing.JFrame {
         setTitle("Backup");
         setDefaultCloseOperation(2);
         conn = new Conn();
-        jButton1.setText("Hacer copia de seguridad");
-        jButton1.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/backup.png")));
-        jButton2.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/restore.png")));
-        jButton2.setText("Restaurar desde una copia de seguridad");
-        jButton3.setText("Volver");
     }
 
     /**
@@ -56,30 +51,32 @@ public class FormBackUp extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnHacerCopia = new javax.swing.JButton();
+        btnRestaurarCopia = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Hacer copia de seguridad");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnHacerCopia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/backup.png"))); // NOI18N
+        btnHacerCopia.setText("Hacer copia de seguridad");
+        btnHacerCopia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnHacerCopiaActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Restaurar desde una copia de seguridad");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnRestaurarCopia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/restore.png"))); // NOI18N
+        btnRestaurarCopia.setText("Restaurar desde una copia de seguridad");
+        btnRestaurarCopia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnRestaurarCopiaActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Volver");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnVolverActionPerformed(evt);
             }
         });
 
@@ -89,33 +86,38 @@ public class FormBackUp extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnVolver)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnHacerCopia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRestaurarCopia)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnHacerCopia, btnRestaurarCopia});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(btnHacerCopia)
+                    .addComponent(btnRestaurarCopia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVolver)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnVolverActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnHacerCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHacerCopiaActionPerformed
         // TODO add your handling code here:
         JFileChooser jfc = new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivo de texto (.txt)", new String[]{
@@ -132,9 +134,9 @@ public class FormBackUp extends javax.swing.JFrame {
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Ocurri\363 un error con el manejador de archivo (JFileChooser).", "Error de archivo", 0);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnHacerCopiaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnRestaurarCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarCopiaActionPerformed
         // TODO add your handling code here:
         JFileChooser jfc = new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de texto (.txt)", new String[]{
@@ -160,7 +162,7 @@ public class FormBackUp extends javax.swing.JFrame {
             conn.ejecutar("ROLLBACK;");
             JOptionPane.showMessageDialog(null, (new StringBuilder()).append("Error en la lectura del archivo.\n").append(e.toString()).toString(), "Error", 0);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnRestaurarCopiaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,8 +241,8 @@ public class FormBackUp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnHacerCopia;
+    private javax.swing.JButton btnRestaurarCopia;
+    private javax.swing.JButton btnVolver;
     // End of variables declaration//GEN-END:variables
 }

@@ -173,15 +173,14 @@ public class CtrlHistoria {
                 + "'" + historia.getCodg_rips() + "', "
                 + "'" + historia.getConducta() + "', "
                 + "'" + historia.getControl() + "', "
-                + "'" + historia.getObservaciones() + "');");
-        conn.ejecutar("");
+                + "'" + historia.getObservaciones() + "');");        
         conn.cerrar();
         return res;
     }
 
     public void aumentarSecuencia() {
         Conn conn = new Conn();
-        conn.ejecutar("select nextval('secuencia');");
+        conn.ejecutar("select nextval('secuencia'); commit;");
         conn.cerrar();
     }
 }

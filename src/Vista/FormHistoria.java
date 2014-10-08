@@ -8,7 +8,9 @@ package Vista;
 import Controlador.CtrlHistoria;
 import Modelo.Historia;
 import Modelo.Paciente;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -33,14 +35,10 @@ public class FormHistoria extends javax.swing.JFrame {
         setTitle("Historia cl\355nica");
         btnGenerarPdf.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif")));
         cargarListaCodG();
-        Date utilDate = new Date();
-        long lnMilisegundos = utilDate.getTime();
-        java.sql.Date sqlDate = new java.sql.Date(lnMilisegundos);
-        fldFecha.setText(sqlDate.toString());
         fldHistoria_Id.setEditable(false);
         fldDocumento.setEditable(false);
         fldNombre.setEditable(false);
-        ctrlHistoria= new CtrlHistoria();
+        ctrlHistoria = new CtrlHistoria();
     }
 
     private void cargarListaCodG() {
@@ -48,8 +46,8 @@ public class FormHistoria extends javax.swing.JFrame {
             "", "H000 Orzuelo", "H010 Blefaritis", "H102 Otras conjuntivitis agudas", "H110 Pterigio", "H250 Catarata senil incipiente", "H521 Miop\355a", "H522 Astigmatismo", "H523 Anisometrop\355a y aniseiconia", "H524 Presbicie",
             "H525 Transtornos de acomodaci\363n"
         };
-        for (int i = 0; i < lista.length; i++) {
-            cmbCodg_rips.addItem(lista[i]);
+        for (String lista1 : lista) {
+            cmbCodg_rips.addItem(lista1);
         }
 
     }
@@ -1360,10 +1358,11 @@ public class FormHistoria extends javax.swing.JFrame {
             }
             historia.setAcomp(fldAcomp.getText());
             historia.setParentesco(fldParentesco.getText());
-            if(fldTel.getText()==null){
-                historia.setTel(Long.getLong("0"));
+            if (fldTel.getText().equals("") || fldTel.getText()==null) {
+                historia.setTel(null);
+            } else {
+                historia.setTel(Long.parseLong(fldTel.getText()));
             }
-            historia.setTel(Long.parseLong(fldTel.getText()));
             historia.setMotivo(areMotivo.getText());
             historia.setAntec(areAntec.getText());
             historia.setSc_vl_d(fldSc_vl_d.getText());
@@ -1421,13 +1420,12 @@ public class FormHistoria extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al leer los campos: " + e.getMessage(), "Error", 0);
             return;
         }
-        String res = ctrlHistoria.crear(historia);        
+        String res = ctrlHistoria.crear(historia);
         if (!res.equals("1")) {
             JOptionPane.showMessageDialog(null, res, "Error al guardar historia", 0);
-        }
-        else{
+        } else {
             ctrlHistoria.aumentarSecuencia();
-            if(formPaciente!=null){
+            if (formPaciente != null) {
                 formPaciente.setVisible(true);
                 formPaciente.cargarHistorias();
             }
@@ -1651,72 +1649,155 @@ public class FormHistoria extends javax.swing.JFrame {
 
     void cargarHistoria(Historia historia) {
         fldHistoria_Id.setText(String.valueOf(historia.getHistoria_id()));
-        fldDocumento.setText(String.valueOf(historia.getCc_paciente()));            
-            fldFecha.setText(historia.getFecha());
-            if (historia.getTipo().equals("particular")) {
-                radParticular.setSelected(true);
-            } else {
-                radEmpresa.setSelected(true);
-            }
-            fldAcomp.setText(historia.getAcomp());
-            fldParentesco.setText(historia.getParentesco());
-            fldTel.setText(String.valueOf(historia.getTel()));
-            areMotivo.setText(historia.getMotivo());
-            areAntec.setText(historia.getAntec());
-            fldSc_vl_d.setText(historia.getSc_vl_d());
-            fldSc_vl_i.setText(historia.getSc_vl_i());
-            fldVp.setText(historia.getVp());
-            fldCc_vl_d.setText(historia.getCc_vl_d());
-            fldCc_vl_i.setText(historia.getCc_vl_i());
-            fldVp2.setText(historia.getVp2());
-            fldPh_d.setText(historia.getPh_d());
-            fldPh_i.setText(historia.getPh_i());
-            fldRx_d.setText(historia.getRx_d());
-            fldRx_i.setText(historia.getRx_i());
-            fldRx_add.setText(historia.getRx_add());
-            fldDb_d.setText(historia.getDb_d());
-            fldDb_i.setText(historia.getDb_i());
-            fldPio_d.setText(historia.getPio_d());
-            fldPio_i.setText(historia.getPio_i());
-            fldDfo_d.setText(historia.getDfo_d());
-            fldDfo_i.setText(historia.getDfo_i());
-            fldCvt_vl.setText(historia.getCvt_vl());
-            fldCvt_vp.setText(historia.getCvt_vp());
-            fldCvt_ppc.setText(historia.getCvt_ppc());
-            fldQ_d.setText(historia.getQ_d());
-            fldQ_i.setText(historia.getQ_i());
-            fldRefr_d.setText(historia.getRefr_d());
-            fldRefr_i.setText(historia.getRefr_i());
-            fldAv_d.setText(historia.getAv_d());
-            fldAv_i.setText(historia.getAv_i());
-            fldSubjetivo_d.setText(historia.getSubjetivo_d());
-            fldSubjetivo_i.setText(historia.getSubjetivo_i());
-            fldAdd_d.setText(historia.getAdd_d());
-            fldAdd_i.setText(historia.getAdd_i());
-            fldAvcc_d.setText(historia.getAvcc_d());
-            fldAvcc_i.setText(historia.getAvcc_i());
-            fldPrescrip_f_d.setText(historia.getPrescrip_f_d());
-            fldPrescrip_f_i.setText(historia.getPrescrip_f_i());
-            fldAdd_f_d.setText(historia.getAdd_f_d());
-            fldAdd_f_i.setText(historia.getAdd_f_i());
-            fldAv_vl_d.setText(historia.getAv_vl_d());
-            fldAv_vl_i.setText(historia.getAv_vl_i());
-            fldAv_vp_d.setText(historia.getAv_vp_d());
-            fldAv_vp_i.setText(historia.getAv_vp_i());
-            fldDp.setText(historia.getDp());
-            fldAo.setText(historia.getAo());
-            fldTipo_lente.setText(historia.getTipo_lente());
-            fldUso.setText(historia.getUso());
-            fldTest_color.setText(historia.getTest_color());
-            fldTest_profund.setText(historia.getTest_profund());
-            fldDiagnostico.setText(historia.getDiagnostico());
-            cmbCodg_rips.setSelectedItem(historia.getCodg_rips());
-            fldConducta.setText(historia.getConducta());
-            fldControl.setText(historia.getControl());
-            areObservaciones.setText(historia.getObservaciones());
+        fldDocumento.setText(String.valueOf(historia.getCc_paciente()));
+        fldFecha.setText(historia.getFecha());
+        if (historia.getTipo().equals("particular")) {
+            radParticular.setSelected(true);
+        } else {
+            radEmpresa.setSelected(true);
+        }
+        fldAcomp.setText(historia.getAcomp());
+        fldParentesco.setText(historia.getParentesco());
+        fldTel.setText(String.valueOf(historia.getTel()));
+        areMotivo.setText(historia.getMotivo());
+        areAntec.setText(historia.getAntec());
+        fldSc_vl_d.setText(historia.getSc_vl_d());
+        fldSc_vl_i.setText(historia.getSc_vl_i());
+        fldVp.setText(historia.getVp());
+        fldCc_vl_d.setText(historia.getCc_vl_d());
+        fldCc_vl_i.setText(historia.getCc_vl_i());
+        fldVp2.setText(historia.getVp2());
+        fldPh_d.setText(historia.getPh_d());
+        fldPh_i.setText(historia.getPh_i());
+        fldRx_d.setText(historia.getRx_d());
+        fldRx_i.setText(historia.getRx_i());
+        fldRx_add.setText(historia.getRx_add());
+        fldDb_d.setText(historia.getDb_d());
+        fldDb_i.setText(historia.getDb_i());
+        fldPio_d.setText(historia.getPio_d());
+        fldPio_i.setText(historia.getPio_i());
+        fldDfo_d.setText(historia.getDfo_d());
+        fldDfo_i.setText(historia.getDfo_i());
+        fldCvt_vl.setText(historia.getCvt_vl());
+        fldCvt_vp.setText(historia.getCvt_vp());
+        fldCvt_ppc.setText(historia.getCvt_ppc());
+        fldQ_d.setText(historia.getQ_d());
+        fldQ_i.setText(historia.getQ_i());
+        fldRefr_d.setText(historia.getRefr_d());
+        fldRefr_i.setText(historia.getRefr_i());
+        fldAv_d.setText(historia.getAv_d());
+        fldAv_i.setText(historia.getAv_i());
+        fldSubjetivo_d.setText(historia.getSubjetivo_d());
+        fldSubjetivo_i.setText(historia.getSubjetivo_i());
+        fldAdd_d.setText(historia.getAdd_d());
+        fldAdd_i.setText(historia.getAdd_i());
+        fldAvcc_d.setText(historia.getAvcc_d());
+        fldAvcc_i.setText(historia.getAvcc_i());
+        fldPrescrip_f_d.setText(historia.getPrescrip_f_d());
+        fldPrescrip_f_i.setText(historia.getPrescrip_f_i());
+        fldAdd_f_d.setText(historia.getAdd_f_d());
+        fldAdd_f_i.setText(historia.getAdd_f_i());
+        fldAv_vl_d.setText(historia.getAv_vl_d());
+        fldAv_vl_i.setText(historia.getAv_vl_i());
+        fldAv_vp_d.setText(historia.getAv_vp_d());
+        fldAv_vp_i.setText(historia.getAv_vp_i());
+        fldDp.setText(historia.getDp());
+        fldAo.setText(historia.getAo());
+        fldTipo_lente.setText(historia.getTipo_lente());
+        fldUso.setText(historia.getUso());
+        fldTest_color.setText(historia.getTest_color());
+        fldTest_profund.setText(historia.getTest_profund());
+        fldDiagnostico.setText(historia.getDiagnostico());
+        cmbCodg_rips.setSelectedItem(historia.getCodg_rips());
+        fldConducta.setText(historia.getConducta());
+        fldControl.setText(historia.getControl());
+        areObservaciones.setText(historia.getObservaciones());
     }
 
     void ocultarBtnGuardar() {
         btnGuardar.setVisible(false);
+    }
+
+    void cargarFechaProximoControl() {
+        Date utilDate = new Date();
+        Calendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(utilDate.getTime());
+        cal.add(Calendar.DATE, 365);
+        fldControl.setText(new java.sql.Date(cal.getTimeInMillis()).toString());
+    }
+
+    void cargarFechaActual() {
+        Date utilDate = new Date();
+        long lnMilisegundos = utilDate.getTime();
+        java.sql.Date sqlDate = new java.sql.Date(lnMilisegundos);
+        fldFecha.setText(sqlDate.toString());
+    }
+
+    void bloquearCampos() {
+        fldHistoria_Id.setEditable(false);
+        fldDocumento.setEditable(false);
+        fldFecha.setEditable(false);
+        radParticular.setEnabled(false);
+        radEmpresa.setEnabled(false);
+        fldAcomp.setEditable(false);
+        fldParentesco.setEditable(false);
+        fldTel.setEditable(false);
+        areMotivo.setEditable(false);
+        areAntec.setEditable(false);
+        fldSc_vl_d.setEditable(false);
+        fldSc_vl_i.setEditable(false);
+        fldVp.setEditable(false);
+        fldCc_vl_d.setEditable(false);
+        fldCc_vl_i.setEditable(false);
+        fldVp2.setEditable(false);
+        fldPh_d.setEditable(false);
+        fldPh_i.setEditable(false);
+        fldRx_d.setEditable(false);
+        fldRx_i.setEditable(false);
+        fldRx_add.setEditable(false);
+        fldDb_d.setEditable(false);
+        fldDb_i.setEditable(false);
+        fldPio_d.setEditable(false);
+        fldPio_i.setEditable(false);
+        fldDfo_d.setEditable(false);
+        fldDfo_i.setEditable(false);
+        fldCvt_vl.setEditable(false);
+        fldCvt_vp.setEditable(false);
+        fldCvt_ppc.setEditable(false);
+        fldQ_d.setEditable(false);
+        fldQ_i.setEditable(false);
+        fldRefr_d.setEditable(false);
+        fldRefr_i.setEditable(false);
+        fldAv_d.setEditable(false);
+        fldAv_i.setEditable(false);
+        fldSubjetivo_d.setEditable(false);
+        fldSubjetivo_i.setEditable(false);
+        fldAdd_d.setEditable(false);
+        fldAdd_i.setEditable(false);
+        fldAvcc_d.setEditable(false);
+        fldAvcc_i.setEditable(false);
+        fldPrescrip_f_d.setEditable(false);
+        fldPrescrip_f_i.setEditable(false);
+        fldAdd_f_d.setEditable(false);
+        fldAdd_f_i.setEditable(false);
+        fldAv_vl_d.setEditable(false);
+        fldAv_vl_i.setEditable(false);
+        fldAv_vp_d.setEditable(false);
+        fldAv_vp_i.setEditable(false);
+        fldDp.setEditable(false);
+        fldAo.setEditable(false);
+        fldTipo_lente.setEditable(false);
+        fldUso.setEditable(false);
+        fldTest_color.setEditable(false);
+        fldTest_profund.setEditable(false);
+        fldDiagnostico.setEditable(false);
+        cmbCodg_rips.setEnabled(false);
+        fldConducta.setEditable(false);
+        fldControl.setEditable(false);
+        areObservaciones.setEditable(false);
+    }
+
+    void seleccionarTipoParticular() {
+        radParticular.setSelected(true);
     }
 }

@@ -7,7 +7,8 @@
 package Vista;
 
 import Controlador.Conn;
-import java.awt.Dimension;
+import Controlador.CtrlPaciente;
+import Modelo.Paciente;
 import java.awt.Toolkit;
 import java.util.LinkedList;
 
@@ -23,8 +24,8 @@ public class FormPpal extends javax.swing.JFrame {
     FormBuscador fb2;
     FormListado formListado;
     Conn conn;
-    LinkedList listaPacientes;
-    LinkedList listaPacientes2;
+    LinkedList<Paciente> pacientesCumpleanos;
+    LinkedList<Paciente> pacientesControl;
 
     /**
      * Creates new form FormPpal
@@ -40,23 +41,24 @@ public class FormPpal extends javax.swing.JFrame {
         fb2 = null;
         formListado = null;
         conn = new Conn();
-        listaPacientes = new LinkedList();
-        listaPacientes2 = new LinkedList();
+        pacientesCumpleanos = new LinkedList();
+        pacientesControl = new LinkedList();
         cargarCumpleanos();
         cargarControlesHoy();
     }
     
     public void cargarCumpleanos()
     {
-        for(LinkedList l = conn.reporteSQL("SELECT cc, nombre, date_part('year', current_date)-date_part('year', fechanac) FROM pacientes WHERE date_part('month', fechanac)=date_part('month', current_date) AND date_part('day', fechanac)=date_part('day', current_date);"); !l.isEmpty(); list1.add((new StringBuilder()).append((String)l.removeFirst()).append(" (").append((String)l.removeFirst()).append(" a\361os)").toString()))
-            listaPacientes.add(l.removeFirst());
+        pacientesCumpleanos=new CtrlPaciente().listarCumpleanos();
+        for(LinkedList l = conn.reporteSQL("SELECT cc, nombre, date_part('year', current_date)-date_part('year', fechanac) FROM pacientes WHERE date_part('month', fechanac)=date_part('month', current_date) AND date_part('day', fechanac)=date_part('day', current_date);"); !l.isEmpty(); list1.add((new StringBuilder()).append((String)l.removeFirst()).append(" (").append((String)l.removeFirst()).append(" a\361os)").toString())){}
+            //listaPacientes.add(l.removeFirst());
 
     }
 
     public void cargarControlesHoy()
     {
-        for(LinkedList l = conn.reporteSQL("SELECT p.cc, p.nombre FROM pacientes p, historias h WHERE p.cc=h.cc_paciente AND h.control=current_date;"); !l.isEmpty(); list2.add((new StringBuilder()).append((String)listaPacientes2.getLast()).append(" - ").append((String)l.removeFirst()).toString()))
-            listaPacientes2.addLast(l.removeFirst());
+        for(LinkedList l = conn.reporteSQL("SELECT p.cc, p.nombre FROM pacientes p, historias h WHERE p.cc=h.cc_paciente AND h.control=current_date;"); !l.isEmpty(); list2.add((new StringBuilder()).append((String)listaPacientes2.getLast()).append(" - ").append((String)l.removeFirst()).toString())){}
+            //listaPacientes2.addLast(l.removeFirst());
 
     }
 

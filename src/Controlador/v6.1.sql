@@ -232,6 +232,8 @@ CREATE SEQUENCE secuencia_minicontroles
 ALTER TABLE secuencia_minicontroles
   OWNER TO postgres;
 
-  insert into pacientes values (1, 'felipe', '1992-08-06', 'MASCULINO', 8776834, 'direccion', 3136108026, 'email', 'ocup', 'observ', 'mas');
-insert into pacientes values (2, 'Adriana Clemencia del Corazon de Jesus y de la Santisima Trinidad', '1892-08-06', 'FEMENINO', 8772222, 'direccion2', 3132222222, 'email2', 'ocup2', 'observ2', 'mas2');
-insert into pacientes values (3, 'Wilson Libardo', '1942-08-06', 'MASCULINO', 8773333, 'direccion3', 3133333333, 'email3', 'ocup3', 'observ3', 'mas3');
+insert into pacientes values (1, 'felipe', '1992-08-06', 'MASCULINO', 8776834, 'direccion', 3136108026, 'email', 'ocup', 'observ', 'mas');
+insert into pacientes values (2, 'Adriana Clemencia del Corazon de Jesus y de la Santisima Trinidad', '1892-12-30', 'FEMENINO', 8772222, 'direccion2', 3132222222, 'email2', 'ocup2', 'observ2', 'mas2');
+insert into pacientes values (3, 'Wilson Libardo', '1942-11-17', 'MASCULINO', 8773333, 'direccion3', 3133333333, 'email3', 'ocup3', 'observ3', 'mas3');
+
+insert into historias values (1000, 1, '10/10/2014', 'empresa','acomp', 'parentesco', 8776834, 'motivo', 'antec', 'sc_vl_d', 'sc_vl_i', 'vp', 'cc_vl_d', 'cc_vl_i', 'vp2', 'ph_d', 'ph_i', 'rx_d', 'rx_i', 'rx_add', 'db_d', 'db_i', 'pio_d', 'pio_i', 'dfo_d', 'dfo_i', 'cvt_vl', 'cvt_vp', 'cvt_ppc', 'q_d', 'q_i', 'refr_d', 'refr_i', 'av_d', 'av_i', 'subjetivo_d', 'subjetivo_i', 'add_d', 'add_i', 'avcc_d', 'avcc_i', 'prescrip_f_d', 'prescrip_f_i', 'add_f_d', 'add_f_i', 'av_vl_d', 'av_vl_i', 'av_vp_d', 'av_vp_i', 'dp', 'ao', 'tipo_lente', 'uso', 'test_color', 'test_profund', 'diagnostico', 'codg_rips', 'conducta', '10/10/2015', 'observaciones');

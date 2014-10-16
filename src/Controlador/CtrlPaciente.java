@@ -170,4 +170,32 @@ public class CtrlPaciente {
         conn.cerrar();
         return res;
     }
+    
+    public LinkedList<Paciente> listarCumpleanos(){
+        LinkedList<Paciente> pacientes = new LinkedList();
+        Conn conn = new Conn();
+        ResultSet resultSet = null;
+            resultSet = conn.consultar("select *, date_part('year', current_date)-date_part('year', fechanac) from pacientes where date_part('month', fechanac)=date_part('month', current_date) and date_part('day', fechanac)=date_part('day', current_date);");
+        try {
+            while (resultSet.next()) {
+                Paciente p = new Paciente();
+                p.setCc(resultSet.getLong("cc"));
+                p.setNombre(resultSet.getString("nombre"));
+                p.setFechanac(resultSet.getString("fechanac"));
+                p.setSexo(resultSet.getString("sexo"));
+                p.setTel(resultSet.getInt("tel"));
+                p.setDirecc(resultSet.getString("direcc"));
+                p.setCelular(resultSet.getLong("celular"));
+                p.setEmail(resultSet.getString("email"));
+                p.setOcup(resultSet.getString("ocup"));
+                p.setObserv(resultSet.getString("observ"));
+                p.setMas(resultSet.getString("mas"));                
+                pacientes.add(p);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Excepción método CtrlPaciente.listar = " + ex.getMessage());
+        }
+        conn.cerrar();
+        return pacientes;
+    }
 }

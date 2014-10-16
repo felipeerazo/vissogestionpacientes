@@ -53,10 +53,6 @@ public class FormPaciente extends javax.swing.JFrame {
         fldCc.setText(String.valueOf(paciente.getCc()));
         fldNombre.setText(paciente.getNombre());
         fldEdad.setText("" + new CtrlPaciente().consultarEdad(paciente.getCc()));
-//        fldEdad.setVisible(true);
-//        fldEdad.setText(""+22);
-//        System.out.println("edad= "+new CtrlPaciente().consultarEdad(paciente.getCc()));
-
         fldFechaNac.setText(paciente.getFechanac());
         String aux = paciente.getSexo();
         if (aux != null && aux.equals("MASCULINO")) {
@@ -640,6 +636,8 @@ public class FormPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
         FormHistoria formHistoria = new FormHistoria();
         formHistoria.cargarHistoria(listaHistorias.get(lstVistaHistorias.getSelectedIndex()));
+        formHistoria.setPaciente(paciente);
+        formHistoria.cargarPaciente();
         formHistoria.ocultarBtnGuardar();
         formHistoria.bloquearCampos();
         formHistoria.setVisible(true);

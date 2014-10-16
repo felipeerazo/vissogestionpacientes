@@ -13,7 +13,7 @@ public class Paciente {
 
     private Long cc;
     private String nombre;
-    //private int edad;
+    private int edad;
     private String fechanac;
     private String sexo;
     private int tel;

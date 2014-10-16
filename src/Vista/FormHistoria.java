@@ -54,15 +54,10 @@ public class FormHistoria extends javax.swing.JFrame {
 
     void setFormPaciente(FormPaciente aThis) {
         formPaciente = aThis;
-//        cedPaciente = aThis.cedPaciente;
-        //btnCancelar.setVisible(false);
     }
 
     void setPaciente(Paciente paciente) {
         this.paciente = paciente;
-//        jTextField48.setText(cedPaciente);
-//        jTextField47.setText((String)conn.reporteSQL((new StringBuilder()).append("SELECT nombre FROM pacientes where cc=").append(cedPaciente).append(";").toString()).remove());
-//        jTextField46.setText((String)conn.reporteSQL("SELECT last_value+1 FROM secuencia;").remove());
     }
 
     public void cargarProximoId() {
@@ -1359,7 +1354,7 @@ public class FormHistoria extends javax.swing.JFrame {
             historia.setAcomp(fldAcomp.getText());
             historia.setParentesco(fldParentesco.getText());
             if (fldTel.getText().equals("") || fldTel.getText()==null) {
-                historia.setTel(null);
+                historia.setTel(Long.parseLong("0"));
             } else {
                 historia.setTel(Long.parseLong(fldTel.getText()));
             }

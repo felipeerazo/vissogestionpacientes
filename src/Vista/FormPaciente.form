@@ -485,12 +485,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbHistorias1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Controles:"/>
+            <Property name="text" type="java.lang.String" value="Mini Controles:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnNuevoControl">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nuevo Control"/>
+            <Property name="text" type="java.lang.String" value="Nuevo Mini Control"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoControlActionPerformed"/>

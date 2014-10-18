@@ -47,17 +47,21 @@ public class FormPpal extends javax.swing.JFrame {
         cargarControlesHoy();
     }
     
-    public void cargarCumpleanos()
-    {
-        pacientesCumpleanos=new CtrlPaciente().listarCumpleanos();
-        for(LinkedList l = conn.reporteSQL("SELECT cc, nombre, date_part('year', current_date)-date_part('year', fechanac) FROM pacientes WHERE date_part('month', fechanac)=date_part('month', current_date) AND date_part('day', fechanac)=date_part('day', current_date);"); !l.isEmpty(); list1.add((new StringBuilder()).append((String)l.removeFirst()).append(" (").append((String)l.removeFirst()).append(" a\361os)").toString())){}
-            //listaPacientes.add(l.removeFirst());
-
+    public void cargarCumpleanos()    {
+        pacientesCumpleanos=new CtrlPaciente().listarCumpleanos();        
+        lstVistaCumpleanos.removeAll();
+        for (int i = 0; i < pacientesCumpleanos.size(); i++) {
+            lstVistaCumpleanos.add(pacientesCumpleanos.get(i).getNombre()+", "+pacientesCumpleanos.get(i).getEdad()+" años");            
+        }
     }
 
-    public void cargarControlesHoy()
-    {
-        for(LinkedList l = conn.reporteSQL("SELECT p.cc, p.nombre FROM pacientes p, historias h WHERE p.cc=h.cc_paciente AND h.control=current_date;"); !l.isEmpty(); list2.add((new StringBuilder()).append((String)listaPacientes2.getLast()).append(" - ").append((String)l.removeFirst()).toString())){}
+    public void cargarControlesHoy() {
+        pacientesControl = new CtrlPaciente().listarParaControlHoy();
+        lstVistaControlesHoy.removeAll();
+        for (int i = 0; i < pacientesControl.size(); i++) {
+            lstVistaControlesHoy.add(pacientesControl.get(i).getNombre());
+            
+        }
             //listaPacientes2.addLast(l.removeFirst());
 
     }
@@ -78,9 +82,9 @@ public class FormPpal extends javax.swing.JFrame {
         btnPaciente = new javax.swing.JButton();
         btnBackUp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        list1 = new java.awt.List();
+        lstVistaCumpleanos = new java.awt.List();
         jLabel2 = new javax.swing.JLabel();
-        list2 = new java.awt.List();
+        lstVistaControlesHoy = new java.awt.List();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,29 +147,30 @@ public class FormPpal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnBuscar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnHistoriaClinica)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnMiniControl))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnMostrarTodo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnPaciente)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBackUp)))
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(list2, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lstVistaCumpleanos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnBuscar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnHistoriaClinica)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnMiniControl))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnMostrarTodo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnPaciente)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnBackUp)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lstVistaControlesHoy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBackUp, btnBuscar, btnHistoriaClinica, btnMiniControl, btnMostrarTodo, btnPaciente});
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {list1, list2});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,17 +188,17 @@ public class FormPpal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lstVistaCumpleanos, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(list2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lstVistaControlesHoy, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBackUp, btnBuscar, btnHistoriaClinica, btnMiniControl, btnMostrarTodo, btnPaciente});
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {list1, list2});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lstVistaControlesHoy, lstVistaCumpleanos});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -295,7 +300,7 @@ public class FormPpal extends javax.swing.JFrame {
     private javax.swing.JButton btnPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private java.awt.List list1;
-    private java.awt.List list2;
+    private java.awt.List lstVistaControlesHoy;
+    private java.awt.List lstVistaCumpleanos;
     // End of variables declaration//GEN-END:variables
 }

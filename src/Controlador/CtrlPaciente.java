@@ -38,6 +38,7 @@ public class CtrlPaciente {
                 p.setOcup(resultSet.getString("ocup"));
                 p.setObserv(resultSet.getString("observ"));
                 p.setMas(resultSet.getString("mas"));
+                p.setEdad(consultarEdad(p.getCc()));
                 pacientes.add(p);
             }
         } catch (SQLException ex) {
@@ -175,7 +176,7 @@ public class CtrlPaciente {
         LinkedList<Paciente> pacientes = new LinkedList();
         Conn conn = new Conn();
         ResultSet resultSet = null;
-            resultSet = conn.consultar("select *, date_part('year', current_date)-date_part('year', fechanac) from pacientes where date_part('month', fechanac)=date_part('month', current_date) and date_part('day', fechanac)=date_part('day', current_date);");
+            resultSet = conn.consultar("select * from pacientes where date_part('month', fechanac)=date_part('month', current_date) and date_part('day', fechanac)=date_part('day', current_date);");
         try {
             while (resultSet.next()) {
                 Paciente p = new Paciente();
@@ -190,10 +191,40 @@ public class CtrlPaciente {
                 p.setOcup(resultSet.getString("ocup"));
                 p.setObserv(resultSet.getString("observ"));
                 p.setMas(resultSet.getString("mas"));                
+                p.setEdad(consultarEdad(p.getCc()));
                 pacientes.add(p);
             }
         } catch (SQLException ex) {
-            System.out.println("Excepción método CtrlPaciente.listar = " + ex.getMessage());
+            System.out.println("Excepción método CtrlPaciente.listarCumpleanos = " + ex.getMessage());
+        }
+        conn.cerrar();
+        return pacientes;
+    }
+
+    public LinkedList<Paciente> listarParaControlHoy() {
+        LinkedList<Paciente> pacientes = new LinkedList();
+        Conn conn = new Conn();
+        ResultSet resultSet = null;
+            resultSet = conn.consultar("select * from pacientes p, historias h where p.cc=h.cc_paciente AND h.control=current_date;");
+        try {
+            while (resultSet.next()) {
+                Paciente p = new Paciente();
+                p.setCc(resultSet.getLong("cc"));
+                p.setNombre(resultSet.getString("nombre"));
+                p.setFechanac(resultSet.getString("fechanac"));
+                p.setSexo(resultSet.getString("sexo"));
+                p.setTel(resultSet.getInt("tel"));
+                p.setDirecc(resultSet.getString("direcc"));
+                p.setCelular(resultSet.getLong("celular"));
+                p.setEmail(resultSet.getString("email"));
+                p.setOcup(resultSet.getString("ocup"));
+                p.setObserv(resultSet.getString("observ"));
+                p.setMas(resultSet.getString("mas"));                
+                p.setEdad(consultarEdad(p.getCc()));
+                pacientes.add(p);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Excepción método CtrlPaciente.listarParaControlHoy = " + ex.getMessage());
         }
         conn.cerrar();
         return pacientes;

@@ -195,6 +195,20 @@ public class Paciente {
     public void setMas(String mas) {
         this.mas = mas;
     }
+
+    /**
+     * @return the edad
+     */
+    public int getEdad() {
+        return edad;
+    }
+
+    /**
+     * @param edad the edad to set
+     */
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
     
     
 }

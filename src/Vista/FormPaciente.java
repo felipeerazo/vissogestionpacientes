@@ -52,7 +52,7 @@ public class FormPaciente extends javax.swing.JFrame {
         //LinkedList l = conn.reporteSQL((new StringBuilder()).append("SELECT * FROM pacientes WHERE cc=").append(cc).toString());
         fldCc.setText(String.valueOf(paciente.getCc()));
         fldNombre.setText(paciente.getNombre());
-        fldEdad.setText("" + new CtrlPaciente().consultarEdad(paciente.getCc()));
+        fldEdad.setText(String.valueOf(paciente.getEdad()));
         fldFechaNac.setText(paciente.getFechanac());
         String aux = paciente.getSexo();
         if (aux != null && aux.equals("MASCULINO")) {
@@ -473,9 +473,9 @@ public class FormPaciente extends javax.swing.JFrame {
 
         lbHistorias.setText("Historias:");
 
-        lbHistorias1.setText("Controles:");
+        lbHistorias1.setText("Mini Controles:");
 
-        btnNuevoControl.setText("Nuevo Control");
+        btnNuevoControl.setText("Nuevo Mini Control");
         btnNuevoControl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoControlActionPerformed(evt);

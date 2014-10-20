@@ -6,6 +6,7 @@
 package Vista;
 
 import Controlador.CtrlHistoria;
+import Controlador.PDF;
 import Modelo.Historia;
 import Modelo.Paciente;
 import java.util.Calendar;
@@ -22,7 +23,7 @@ public class FormHistoria extends javax.swing.JFrame {
 
     private FormPaciente formPaciente;
     private Paciente paciente;
-    Historia historia;
+    private Historia historia;
     CtrlHistoria ctrlHistoria;
 
     /**
@@ -1333,7 +1334,7 @@ public class FormHistoria extends javax.swing.JFrame {
     private void btnGenerarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPdfActionPerformed
         // TODO add your handling code here:
         try {
-            //new PDF(conn.reporteSQL((new StringBuilder()).append("select * from pacientes where cc=").append(cedPaciente).append(";").toString()), conn.reporteSQL((new StringBuilder()).append("select * from historias where historia_id=").append(historiaId).append(";").toString()));
+            new PDF().crearPdf(paciente, getHistoria());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -1341,81 +1342,81 @@ public class FormHistoria extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        historia = new Historia();
+        setHistoria(new Historia());
         try {
-            historia.setHistoria_id(Integer.parseInt(fldHistoria_Id.getText()));
-            historia.setCc_paciente(paciente.getCc());
-            historia.setFecha(fldFecha.getText());
+            getHistoria().setHistoria_id(Integer.parseInt(fldHistoria_Id.getText()));
+            getHistoria().setCc_paciente(paciente.getCc());
+            getHistoria().setFecha(fldFecha.getText());
             if (radParticular.isSelected()) {
-                historia.setTipo("particular");
+                getHistoria().setTipo("particular");
             } else {
-                historia.setTipo("empresa");
+                getHistoria().setTipo("empresa");
             }
-            historia.setAcomp(fldAcomp.getText());
-            historia.setParentesco(fldParentesco.getText());
+            getHistoria().setAcomp(fldAcomp.getText());
+            getHistoria().setParentesco(fldParentesco.getText());
             if (fldTel.getText().equals("") || fldTel.getText()==null) {
-                historia.setTel(Long.parseLong("0"));
+                getHistoria().setTel(Long.parseLong("0"));
             } else {
-                historia.setTel(Long.parseLong(fldTel.getText()));
+                getHistoria().setTel(Long.parseLong(fldTel.getText()));
             }
-            historia.setMotivo(areMotivo.getText());
-            historia.setAntec(areAntec.getText());
-            historia.setSc_vl_d(fldSc_vl_d.getText());
-            historia.setSc_vl_i(fldSc_vl_i.getText());
-            historia.setVp(fldVp.getText());
-            historia.setCc_vl_d(fldCc_vl_d.getText());
-            historia.setCc_vl_i(fldCc_vl_i.getText());
-            historia.setVp2(fldVp2.getText());
-            historia.setPh_d(fldPh_d.getText());
-            historia.setPh_i(fldPh_i.getText());
-            historia.setRx_d(fldRx_d.getText());
-            historia.setRx_i(fldRx_i.getText());
-            historia.setRx_add(fldRx_add.getText());
-            historia.setDb_d(fldDb_d.getText());
-            historia.setDb_i(fldDb_i.getText());
-            historia.setPio_d(fldPio_d.getText());
-            historia.setPio_i(fldPio_i.getText());
-            historia.setDfo_d(fldDfo_d.getText());
-            historia.setDfo_i(fldDfo_i.getText());
-            historia.setCvt_vl(fldCvt_vl.getText());
-            historia.setCvt_vp(fldCvt_vp.getText());
-            historia.setCvt_ppc(fldCvt_ppc.getText());
-            historia.setQ_d(fldQ_d.getText());
-            historia.setQ_i(fldQ_i.getText());
-            historia.setRefr_d(fldRefr_d.getText());
-            historia.setRefr_i(fldRefr_i.getText());
-            historia.setAv_d(fldAv_d.getText());
-            historia.setAv_i(fldAv_i.getText());
-            historia.setSubjetivo_d(fldSubjetivo_d.getText());
-            historia.setSubjetivo_i(fldSubjetivo_i.getText());
-            historia.setAdd_d(fldAdd_d.getText());
-            historia.setAdd_i(fldAdd_i.getText());
-            historia.setAvcc_d(fldAvcc_d.getText());
-            historia.setAvcc_i(fldAvcc_i.getText());
-            historia.setPrescrip_f_d(fldPrescrip_f_d.getText());
-            historia.setPrescrip_f_i(fldPrescrip_f_i.getText());
-            historia.setAdd_f_d(fldAdd_f_d.getText());
-            historia.setAdd_f_i(fldAdd_f_i.getText());
-            historia.setAv_vl_d(fldAv_vl_d.getText());
-            historia.setAv_vl_i(fldAv_vl_i.getText());
-            historia.setAv_vp_d(fldAv_vp_d.getText());
-            historia.setAv_vp_i(fldAv_vp_i.getText());
-            historia.setDp(fldDp.getText());
-            historia.setAo(fldAo.getText());
-            historia.setTipo_lente(fldTipo_lente.getText());
-            historia.setUso(fldUso.getText());
-            historia.setTest_color(fldTest_color.getText());
-            historia.setTest_profund(fldTest_profund.getText());
-            historia.setDiagnostico(fldDiagnostico.getText());
-            historia.setCodg_rips(cmbCodg_rips.getSelectedItem().toString());
-            historia.setConducta(fldConducta.getText());
-            historia.setControl(fldControl.getText());
-            historia.setObservaciones(areObservaciones.getText());
+            getHistoria().setMotivo(areMotivo.getText());
+            getHistoria().setAntec(areAntec.getText());
+            getHistoria().setSc_vl_d(fldSc_vl_d.getText());
+            getHistoria().setSc_vl_i(fldSc_vl_i.getText());
+            getHistoria().setVp(fldVp.getText());
+            getHistoria().setCc_vl_d(fldCc_vl_d.getText());
+            getHistoria().setCc_vl_i(fldCc_vl_i.getText());
+            getHistoria().setVp2(fldVp2.getText());
+            getHistoria().setPh_d(fldPh_d.getText());
+            getHistoria().setPh_i(fldPh_i.getText());
+            getHistoria().setRx_d(fldRx_d.getText());
+            getHistoria().setRx_i(fldRx_i.getText());
+            getHistoria().setRx_add(fldRx_add.getText());
+            getHistoria().setDb_d(fldDb_d.getText());
+            getHistoria().setDb_i(fldDb_i.getText());
+            getHistoria().setPio_d(fldPio_d.getText());
+            getHistoria().setPio_i(fldPio_i.getText());
+            getHistoria().setDfo_d(fldDfo_d.getText());
+            getHistoria().setDfo_i(fldDfo_i.getText());
+            getHistoria().setCvt_vl(fldCvt_vl.getText());
+            getHistoria().setCvt_vp(fldCvt_vp.getText());
+            getHistoria().setCvt_ppc(fldCvt_ppc.getText());
+            getHistoria().setQ_d(fldQ_d.getText());
+            getHistoria().setQ_i(fldQ_i.getText());
+            getHistoria().setRefr_d(fldRefr_d.getText());
+            getHistoria().setRefr_i(fldRefr_i.getText());
+            getHistoria().setAv_d(fldAv_d.getText());
+            getHistoria().setAv_i(fldAv_i.getText());
+            getHistoria().setSubjetivo_d(fldSubjetivo_d.getText());
+            getHistoria().setSubjetivo_i(fldSubjetivo_i.getText());
+            getHistoria().setAdd_d(fldAdd_d.getText());
+            getHistoria().setAdd_i(fldAdd_i.getText());
+            getHistoria().setAvcc_d(fldAvcc_d.getText());
+            getHistoria().setAvcc_i(fldAvcc_i.getText());
+            getHistoria().setPrescrip_f_d(fldPrescrip_f_d.getText());
+            getHistoria().setPrescrip_f_i(fldPrescrip_f_i.getText());
+            getHistoria().setAdd_f_d(fldAdd_f_d.getText());
+            getHistoria().setAdd_f_i(fldAdd_f_i.getText());
+            getHistoria().setAv_vl_d(fldAv_vl_d.getText());
+            getHistoria().setAv_vl_i(fldAv_vl_i.getText());
+            getHistoria().setAv_vp_d(fldAv_vp_d.getText());
+            getHistoria().setAv_vp_i(fldAv_vp_i.getText());
+            getHistoria().setDp(fldDp.getText());
+            getHistoria().setAo(fldAo.getText());
+            getHistoria().setTipo_lente(fldTipo_lente.getText());
+            getHistoria().setUso(fldUso.getText());
+            getHistoria().setTest_color(fldTest_color.getText());
+            getHistoria().setTest_profund(fldTest_profund.getText());
+            getHistoria().setDiagnostico(fldDiagnostico.getText());
+            getHistoria().setCodg_rips(cmbCodg_rips.getSelectedItem().toString());
+            getHistoria().setConducta(fldConducta.getText());
+            getHistoria().setControl(fldControl.getText());
+            getHistoria().setObservaciones(areObservaciones.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al leer los campos: " + e.getMessage(), "Error", 0);
             return;
         }
-        String res = ctrlHistoria.crear(historia);
+        String res = ctrlHistoria.crear(getHistoria());
         if (!res.equals("1")) {
             JOptionPane.showMessageDialog(null, res, "Error al guardar historia", 0);
         } else {
@@ -1795,4 +1796,21 @@ public class FormHistoria extends javax.swing.JFrame {
     void seleccionarTipoParticular() {
         radParticular.setSelected(true);
     }
+
+    /**
+     * @return the historia
+     */
+    public Historia getHistoria() {
+        return historia;
+    }
+
+    /**
+     * @param historia the historia to set
+     */
+    public void setHistoria(Historia historia) {
+        this.historia = historia;
+    }
+    
+    
+    
 }

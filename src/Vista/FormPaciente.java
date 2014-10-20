@@ -635,6 +635,7 @@ public class FormPaciente extends javax.swing.JFrame {
     private void lstVistaHistoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstVistaHistoriasActionPerformed
         // TODO add your handling code here:
         FormHistoria formHistoria = new FormHistoria();
+        formHistoria.setHistoria(listaHistorias.get(lstVistaHistorias.getSelectedIndex()));
         formHistoria.cargarHistoria(listaHistorias.get(lstVistaHistorias.getSelectedIndex()));
         formHistoria.setPaciente(paciente);
         formHistoria.cargarPaciente();

@@ -387,6 +387,9 @@
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="1"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="areObservacionesKeyPressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -402,6 +405,9 @@
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="1"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="areDetallesKeyPressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

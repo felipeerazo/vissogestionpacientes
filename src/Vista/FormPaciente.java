@@ -413,10 +413,20 @@ public class FormPaciente extends javax.swing.JFrame {
 
         areObservaciones.setColumns(20);
         areObservaciones.setRows(1);
+        areObservaciones.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                areObservacionesKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(areObservaciones);
 
         areDetalles.setColumns(20);
         areDetalles.setRows(1);
+        areDetalles.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                areDetallesKeyPressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(areDetalles);
 
         jLabel3.setText("Más detalles (opcional):");
@@ -643,6 +653,24 @@ public class FormPaciente extends javax.swing.JFrame {
         formHistoria.bloquearCampos();
         formHistoria.setVisible(true);
     }//GEN-LAST:event_lstVistaHistoriasActionPerformed
+
+    private void areObservacionesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areObservacionesKeyPressed
+        // TODO add your handling code here:
+        //para evitar que se guarden \r
+        // y se pase al siguiente elemento de la interfaz
+        if (evt.getKeyCode() == evt.VK_TAB){
+            evt.consume();
+            areDetalles.requestFocus();
+        }
+    }//GEN-LAST:event_areObservacionesKeyPressed
+
+    private void areDetallesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areDetallesKeyPressed
+        // TODO add your handling code here:
+        //para evitar que se guarden \r
+        if (evt.getKeyCode() == evt.VK_TAB){
+            evt.consume();
+        }
+    }//GEN-LAST:event_areDetallesKeyPressed
 
     /**
      * @param args the command line arguments

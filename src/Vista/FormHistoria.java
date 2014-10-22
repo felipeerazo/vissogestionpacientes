@@ -426,10 +426,20 @@ public class FormHistoria extends javax.swing.JFrame {
 
         areMotivo.setColumns(20);
         areMotivo.setRows(5);
+        areMotivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                areMotivoKeyPressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(areMotivo);
 
         areAntec.setColumns(20);
         areAntec.setRows(5);
+        areAntec.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                areAntecKeyPressed(evt);
+            }
+        });
         jScrollPane4.setViewportView(areAntec);
 
         jLabel55.setText("Anamnesis y Antecedentes:");
@@ -1166,6 +1176,11 @@ public class FormHistoria extends javax.swing.JFrame {
 
         areObservaciones.setColumns(20);
         areObservaciones.setRows(3);
+        areObservaciones.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                areObservacionesKeyPressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(areObservaciones);
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
@@ -1428,6 +1443,34 @@ public class FormHistoria extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void areMotivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areMotivoKeyPressed
+        // TODO add your handling code here:
+        //para evitar que se guarden \r
+        // y se pase al siguiente elemento de la interfaz
+        if (evt.getKeyCode() == evt.VK_TAB){
+            areAntec.requestFocus();
+            evt.consume();
+        }
+    }//GEN-LAST:event_areMotivoKeyPressed
+
+    private void areAntecKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areAntecKeyPressed
+        // TODO add your handling code here:
+        //para evitar que se guarden \r
+        // y se pase al siguiente elemento de la interfaz
+        if (evt.getKeyCode() == evt.VK_TAB){
+            fldSc_vl_d.requestFocus();
+            evt.consume();
+        }
+    }//GEN-LAST:event_areAntecKeyPressed
+
+    private void areObservacionesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areObservacionesKeyPressed
+        // TODO add your handling code here:
+        //para evitar que se guarden \r
+        if (evt.getKeyCode() == evt.VK_TAB){
+            evt.consume();
+        }
+    }//GEN-LAST:event_areObservacionesKeyPressed
 
     /**
      * @param args the command line arguments

@@ -186,14 +186,21 @@ public class FormPaciente extends javax.swing.JFrame {
         } else {
             //String res = conn.insertar((new StringBuilder()).append("insert into pacientes values (").append(fldCc.getText()).append(",'").append(fldNombre.getText()).append("','").append(fldFechaNac.getText()).append("','").append(sexo).append("',").append(fldTelefono.getText()).append(",'").append(fldDireccion.getText()).append("', ").append(fldCelular.getText()).append(", '").append(fldEmail.getText()).append("', '").append(fldOcupacion.getText()).append("', '").append(areObservaciones.getText()).append("', '").append(areDetalles.getText()).append("');").toString());
             String res = new CtrlPaciente().crear(nuevoPaciente);
-            if ("1".equals(res)) {
+            if (!"1".equals(res)) {
                 if (n == 0) {
                     dispose();
                 } else {
-                    FormHistoria fh = new FormHistoria();
-                    fh.setTitle("Nueva historia...");
-//                    fh.setPaciente(fldCc.getText());
-                    fh.setVisible(true);
+                    FormHistoria formHistoria = new FormHistoria();
+                    formHistoria.setFormPaciente(this);
+                    formHistoria.setPaciente(nuevoPaciente);
+                    formHistoria.cargarProximoId();
+                    formHistoria.cargarPaciente();
+                    formHistoria.ocultarBtnGenerarPdf();
+                    formHistoria.cargarFechaActual();
+                    formHistoria.cargarFechaProximoControl();
+                    formHistoria.seleccionarTipoParticular();
+                    formHistoria.setTitle("Nueva Historia Clinica...");
+                    formHistoria.setVisible(true);
                     dispose();
                 }
             } else {
@@ -658,7 +665,7 @@ public class FormPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
         //para evitar que se guarden \r
         // y se pase al siguiente elemento de la interfaz
-        if (evt.getKeyCode() == evt.VK_TAB){
+        if (evt.getKeyCode() == evt.VK_TAB) {
             evt.consume();
             areDetalles.requestFocus();
         }
@@ -667,7 +674,7 @@ public class FormPaciente extends javax.swing.JFrame {
     private void areDetallesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areDetallesKeyPressed
         // TODO add your handling code here:
         //para evitar que se guarden \r
-        if (evt.getKeyCode() == evt.VK_TAB){
+        if (evt.getKeyCode() == evt.VK_TAB) {
             evt.consume();
         }
     }//GEN-LAST:event_areDetallesKeyPressed

@@ -9,6 +9,7 @@ import Controlador.CtrlHistoria;
 import Controlador.PDF;
 import Modelo.Historia;
 import Modelo.Paciente;
+import java.awt.Point;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -273,6 +274,11 @@ public class FormHistoria extends javax.swing.JFrame {
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel3KeyPressed(evt);
+            }
+        });
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -1471,6 +1477,15 @@ public class FormHistoria extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_areObservacionesKeyPressed
+
+    private void jPanel3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel3KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == evt.VK_TAB){
+            //jScrollPane3.getViewport().setViewPosition(new Point(0, 373));    
+            jScrollPane3.getViewport().setViewPosition(new Point(jScrollPane3.getViewport().getViewPosition().x, jScrollPane3.getViewport().getViewPosition().y+20));
+        }
+        
+    }//GEN-LAST:event_jPanel3KeyPressed
 
     /**
      * @param args the command line arguments

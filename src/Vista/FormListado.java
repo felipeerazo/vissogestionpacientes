@@ -47,7 +47,7 @@ public class FormListado extends javax.swing.JFrame {
         for (int i = 0; i < l.size(); i++) {
             lstVistaPacientes.add(l.get(i).getCc() + " - " + l.get(i).getNombre());
         }
-        listaPacientes=l;
+        listaPacientes = l;
 
     }
 
@@ -109,6 +109,13 @@ public class FormListado extends javax.swing.JFrame {
         if (isEsNuevaHistoria()) {
             Vista.FormHistoria formHistoria = new Vista.FormHistoria();
             formHistoria.setPaciente(listaPacientes.get(lstVistaPacientes.getSelectedIndex()));
+            formHistoria.cargarProximoId();
+            formHistoria.cargarPaciente();
+            formHistoria.ocultarBtnGenerarPdf();
+            formHistoria.cargarFechaActual();
+            formHistoria.cargarFechaProximoControl();
+            formHistoria.seleccionarTipoParticular();
+            formHistoria.setTitle("Nueva Historia Clinica...");
             formHistoria.setVisible(true);
             dispose();
         } else if (isEsNuevoMiniControl()) {
@@ -124,7 +131,7 @@ public class FormListado extends javax.swing.JFrame {
                 formPaciente.cargarMiniControles();
                 formPaciente.setVisible(true);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error al abrir historia: "+e.toString());
+                JOptionPane.showMessageDialog(this, "Error al abrir historia: " + e.toString());
             }
         }
     }//GEN-LAST:event_lstVistaPacientesActionPerformed
@@ -163,7 +170,6 @@ public class FormListado extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private java.awt.List lstVistaPacientes;

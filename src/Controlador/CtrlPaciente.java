@@ -31,9 +31,9 @@ public class CtrlPaciente {
                 p.setNombre(resultSet.getString("nombre"));
                 p.setFechanac(resultSet.getString("fechanac"));
                 p.setSexo(resultSet.getString("sexo"));
-                p.setTel(resultSet.getInt("tel"));
+                p.setTel(resultSet.getString("tel"));
                 p.setDirecc(resultSet.getString("direcc"));
-                p.setCelular(resultSet.getLong("celular"));
+                p.setCelular(resultSet.getString("celular"));
                 p.setEmail(resultSet.getString("email"));
                 p.setOcup(resultSet.getString("ocup"));
                 p.setObserv(resultSet.getString("observ"));
@@ -64,9 +64,9 @@ public class CtrlPaciente {
                 p.setNombre(resultSet.getString("nombre"));
                 p.setFechanac(resultSet.getString("fechanac"));
                 p.setSexo(resultSet.getString("sexo"));
-                p.setTel(resultSet.getInt("tel"));
+                p.setTel(resultSet.getString("tel"));
                 p.setDirecc(resultSet.getString("direcc"));
-                p.setCelular(resultSet.getLong("celular"));
+                p.setCelular(resultSet.getString("celular"));
                 p.setEmail(resultSet.getString("email"));
                 p.setOcup(resultSet.getString("ocup"));
                 p.setObserv(resultSet.getString("observ"));
@@ -91,9 +91,9 @@ public class CtrlPaciente {
                 paciente.setNombre(resultSet.getString("nombre"));
                 paciente.setFechanac(resultSet.getString("fechanac"));
                 paciente.setSexo(resultSet.getString("sexo"));
-                paciente.setTel(resultSet.getInt("tel"));
+                paciente.setTel(resultSet.getString("tel"));
                 paciente.setDirecc(resultSet.getString("direcc"));
-                paciente.setCelular(resultSet.getLong("celular"));
+                paciente.setCelular(resultSet.getString("celular"));
                 paciente.setEmail(resultSet.getString("email"));
                 paciente.setOcup(resultSet.getString("ocup"));
                 paciente.setObserv(resultSet.getString("observ"));
@@ -161,9 +161,9 @@ public class CtrlPaciente {
                 + "'" + paciente.getNombre() + "', "
                 + "'" + paciente.getFechanac() + "', "
                 + "'" + paciente.getSexo() + "', "
-                + paciente.getTel() + ", "
+                + "'" + paciente.getTel() + "', "
                 + "'" + paciente.getDirecc() + "', "
-                + paciente.getCelular() + ", "
+                + "'" + paciente.getCelular() + "', "
                 + "'" + paciente.getEmail() + "', "
                 + "'" + paciente.getOcup() + "', "
                 + "'" + paciente.getObserv() + "', "
@@ -184,9 +184,9 @@ public class CtrlPaciente {
                 p.setNombre(resultSet.getString("nombre"));
                 p.setFechanac(resultSet.getString("fechanac"));
                 p.setSexo(resultSet.getString("sexo"));
-                p.setTel(resultSet.getInt("tel"));
+                p.setTel(resultSet.getString("tel"));
                 p.setDirecc(resultSet.getString("direcc"));
-                p.setCelular(resultSet.getLong("celular"));
+                p.setCelular(resultSet.getString("celular"));
                 p.setEmail(resultSet.getString("email"));
                 p.setOcup(resultSet.getString("ocup"));
                 p.setObserv(resultSet.getString("observ"));
@@ -213,9 +213,9 @@ public class CtrlPaciente {
                 p.setNombre(resultSet.getString("nombre"));
                 p.setFechanac(resultSet.getString("fechanac"));
                 p.setSexo(resultSet.getString("sexo"));
-                p.setTel(resultSet.getInt("tel"));
+                p.setTel(resultSet.getString("tel"));
                 p.setDirecc(resultSet.getString("direcc"));
-                p.setCelular(resultSet.getLong("celular"));
+                p.setCelular(resultSet.getString("celular"));
                 p.setEmail(resultSet.getString("email"));
                 p.setOcup(resultSet.getString("ocup"));
                 p.setObserv(resultSet.getString("observ"));

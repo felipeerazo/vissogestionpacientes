@@ -40,6 +40,7 @@ public class FormPaciente extends javax.swing.JFrame {
         lblEdad.setVisible(false);
         fldEdad.setVisible(false);
         edicion = false;
+        
     }
 
     public void cargarPaciente(Paciente paciente) {
@@ -52,7 +53,7 @@ public class FormPaciente extends javax.swing.JFrame {
         //LinkedList l = conn.reporteSQL((new StringBuilder()).append("SELECT * FROM pacientes WHERE cc=").append(cc).toString());
         fldCc.setText(String.valueOf(paciente.getCc()));
         fldNombre.setText(paciente.getNombre());
-        fldEdad.setText(String.valueOf(paciente.getEdad()));
+        fldEdad.setText(String.valueOf(new CtrlPaciente().consultarEdad(paciente.getCc())));
         fldFechaNac.setText(paciente.getFechanac());
         String aux = paciente.getSexo();
         if (aux != null && aux.equals("MASCULINO")) {
@@ -158,9 +159,9 @@ public class FormPaciente extends javax.swing.JFrame {
             nuevoPaciente.setNombre(fldNombre.getText());
             nuevoPaciente.setFechanac(fldFechaNac.getText());
             nuevoPaciente.setSexo(sexo);
-            nuevoPaciente.setTel(Integer.parseInt(fldTelefono.getText()));
+            nuevoPaciente.setTel(fldTelefono.getText());
             nuevoPaciente.setDirecc(fldDireccion.getText());
-            nuevoPaciente.setCelular(Long.parseLong(fldCelular.getText()));
+            nuevoPaciente.setCelular(fldCelular.getText());
             nuevoPaciente.setEmail(fldEmail.getText());
             nuevoPaciente.setOcup(fldOcupacion.getText());
             nuevoPaciente.setObserv(areObservaciones.getText());
@@ -186,7 +187,7 @@ public class FormPaciente extends javax.swing.JFrame {
         } else {
             //String res = conn.insertar((new StringBuilder()).append("insert into pacientes values (").append(fldCc.getText()).append(",'").append(fldNombre.getText()).append("','").append(fldFechaNac.getText()).append("','").append(sexo).append("',").append(fldTelefono.getText()).append(",'").append(fldDireccion.getText()).append("', ").append(fldCelular.getText()).append(", '").append(fldEmail.getText()).append("', '").append(fldOcupacion.getText()).append("', '").append(areObservaciones.getText()).append("', '").append(areDetalles.getText()).append("');").toString());
             String res = new CtrlPaciente().crear(nuevoPaciente);
-            if (!"1".equals(res)) {
+            if ("1".equals(res)) {
                 if (n == 0) {
                     dispose();
                 } else {
@@ -195,7 +196,7 @@ public class FormPaciente extends javax.swing.JFrame {
                     formHistoria.setPaciente(nuevoPaciente);
                     formHistoria.cargarProximoId();
                     formHistoria.cargarPaciente();
-                    formHistoria.ocultarBtnGenerarPdf();
+                    formHistoria.ocultarBotonesPdf();
                     formHistoria.cargarFechaActual();
                     formHistoria.cargarFechaProximoControl();
                     formHistoria.seleccionarTipoParticular();
@@ -204,7 +205,7 @@ public class FormPaciente extends javax.swing.JFrame {
                     dispose();
                 }
             } else {
-                JOptionPane.showMessageDialog(null, (new StringBuilder()).append("El paciente no ha sido guardado.\nError: ").append(res).toString(), "Error al guardar", 0);
+                JOptionPane.showMessageDialog(null, "El paciente no ha sido guardado.\nError: "+res, "Error al guardar", 0);
             }
         }
     }
@@ -293,6 +294,8 @@ public class FormPaciente extends javax.swing.JFrame {
         lblNombre.setText("Nombre:");
 
         lblDocumento.setText("Documento:");
+
+        fldFechaNac.setText("1990-12-31");
 
         lblFechaNac.setText("F. nacimiento:");
 
@@ -419,6 +422,7 @@ public class FormPaciente extends javax.swing.JFrame {
         jLabel2.setText("Observaciones (opcional):");
 
         areObservaciones.setColumns(20);
+        areObservaciones.setLineWrap(true);
         areObservaciones.setRows(1);
         areObservaciones.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -428,6 +432,7 @@ public class FormPaciente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(areObservaciones);
 
         areDetalles.setColumns(20);
+        areDetalles.setLineWrap(true);
         areDetalles.setRows(1);
         areDetalles.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -641,7 +646,7 @@ public class FormPaciente extends javax.swing.JFrame {
         formHistoria.setPaciente(paciente);
         formHistoria.cargarProximoId();
         formHistoria.cargarPaciente();
-        formHistoria.ocultarBtnGenerarPdf();
+        formHistoria.ocultarBotonesPdf();
         formHistoria.cargarFechaActual();
         formHistoria.cargarFechaProximoControl();
         formHistoria.seleccionarTipoParticular();

@@ -352,12 +352,12 @@ public class PDF {
         LinkedList<String> camposPaciente = new LinkedList<>();
         camposPaciente.add(String.valueOf(paciente.getCc()));
         camposPaciente.add(paciente.getNombre());
-        camposPaciente.add(String.valueOf(paciente.getEdad()));
+        camposPaciente.add(String.valueOf(new CtrlPaciente().consultarEdad(paciente.getCc())));
         camposPaciente.add(paciente.getFechanac());
         camposPaciente.add(paciente.getSexo());
-        camposPaciente.add(String.valueOf(paciente.getTel()));
+        camposPaciente.add(paciente.getTel());
         camposPaciente.add(paciente.getDirecc());
-        camposPaciente.add(String.valueOf(paciente.getCelular()));
+        camposPaciente.add(paciente.getCelular());
         camposPaciente.add(paciente.getEmail());
         camposPaciente.add(paciente.getOcup());
 

@@ -6,6 +6,7 @@
 package Vista;
 
 import Controlador.CtrlHistoria;
+import Controlador.CtrlPaciente;
 import Controlador.PDF;
 import Modelo.Historia;
 import Modelo.Paciente;
@@ -83,6 +84,8 @@ public class FormHistoria extends javax.swing.JFrame {
         fldDocumento = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         fldNombre = new javax.swing.JTextField();
+        fldEdad = new javax.swing.JTextField();
+        jLabel57 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -229,8 +232,14 @@ public class FormHistoria extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnGenerarPdf = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        btnPrescripcionFinal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -240,6 +249,8 @@ public class FormHistoria extends javax.swing.JFrame {
 
         jLabel1.setText("Nombre:");
 
+        jLabel57.setText("Edad:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -248,7 +259,7 @@ public class FormHistoria extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblHistoriaNum)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fldHistoria_Id)
+                .addComponent(fldHistoria_Id, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDocumento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -256,7 +267,11 @@ public class FormHistoria extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel57)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fldEdad, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -269,7 +284,9 @@ public class FormHistoria extends javax.swing.JFrame {
                     .addComponent(lblDocumento)
                     .addComponent(fldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(fldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fldEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel57))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -526,7 +543,24 @@ public class FormHistoria extends javax.swing.JFrame {
 
         jLabel14.setText("OI:");
 
+        fldRx_i.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fldRx_iActionPerformed(evt);
+            }
+        });
+        fldRx_i.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fldRx_iKeyPressed(evt);
+            }
+        });
+
         jLabel56.setText("ADD:");
+
+        fldRx_add.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                fldRx_addFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -787,6 +821,12 @@ public class FormHistoria extends javax.swing.JFrame {
         jLabel30.setText("OD:");
 
         jLabel31.setText("OI:");
+
+        fldRefr_i.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                fldRefr_iFocusGained(evt);
+            }
+        });
 
         jLabel32.setText("AV");
 
@@ -1060,6 +1100,12 @@ public class FormHistoria extends javax.swing.JFrame {
 
         jLabel49.setText("Test de Profundidad:");
 
+        fldTest_profund.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                fldTest_profundFocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
@@ -1090,6 +1136,12 @@ public class FormHistoria extends javax.swing.JFrame {
         jPanel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel50.setText("Diagnóstico:");
+
+        fldDiagnostico.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                fldDiagnosticoFocusGained(evt);
+            }
+        });
 
         jLabel51.setText("CODG RIPS:");
 
@@ -1311,6 +1363,13 @@ public class FormHistoria extends javax.swing.JFrame {
             }
         });
 
+        btnPrescripcionFinal.setText("Prescripción Final");
+        btnPrescripcionFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrescripcionFinalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1319,9 +1378,11 @@ public class FormHistoria extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 885, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPrescripcionFinal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGenerarPdf)
@@ -1340,7 +1401,8 @@ public class FormHistoria extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGenerarPdf)
-                    .addComponent(btnGuardar))
+                    .addComponent(btnGuardar)
+                    .addComponent(btnPrescripcionFinal))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -1480,12 +1542,48 @@ public class FormHistoria extends javax.swing.JFrame {
 
     private void jPanel3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel3KeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == evt.VK_TAB){
-            //jScrollPane3.getViewport().setViewPosition(new Point(0, 373));    
-            jScrollPane3.getViewport().setViewPosition(new Point(jScrollPane3.getViewport().getViewPosition().x, jScrollPane3.getViewport().getViewPosition().y+20));
-        }
-        
     }//GEN-LAST:event_jPanel3KeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyPressed
+
+    private void fldRx_iActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fldRx_iActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fldRx_iActionPerformed
+
+    private void fldRx_iKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fldRx_iKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fldRx_iKeyPressed
+
+    private void fldRx_addFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fldRx_addFocusGained
+        // TODO add your handling code here:
+        jScrollPane1.getViewport().setViewPosition(new Point(jScrollPane1.getViewport().getViewPosition().x, jScrollPane1.getViewport().getViewPosition().y+350));
+    }//GEN-LAST:event_fldRx_addFocusGained
+
+    private void fldRefr_iFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fldRefr_iFocusGained
+        // TODO add your handling code here:
+        jScrollPane1.getViewport().setViewPosition(new Point(jScrollPane1.getViewport().getViewPosition().x, jScrollPane1.getViewport().getViewPosition().y+350));
+    }//GEN-LAST:event_fldRefr_iFocusGained
+
+    private void fldTest_profundFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fldTest_profundFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fldTest_profundFocusGained
+
+    private void fldDiagnosticoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fldDiagnosticoFocusGained
+        // TODO add your handling code here:
+        jScrollPane1.getViewport().setViewPosition(new Point(jScrollPane1.getViewport().getViewPosition().x, jScrollPane1.getViewport().getViewPosition().y+350));
+    }//GEN-LAST:event_fldDiagnosticoFocusGained
+
+    private void btnPrescripcionFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescripcionFinalActionPerformed
+        // TODO add your handling code here:
+        FormPrescripcionFinal formPrescripcionFinal = new FormPrescripcionFinal();
+        formPrescripcionFinal.setVisible(true);
+        formPrescripcionFinal.setPaciente(paciente);
+        formPrescripcionFinal.setHistoria(historia);
+        formPrescripcionFinal.cargarDatos();
+        dispose();
+    }//GEN-LAST:event_btnPrescripcionFinalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1528,6 +1626,7 @@ public class FormHistoria extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGenerarPdf;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnPrescripcionFinal;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbCodg_rips;
     private javax.swing.JTextField fldAcomp;
@@ -1558,6 +1657,7 @@ public class FormHistoria extends javax.swing.JFrame {
     private javax.swing.JTextField fldDiagnostico;
     private javax.swing.JTextField fldDocumento;
     private javax.swing.JTextField fldDp;
+    private javax.swing.JTextField fldEdad;
     private javax.swing.JTextField fldFecha;
     private javax.swing.JTextField fldHistoria_Id;
     private javax.swing.JTextField fldNombre;
@@ -1644,6 +1744,7 @@ public class FormHistoria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1695,10 +1796,12 @@ public class FormHistoria extends javax.swing.JFrame {
     void cargarPaciente() {
         fldDocumento.setText(String.valueOf(paciente.getCc()));
         fldNombre.setText(paciente.getNombre());
+        fldEdad.setText(String.valueOf(new CtrlPaciente().consultarEdad(paciente.getCc())));
     }
 
-    void ocultarBtnGenerarPdf() {
+    void ocultarBotonesPdf() {
         btnGenerarPdf.setVisible(false);
+        btnPrescripcionFinal.setVisible(false);
     }
 
     void cargarHistoria(Historia historia) {

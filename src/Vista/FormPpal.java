@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Vista;
 
 import Controlador.Conn;
@@ -17,7 +16,7 @@ import java.util.LinkedList;
  * @author Felipe Erazo
  */
 public class FormPpal extends javax.swing.JFrame {
-    
+
     FormBackUp formBackUp;
     FormBuscador formBuscador;
     FormBuscador fb1;
@@ -46,12 +45,12 @@ public class FormPpal extends javax.swing.JFrame {
         cargarCumpleanos();
         cargarControlesHoy();
     }
-    
-    public void cargarCumpleanos()    {
-        pacientesCumpleanos=new CtrlPaciente().listarCumpleanos();        
+
+    public void cargarCumpleanos() {
+        pacientesCumpleanos = new CtrlPaciente().listarCumpleanos();
         lstVistaCumpleanos.removeAll();
         for (int i = 0; i < pacientesCumpleanos.size(); i++) {
-            lstVistaCumpleanos.add(pacientesCumpleanos.get(i).getNombre()+", "+pacientesCumpleanos.get(i).getEdad()+" años");            
+            lstVistaCumpleanos.add(pacientesCumpleanos.get(i).getNombre() + ", " + pacientesCumpleanos.get(i).getEdad() + " años");
         }
     }
 
@@ -60,9 +59,9 @@ public class FormPpal extends javax.swing.JFrame {
         lstVistaControlesHoy.removeAll();
         for (int i = 0; i < pacientesControl.size(); i++) {
             lstVistaControlesHoy.add(pacientesControl.get(i).getNombre());
-            
+
         }
-            //listaPacientes2.addLast(l.removeFirst());
+        //listaPacientes2.addLast(l.removeFirst());
 
     }
 
@@ -138,7 +137,19 @@ public class FormPpal extends javax.swing.JFrame {
 
         jLabel1.setText("Cumpleaños:");
 
+        lstVistaCumpleanos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lstVistaCumpleanosActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("Controles para hoy:");
+
+        lstVistaControlesHoy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lstVistaControlesHoyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,16 +216,18 @@ public class FormPpal extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        if(formBuscador != null)
+        if (formBuscador != null) {
             formBuscador.dispose();
+        }
         formBuscador = new FormBuscador();
         formBuscador.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
         // TODO add your handling code here:
-        if(formListado != null)
+        if (formListado != null) {
             formListado.dispose();
+        }
         formListado = new FormListado();
         formListado.cargarTodo();
         formListado.setVisible(true);
@@ -222,16 +235,18 @@ public class FormPpal extends javax.swing.JFrame {
 
     private void btnBackUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackUpActionPerformed
         // TODO add your handling code here:
-        if(formBackUp != null)
+        if (formBackUp != null) {
             formBackUp.dispose();
+        }
         formBackUp = new FormBackUp();
         formBackUp.setVisible(true);
     }//GEN-LAST:event_btnBackUpActionPerformed
 
     private void btnMiniControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiniControlActionPerformed
         // TODO add your handling code here:
-        if(fb2 != null)
+        if (fb2 != null) {
             fb2.dispose();
+        }
         fb2 = new FormBuscador();
         fb2.setEtiqueta("Busque el paciente para el nuevo mini control:");
         fb2.esNuevoMiniControl = true;
@@ -248,13 +263,32 @@ public class FormPpal extends javax.swing.JFrame {
 
     private void btnHistoriaClinicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoriaClinicaActionPerformed
         // TODO add your handling code here:
-        if(fb1 != null)
+        if (fb1 != null) {
             fb1.dispose();
+        }
         fb1 = new FormBuscador();
         fb1.setEtiqueta("Busque el paciente para la nueva historia cl\355nica:");
         fb1.esNuevaHistoria = true;
         fb1.setVisible(true);
     }//GEN-LAST:event_btnHistoriaClinicaActionPerformed
+
+    private void lstVistaCumpleanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstVistaCumpleanosActionPerformed
+        // TODO add your handling code here:
+        FormPaciente formPaciente = new FormPaciente();
+        formPaciente.cargarPaciente(pacientesCumpleanos.get(lstVistaCumpleanos.getSelectedIndex()));
+        formPaciente.cargarHistorias();
+        formPaciente.cargarMiniControles();
+        formPaciente.setVisible(true);
+    }//GEN-LAST:event_lstVistaCumpleanosActionPerformed
+
+    private void lstVistaControlesHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstVistaControlesHoyActionPerformed
+        // TODO add your handling code here:
+        FormPaciente formPaciente = new FormPaciente();
+        formPaciente.cargarPaciente(pacientesControl.get(lstVistaControlesHoy.getSelectedIndex()));
+        formPaciente.cargarHistorias();
+        formPaciente.cargarMiniControles();
+        formPaciente.setVisible(true);
+    }//GEN-LAST:event_lstVistaControlesHoyActionPerformed
 
     /**
      * @param args the command line arguments

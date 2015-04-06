@@ -12,6 +12,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="formKeyPressed"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -31,9 +34,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel1" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" alignment="1" pref="916" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" pref="885" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnPrescripcionFinal" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnGenerarPdf" min="-2" max="-2" attributes="0"/>
@@ -57,6 +62,7 @@
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnGenerarPdf" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPrescripcionFinal" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
@@ -80,7 +86,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblHistoriaNum" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="fldHistoria_Id" max="32767" attributes="0"/>
+                  <Component id="fldHistoria_Id" pref="80" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblDocumento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -88,7 +94,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="fldNombre" min="-2" pref="496" max="-2" attributes="0"/>
+                  <Component id="fldNombre" min="-2" pref="351" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jLabel57" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="fldEdad" pref="80" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -104,6 +114,8 @@
                       <Component id="fldDocumento" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="fldNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fldEdad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel57" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -131,6 +143,13 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="fldNombre">
+        </Component>
+        <Component class="javax.swing.JTextField" name="fldEdad">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel57">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Edad:"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -728,6 +747,10 @@
                 <Component class="javax.swing.JTextField" name="fldRx_d">
                 </Component>
                 <Component class="javax.swing.JTextField" name="fldRx_i">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fldRx_iActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="fldRx_iKeyPressed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel56">
                   <Properties>
@@ -735,6 +758,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="fldRx_add">
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="fldRx_addFocusGained"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1179,6 +1205,9 @@
                 <Component class="javax.swing.JTextField" name="fldRefr_d">
                 </Component>
                 <Component class="javax.swing.JTextField" name="fldRefr_i">
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="fldRefr_iFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel32">
                   <Properties>
@@ -1626,6 +1655,9 @@
                 <Component class="javax.swing.JTextField" name="fldTest_color">
                 </Component>
                 <Component class="javax.swing.JTextField" name="fldTest_profund">
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="fldTest_profundFocusGained"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1684,6 +1716,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="fldDiagnostico">
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="fldDiagnosticoFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel51">
                   <Properties>
@@ -1874,6 +1909,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPrescripcionFinal">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Prescripci&#xf3;n Final"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrescripcionFinalActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

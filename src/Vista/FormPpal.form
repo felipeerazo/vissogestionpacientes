@@ -157,6 +157,9 @@
       </Properties>
     </Component>
     <Component class="java.awt.List" name="lstVistaCumpleanos">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lstVistaCumpleanosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -164,6 +167,9 @@
       </Properties>
     </Component>
     <Component class="java.awt.List" name="lstVistaControlesHoy">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lstVistaControlesHoyActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -122,11 +122,16 @@ public class FormBuscador extends javax.swing.JFrame {
         formListado.setEsNuevaHistoria(esNuevaHistoria);
         formListado.setEsNuevoMiniControl(esNuevoMiniControl);
         if (jRadioButton1.isSelected()) {
-            //lista = (new Conn()).reporteSQL((new StringBuilder()).append("select cc, nombre from pacientes where cc=").append(jTextField1.getText()).toString());
+            //buscar por cc
             lista= new CtrlPaciente().listar("cc", fldCampoBusqueda.getText());
             FormPaciente fp = new FormPaciente();
+            if(lista.isEmpty()){
+                JOptionPane.showMessageDialog(btnBuscar,"No se encontraron resultados.");
+                return;
+            }
             fp.cargarPaciente(lista.getFirst());
             fp.cargarHistorias();
+            fp.cargarMiniControles();
             fp.setVisible(true);
             dispose();
             return;
@@ -138,7 +143,7 @@ public class FormBuscador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
         if (lista.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay resultados para esta b\372squeda.", "Resultado de la b\372squeda", 0);
+            JOptionPane.showMessageDialog(btnBuscar,"No se encontraron resultados.");
         } else {
             formListado.cargarPacientes(lista);
             formListado.setVisible(true);

@@ -211,8 +211,9 @@ public class FormBackUp extends javax.swing.JFrame {
         BufferedReader br = new BufferedReader(fr);
         String linea;
         try {
+            br.readLine();
             while ((linea = br.readLine()) != null) {
-                salida = (new StringBuilder()).append(salida).append(linea).append("\n").toString();
+                salida = salida+linea+"\n";
             }
             if (null != fr) {
                 fr.close();

@@ -16,9 +16,9 @@ public class Paciente {
     private int edad;
     private String fechanac;
     private String sexo;
-    private int tel;
+    private String tel;
     private String direcc;
-    private Long celular;
+    private String celular;
     private String email;
     private String ocup;
     private String observ;
@@ -101,14 +101,14 @@ public class Paciente {
     /**
      * @return the tel
      */
-    public int getTel() {
+    public String getTel() {
         return tel;
     }
 
     /**
      * @param tel the tel to set
      */
-    public void setTel(int tel) {
+    public void setTel(String tel) {
         this.tel = tel;
     }
 
@@ -129,14 +129,14 @@ public class Paciente {
     /**
      * @return the celular
      */
-    public Long getCelular() {
+    public String getCelular() {
         return celular;
     }
 
     /**
      * @param celular the celular to set
      */
-    public void setCelular(Long celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 

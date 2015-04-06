@@ -81,6 +81,7 @@ public class FormMiniControl extends javax.swing.JFrame {
         lblObservaciones.setText("Observaciones:");
 
         areObservaciones.setColumns(20);
+        areObservaciones.setLineWrap(true);
         areObservaciones.setRows(5);
         jScrollPane1.setViewportView(areObservaciones);
 

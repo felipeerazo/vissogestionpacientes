@@ -24,7 +24,7 @@ public class Conn implements Serializable {
         conn = null;
         st = null;
         driver = "org.postgresql.Driver";
-        url = "jdbc:postgresql://localhost:5432/v6.1";
+        url = "jdbc:postgresql://localhost:5432/v6";
         userDB = "postgres";
         passDB = "admin";
         conectar();

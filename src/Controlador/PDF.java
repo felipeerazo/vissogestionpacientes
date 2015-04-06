@@ -6,6 +6,7 @@ package Controlador;
 
 import Modelo.Historia;
 import Modelo.Paciente;
+import Modelo.PrescripcionFinal;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -27,8 +28,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-// Referenced classes of package Controlador:
-//            Conn
 public class PDF {
 
     public PDF() {
@@ -425,8 +424,29 @@ public class PDF {
         try {
             generar(camposPaciente, camposHistoria);
         } catch (Exception ex) {
-            System.out.println("Excepción método PDF.generar: "+ex);
+            System.out.println("Excepción método PDF.generar: " + ex);
         }
+    }
+
+    public void generarPdfPrescripcionFinal(Paciente paciente, PrescripcionFinal prescripcionFinal) {
+        // Este codigo genera una tabla de n columnas
+        PdfPTable table = new PdfPTable(6);
+         // addCell() agrega una celda a la tabla, el cambio de fila
+        // ocurre automaticamente al llenar la fila
+        table.addCell("");
+        table.addCell("");
+        table.addCell("Esfera");
+        table.addCell("Cilindro");
+        table.addCell("Eje");
+        table.addCell("AV VL");
+        //fila de lejos
+        table.addCell("Lejos");
+        table.addCell("OD");
+        table.addCell("");
+        table.addCell("");
+        table.addCell("");
+        table.addCell("");
+
     }
 
 }

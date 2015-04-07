@@ -7,6 +7,7 @@ package Controlador;
 import Modelo.Historia;
 import Modelo.Paciente;
 import Modelo.PrescripcionFinal;
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -22,6 +23,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JFileChooser;
@@ -428,25 +430,133 @@ public class PDF {
         }
     }
 
-    public void generarPdfPrescripcionFinal(Paciente paciente, PrescripcionFinal prescripcionFinal) {
-        // Este codigo genera una tabla de n columnas
+    /**
+     * para crar la tabla de prescripcion final en PDF
+     *
+     * @param paciente
+     * @param prescripcionFinal
+     * @throws FileNotFoundException
+     * @throws DocumentException
+     */
+    public void generarPdfPrescripcionFinal(Paciente paciente, PrescripcionFinal prescripcionFinal) throws FileNotFoundException, DocumentException, BadElementException, IOException {
+// Este codigo genera una tabla de n columnas
         PdfPTable table = new PdfPTable(6);
-         // addCell() agrega una celda a la tabla, el cambio de fila
-        // ocurre automaticamente al llenar la fila
+        PdfPCell cell;
+        /**
+         * fila encabezado
+         */
+        //agrega una celda a la tabla, el cambio de fila.
+        //El cambio de fila ocurre automáticamente.
         table.addCell("");
         table.addCell("");
-        table.addCell("Esfera");
-        table.addCell("Cilindro");
-        table.addCell("Eje");
-        table.addCell("AV VL");
-        //fila de lejos
-        table.addCell("Lejos");
-        table.addCell("OD");
+        table.addCell(crearCeldaEncabezado("ESFERA"));
+        table.addCell(crearCeldaEncabezado("CILINDRO"));
+        table.addCell(crearCeldaEncabezado("EJE"));
+        table.addCell(crearCeldaEncabezado("AV VL"));
+        /**
+         * fila de lejos
+         */
+        //fila de lejos D
+        cell = crearCeldaEncabezado("LEJOS");
+        cell.setRowspan(2);//para que la celda ocupe el espacio de dos filas
+        table.addCell(cell);
+        table.addCell(crearCeldaEncabezado("OD"));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getLejosEsferaD()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getLejosCilindroD()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getLejosEjeD()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getAvVlD()));
+        //fila de lejos I        
+        table.addCell(crearCeldaEncabezado("OI"));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getLejosEsferaI()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getLejosCilindroI()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getLejosEjeI()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getAvVlI()));
+        /**
+         * fila de cerCa
+         */
+        //fila de cerca D
+        cell = crearCeldaEncabezado("CERCA");
+        cell.setRowspan(2);//para que la celda ocupe el espacio de dos filas
+        table.addCell(cell);
+        table.addCell(crearCeldaEncabezado("OD"));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getCercaEsferaD()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getCercaCilindroD()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getCercaEjeD()));
         table.addCell("");
+        //fila de cerca I        
+        table.addCell(crearCeldaEncabezado("OI"));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getCercaEsferaI()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getCercaCilindroI()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getCercaEjeI()));
+        table.addCell(crearCeldaEncabezado("AV VP"));
+        /**
+         * fila de adicion
+         */
+        //fila de cerca D
+        cell = crearCeldaEncabezado("ADD");
+        cell.setRowspan(2);//para que la celda ocupe el espacio de dos filas
+        table.addCell(cell);
+        table.addCell(crearCeldaEncabezado("OD"));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getAdicionEsferaD()));
         table.addCell("");
+        table.addCell(crearCeldaEncabezado("DP"));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getAvVpD()));
+        //fila de cerca I
+        table.addCell(crearCeldaEncabezado("OI"));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getAdicionEsferaI()));
         table.addCell("");
-        table.addCell("");
+        table.addCell(crearCeldaContenido(prescripcionFinal.getDp()));
+        table.addCell(crearCeldaContenido(prescripcionFinal.getAvVpI()));
+        //abrir filechooser
+        Document documento = new Document(PageSize.LETTER);
+        colocarDestino();
+        if (ruta_destino != null) {
+            PdfWriter.getInstance(documento, new FileOutputStream(ruta_destino + ".pdf"));
+        } else {
+            return;
+        }
+        try {
+            documento.open();
+            //Logo de Visso
+            Image imagen = Image.getInstance(getClass().getResource("/Vista/Imagenes/visso4.jpg"));
+            imagen.setAlignment(4);
+            documento.add(imagen);
+            //Fecha
+            Paragraph fecha= new Paragraph(prescripcionFinal.getFecha());
+            fecha.setAlignment(fecha.ALIGN_RIGHT);
+            documento.add(fecha);
+            //Paciente
+            Paragraph paraPaciente= new Paragraph(paciente.getNombre()+"\nDocumento: "+paciente.getCc());
+            fecha.setAlignment(fecha.ALIGN_LEFT);
+            documento.add(paraPaciente);
 
+            documento.add(table);
+            documento.close();
+        } catch (Exception ex) {
+            System.out.println("Excepción método PDF.generarPdfPrescripcionFinal = " + ex.getMessage());
+        }
+    }
+
+    private PdfPCell crearCeldaEncabezado(String s) {
+        PdfPCell cell = new PdfPCell(new Phrase(s,
+                FontFactory.getFont("arial", // fuente
+                        10, // tamaño
+                        Font.BOLD, // estilo
+                        BaseColor.BLACK)));//color
+        cell.setHorizontalAlignment(cell.ALIGN_CENTER);
+        cell.setVerticalAlignment(cell.ALIGN_MIDDLE);
+        return cell;
+    }
+
+    private PdfPCell crearCeldaContenido(String s) {
+        PdfPCell cell = new PdfPCell(new Phrase(s,
+                FontFactory.getFont("arial", // fuente
+                        9, // tamaño
+                        Font.NORMAL, // estilo
+                        BaseColor.BLACK)));//color
+        cell.setHorizontalAlignment(cell.ALIGN_CENTER);
+        cell.setVerticalAlignment(cell.ALIGN_MIDDLE);
+        return cell;
     }
 
 }

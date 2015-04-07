@@ -9,8 +9,13 @@ import Controlador.PDF;
 import Modelo.Historia;
 import Modelo.Paciente;
 import Modelo.PrescripcionFinal;
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -430,7 +435,11 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
     prescripcionFinal.setControl(fldControl.getText());
     prescripcionFinal.setFecha(obtenerFechaActual());
     
-    new PDF().generarPdfPrescripcionFinal(paciente, prescripcionFinal);
+        try {
+            new PDF().generarPdfPrescripcionFinal(paciente, prescripcionFinal);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(btnGenerarPDF,"Ha ocurrido un error al generar PDF:\n"+ex.getMessage());
+        }
     }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

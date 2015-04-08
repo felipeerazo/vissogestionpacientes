@@ -17,6 +17,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -439,6 +440,24 @@ public class PDF {
      * @throws DocumentException
      */
     public void generarPdfPrescripcionFinal(Paciente paciente, PrescripcionFinal prescripcionFinal) throws FileNotFoundException, DocumentException, BadElementException, IOException {
+        //tabla para el encabezado
+        PdfPTable encabezado = new PdfPTable(3);
+        encabezado.getDefaultCell().setBorder(0);
+//Logo de Visso
+        Image imagen = Image.getInstance(getClass().getResource("/Vista/Imagenes/visso4.jpg"));
+        imagen.setAlignment(4);
+        encabezado.addCell(imagen);
+        encabezado.addCell("");
+        //Fecha
+//        Paragraph fecha = new Paragraph(prescripcionFinal.getFecha());        
+        encabezado.addCell(crearCeldaContenido(prescripcionFinal.getFecha()));
+        //Paciente
+        Paragraph paraNombrePaciente = new Paragraph("Paciente: "+paciente.getNombre());
+        PdfPCell celdaNombrePaciente= new PdfPCell(paraNombrePaciente);
+        celdaNombrePaciente.setColspan(2);
+        celdaNombrePaciente.setBorder(0);
+        encabezado.addCell(celdaNombrePaciente);
+        encabezado.addCell("Documento: " + paciente.getCc());
 // Este codigo genera una tabla de n columnas
         PdfPTable table = new PdfPTable(6);
         PdfPCell cell;
@@ -517,19 +536,7 @@ public class PDF {
         }
         try {
             documento.open();
-            //Logo de Visso
-            Image imagen = Image.getInstance(getClass().getResource("/Vista/Imagenes/visso4.jpg"));
-            imagen.setAlignment(4);
-            documento.add(imagen);
-            //Fecha
-            Paragraph fecha= new Paragraph(prescripcionFinal.getFecha());
-            fecha.setAlignment(fecha.ALIGN_RIGHT);
-            documento.add(fecha);
-            //Paciente
-            Paragraph paraPaciente= new Paragraph(paciente.getNombre()+"\nDocumento: "+paciente.getCc());
-            fecha.setAlignment(fecha.ALIGN_LEFT);
-            documento.add(paraPaciente);
-
+            documento.add(encabezado);
             documento.add(table);
             documento.close();
         } catch (Exception ex) {
@@ -557,6 +564,21 @@ public class PDF {
         cell.setHorizontalAlignment(cell.ALIGN_CENTER);
         cell.setVerticalAlignment(cell.ALIGN_MIDDLE);
         return cell;
+    }
+    
+    /**
+     * para cambiar la primera letra de cada palabra en mayúsculas
+     * @param s
+     * @return 
+     */
+    private String getNombreTitulo(String s){
+        String[] vec=s.split(" ");
+        String res="";
+        for (int i = 0; i < vec.length; i++) {
+            vec[i].replaceFirst(String.valueOf(vec[i].charAt(0)), String.valueOf(vec[i].charAt(0)).toUpperCase());
+            res=res+" "+vec[i];
+        }
+        return res;
     }
 
 }

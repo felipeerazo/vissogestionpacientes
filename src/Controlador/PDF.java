@@ -445,15 +445,17 @@ public class PDF {
         encabezado.getDefaultCell().setBorder(0);
 //Logo de Visso
         Image imagen = Image.getInstance(getClass().getResource("/Vista/Imagenes/visso4.jpg"));
-        imagen.setAlignment(4);
         encabezado.addCell(imagen);
-        encabezado.addCell("");
-        //Fecha
-//        Paragraph fecha = new Paragraph(prescripcionFinal.getFecha());        
-        encabezado.addCell(crearCeldaContenido(prescripcionFinal.getFecha()));
+        encabezado.addCell("Kra 22 #26-23\nTel 8721013\nManizales");
+        //Fecha        
+        Paragraph fecha = new Paragraph(prescripcionFinal.getFecha(), FontFactory.getFont("arial", 9));
+        PdfPCell celdaFecha = new PdfPCell(fecha);
+        celdaFecha.setHorizontalAlignment(2);
+        celdaFecha.setBorder(0);
+        encabezado.addCell(celdaFecha);
         //Paciente
-        Paragraph paraNombrePaciente = new Paragraph("Paciente: "+paciente.getNombre());
-        PdfPCell celdaNombrePaciente= new PdfPCell(paraNombrePaciente);
+        Paragraph paraNombrePaciente = new Paragraph("Paciente: " + paciente.getNombre() + "\n\n", FontFactory.getFont("arial", 10));
+        PdfPCell celdaNombrePaciente = new PdfPCell(paraNombrePaciente);
         celdaNombrePaciente.setColspan(2);
         celdaNombrePaciente.setBorder(0);
         encabezado.addCell(celdaNombrePaciente);
@@ -526,6 +528,34 @@ public class PDF {
         table.addCell("");
         table.addCell(crearCeldaContenido(prescripcionFinal.getDp()));
         table.addCell(crearCeldaContenido(prescripcionFinal.getAvVpI()));
+        //observacioens y control
+        Paragraph obervControl = new Paragraph("\nObserv.: " + prescripcionFinal.getObserv()
+                + "\nControl: " + prescripcionFinal.getControl(), FontFactory.getFont("arial", 10));
+        PdfPCell celdaObserControl = new PdfPCell(obervControl);
+        celdaObserControl.setColspan(6);
+        celdaObserControl.setBorder(0);
+        table.addCell(celdaObserControl);
+        //fila para el nombre y firma de SANDRA
+        Paragraph nombreOptometra = new Paragraph("\nSANDRA LILIANA GUERRERO BETANCURT"
+                + "\nESP. OPTOMETRÍA   RM: 2661", FontFactory.getFont("arial", 9));
+        PdfPCell celdaNombreFirma = new PdfPCell(nombreOptometra);
+        celdaNombreFirma.setColspan(4);
+        celdaNombreFirma.setBorder(0);
+        table.addCell(celdaNombreFirma);
+        Image imagenFirma = Image.getInstance(getClass().getResource("/Vista/Imagenes/firma.jpg"));
+        PdfPCell celdaImagenFirma = new PdfPCell(imagenFirma);
+        celdaImagenFirma.setBorder(0);
+        celdaImagenFirma.setColspan(2);
+        table.addCell(celdaImagenFirma);
+//        table.getDefaultCell().setBorder(0);
+//        table.addCell("");
+//        table.addCell("");
+//        table.addCell("");
+//        table.addCell("");
+//        PdfPCell celdaFin = crearCeldaContenido("Firma");
+//        celdaFin.setColspan(2);
+//        celdaFin.setBorder(1);
+//        table.addCell(celdaFin);
         //abrir filechooser
         Document documento = new Document(PageSize.LETTER);
         colocarDestino();
@@ -550,8 +580,8 @@ public class PDF {
                         10, // tamaño
                         Font.BOLD, // estilo
                         BaseColor.BLACK)));//color
-        cell.setHorizontalAlignment(cell.ALIGN_CENTER);
-        cell.setVerticalAlignment(cell.ALIGN_MIDDLE);
+        cell.setHorizontalAlignment(1);
+        cell.setVerticalAlignment(5);
         return cell;
     }
 
@@ -561,22 +591,23 @@ public class PDF {
                         9, // tamaño
                         Font.NORMAL, // estilo
                         BaseColor.BLACK)));//color
-        cell.setHorizontalAlignment(cell.ALIGN_CENTER);
-        cell.setVerticalAlignment(cell.ALIGN_MIDDLE);
+        cell.setHorizontalAlignment(1);
+        cell.setVerticalAlignment(5);
         return cell;
     }
-    
+
     /**
      * para cambiar la primera letra de cada palabra en mayúsculas
+     *
      * @param s
-     * @return 
+     * @return
      */
-    private String getNombreTitulo(String s){
-        String[] vec=s.split(" ");
-        String res="";
+    private String getNombreTitulo(String s) {
+        String[] vec = s.split(" ");
+        String res = "";
         for (int i = 0; i < vec.length; i++) {
             vec[i].replaceFirst(String.valueOf(vec[i].charAt(0)), String.valueOf(vec[i].charAt(0)).toUpperCase());
-            res=res+" "+vec[i];
+            res = res + " " + vec[i];
         }
         return res;
     }

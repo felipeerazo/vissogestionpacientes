@@ -263,6 +263,7 @@ public class FormPaciente extends javax.swing.JFrame {
         btnNuevoControl = new javax.swing.JButton();
         btnNuevaHistoria = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        bntRemision = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -555,6 +556,8 @@ public class FormPaciente extends javax.swing.JFrame {
             }
         });
 
+        bntRemision.setText("Remisión");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -563,6 +566,8 @@ public class FormPaciente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(bntRemision)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnGuardarCrearHistoria)
@@ -593,7 +598,8 @@ public class FormPaciente extends javax.swing.JFrame {
                     .addComponent(btnCancelar)
                     .addComponent(btnSoloGuardar)
                     .addComponent(btnGuardarCrearHistoria)
-                    .addComponent(btnEditar))
+                    .addComponent(btnEditar)
+                    .addComponent(bntRemision))
                 .addContainerGap())
         );
 
@@ -721,6 +727,7 @@ public class FormPaciente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea areDetalles;
     private javax.swing.JTextArea areObservaciones;
+    private javax.swing.JButton bntRemision;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardarCrearHistoria;

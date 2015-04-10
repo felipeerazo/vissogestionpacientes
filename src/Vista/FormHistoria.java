@@ -36,7 +36,6 @@ public class FormHistoria extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Historia cl\355nica");
-        btnGenerarPdf.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif")));
         cargarListaCodG();
         fldHistoria_Id.setEditable(false);
         fldDocumento.setEditable(false);
@@ -1349,6 +1348,7 @@ public class FormHistoria extends javax.swing.JFrame {
             }
         });
 
+        btnGenerarPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif"))); // NOI18N
         btnGenerarPdf.setText("Generar PDF");
         btnGenerarPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1403,8 +1403,10 @@ public class FormHistoria extends javax.swing.JFrame {
                     .addComponent(btnGenerarPdf)
                     .addComponent(btnGuardar)
                     .addComponent(btnPrescripcionFinal))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancelar, btnGenerarPdf, btnGuardar, btnPrescripcionFinal});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

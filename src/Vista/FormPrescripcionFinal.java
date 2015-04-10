@@ -9,12 +9,7 @@ import Controlador.PDF;
 import Modelo.Historia;
 import Modelo.Paciente;
 import Modelo.PrescripcionFinal;
-import com.itextpdf.text.DocumentException;
-import java.io.IOException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,7 +29,6 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Prescripción Final");
-        btnGenerarPDF.setIcon(new ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif")));
     }
 
     /**
@@ -102,6 +96,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
 
         jLabel1.setText("Paciente:");
 
+        btnGenerarPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif"))); // NOI18N
         btnGenerarPDF.setText("Generar PDF");
         btnGenerarPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -337,6 +332,11 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         areObserv.setColumns(20);
         areObserv.setLineWrap(true);
         areObserv.setRows(1);
+        areObserv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                areObservKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(areObserv);
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -411,6 +411,8 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancelar, btnGenerarPDF});
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -455,6 +457,16 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void areObservKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areObservKeyPressed
+        // TODO add your handling code here:
+        //para evitar que se guarden \r
+        // y se pase al siguiente elemento de la interfaz
+        if (evt.getKeyCode() == evt.VK_TAB){
+            fldControl.requestFocus();
+            evt.consume();
+        }
+    }//GEN-LAST:event_areObservKeyPressed
 
     /**
      * @param args the command line arguments

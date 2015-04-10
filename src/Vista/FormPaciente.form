@@ -31,6 +31,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
+                      <Component id="bntRemision" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnGuardarCrearHistoria" min="-2" max="-2" attributes="0"/>
@@ -67,6 +69,7 @@
                   <Component id="btnSoloGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnGuardarCrearHistoria" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEditar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bntRemision" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -524,6 +527,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bntRemision">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Remisi&#xf3;n"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

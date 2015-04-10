@@ -59,12 +59,12 @@
               <Component id="jScrollPane1" min="-2" pref="419" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnGenerarPdf" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnPrescripcionFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelar" linkSize="10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnGenerarPdf" linkSize="10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnGuardar" linkSize="10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPrescripcionFinal" linkSize="10" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -1897,6 +1897,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnGenerarPdf">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Vista/Imagenes/pdf icon2.gif"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Generar PDF"/>
       </Properties>
       <Events>

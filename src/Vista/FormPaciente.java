@@ -557,6 +557,11 @@ public class FormPaciente extends javax.swing.JFrame {
         });
 
         bntRemision.setText("Remisión");
+        bntRemision.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntRemisionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -689,6 +694,14 @@ public class FormPaciente extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_areDetallesKeyPressed
+
+    private void bntRemisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRemisionActionPerformed
+        // TODO add your handling code here:
+        FormRemision formRemision = new FormRemision();
+        formRemision.cargarPaciente(paciente);
+        formRemision.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_bntRemisionActionPerformed
 
     /**
      * @param args the command line arguments

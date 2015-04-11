@@ -7,10 +7,13 @@ package Controlador;
 import Modelo.Historia;
 import Modelo.Paciente;
 import Modelo.PrescripcionFinal;
+import Modelo.Remision;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
@@ -18,8 +21,12 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
+import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -593,6 +600,8 @@ public class PDF {
                         BaseColor.BLACK)));//color
         cell.setHorizontalAlignment(1);
         cell.setVerticalAlignment(5);
+        cell.setPaddingTop(4);
+        cell.setPaddingBottom(4);
         return cell;
     }
 
@@ -612,4 +621,141 @@ public class PDF {
         return res;
     }
 
+    public void generarPdfRemision(Remision remision) throws BadElementException, IOException, DocumentException {
+        //esta tabla tendrá todo el contenido
+        PdfPTable table = new PdfPTable(3);
+        table.getDefaultCell().setBorder(0);
+        PdfPCell cell = null;
+        /**
+         * encabezado
+         */
+        //Logo de Visso
+        Image imagen = Image.getInstance(getClass().getResource("/Vista/Imagenes/visso4.jpg"));
+        table.addCell(imagen);
+        Chunk chunk1 = new Chunk("CONTRASTE VISUAL\n", FontFactory.getFont("arial", // fuente
+                10, // tamaño
+                Font.NORMAL, // estilo
+                BaseColor.BLACK));//color)
+        Chunk chunk2 = new Chunk("MANIZALES\n", FontFactory.getFont("arial", // fuente
+                9, // tamaño
+                Font.NORMAL, // estilo
+                BaseColor.BLACK));//color)
+        Chunk chunk3 = new Chunk("NIT: 900.516.459-7", FontFactory.getFont("arial", // fuente
+                10, // tamaño
+                Font.NORMAL, // estilo
+                BaseColor.BLACK));//color)
+        Paragraph contraste = new Paragraph(chunk1);
+        contraste.add(chunk2);
+        contraste.add(chunk3);
+        cell = new PdfPCell(contraste);
+        cell.setColspan(2);
+        cell.setBorder(0);
+        cell.setHorizontalAlignment(2);
+        cell.setVerticalAlignment(6);
+        table.addCell(cell);
+        //agregar el nombre del optometra
+        chunk1 = new Chunk("\nSANDRA GUERRERO BETANCURT", FontFactory.getFont("arial", // fuente
+                12, // tamaño
+                Font.NORMAL, // estilo
+                BaseColor.BLACK));//color
+        chunk2 = new Chunk("\nOPTÓMETRA - DIRECTORA CIENTÍFICA\nREGISTRO No. 2661\n", FontFactory.getFont("arial", // fuente
+                10, // tamaño
+                Font.NORMAL, // estilo
+                BaseColor.BLACK));//color
+        Paragraph infoOptometra = new Paragraph(chunk1);
+        infoOptometra.add(chunk2);
+        cell = new PdfPCell(infoOptometra);
+        cell.setColspan(3);
+        cell.setBorder(0);
+        cell.setHorizontalAlignment(2);
+        cell.setVerticalAlignment(5);
+        table.addCell(cell);
+        /**
+         * cuerpo
+         */
+        //fecha
+        cell.setHorizontalAlignment(0);
+        cell.setPaddingTop(10);
+        cell.setPhrase(new Paragraph("Fecha: " + remision.getFecha()));
+        table.addCell(cell);
+        cell.setPhrase(new Paragraph("Paciente: " + remision.getNombre()));
+        table.addCell(cell);
+        cell.setPhrase(new Paragraph("Identificación: " + remision.getCc()));
+        table.addCell(cell);
+        cell.setPhrase(new Paragraph("R/.: " + remision.getR()));
+        table.addCell(cell);
+        //firma digitalizada
+        Image firma = Image.getInstance(getClass().getResource("/Vista/Imagenes/firma.jpg"));
+        cell.setColspan(2);
+        cell.setPhrase(new Phrase(""));
+        table.addCell(cell);
+        cell.setColspan(1);
+        cell.setImage(firma);
+        table.addCell(cell);
+        cell.setColspan(3);
+        cell.setBorder(1);
+        cell.setPaddingTop(5);
+        cell.setPhrase(new Paragraph("Kra 22 No. 26-23 - Tel (6) 872 10 13 - (311) 355 63 01 - (312) 223 93 55"
+                + "\nwww.visso.com.co - vissomanizales@hotmail.com", FontFactory.getFont("arial", // fuente
+                        10, // tamaño
+                        Font.NORMAL, // estilo
+                        BaseColor.BLACK))//color
+        );
+        cell.setHorizontalAlignment(1);
+        table.addCell(cell);
+        //abrir filechooser
+        Document documento = new Document(PageSize.A5, -10,-10,10,0);
+        colocarDestino();
+        if (ruta_destino != null) {
+            PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta_destino + ".pdf"));
+//            PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta_destino + ".pdf"));
+//            Rectangle rct = new Rectangle(36, 54, 559, 788);
+//            //Definimos un nombre y un tamaño para el PageBox los nombres posibles son: “crop”, “trim”, “art” and “bleed”.
+//            writer.setBoxSize("art", rct);
+//            HeaderFooter event = new HeaderFooter();
+//            writer.setPageEvent(event);
+        } else {
+            return;
+        }
+        try {
+            documento.open();
+            documento.add(table);
+            documento.close();
+        } catch (Exception ex) {
+            System.out.println("Excepción método PDF.generarPdfRemision = " + ex.getMessage());
+        }
+
+//        //Fecha        
+//        Paragraph fecha = new Paragraph(prescripcionFinal.getFecha(), FontFactory.getFont("arial", 9));
+//        PdfPCell celdaFecha = new PdfPCell(fecha);
+//        celdaFecha.setHorizontalAlignment(2);
+//        celdaFecha.setBorder(0);
+//        encabezado.addCell(celdaFecha);
+//        //Paciente
+//        Paragraph paraNombrePaciente = new Paragraph("Paciente: " + paciente.getNombre() + "\n\n", FontFactory.getFont("arial", 10));
+    }
+
+//    static class HeaderFooter extends PdfPageEventHelper {
+//
+//        public void onEndPage (PdfWriter writer, Document document) {
+//            Rectangle rect = writer.getBoxSize("art");
+//            //Aquí definimos el encabezado de nuestro documento PDF
+////            ColumnText.showTextAligned(writer.getDirectContent(),
+////                    Element.ALIGN_RIGHT, new Phrase("Roberto León Encabezado"),
+////                    rect.getRight(), rect.getTop(), 0);
+//            //Aquí definimos el pie de página de nuestro document PDF            
+//            PdfPTable table= new PdfPTable(1);
+//            PdfPCell cell = new PdfPCell(new Phrase("Carrera 22 No. 26-23 - Teléfonos (6) 872 10 13 - (311) 355 63 01 - (312) 223 93 55"
+//                    + "\nwww.visso.com.co - vissomanizales@hotmail.com", null));
+//            Phrase phrase = new Phrase("Carrera 22 No. 26-23 - Teléfonos (6) 872 10 13 - (311) 355 63 01 - (312) 223 93 55"
+//                    + "\nwww.visso.com.co - vissomanizales@hotmail.com", null);
+//            PdfContentByte cbhead = writer.getDirectContent();
+//                PdfTemplate tp = cbhead.createTemplate(500, 250); //el área destinada para el encabezado
+//                tp.add(imghead);
+//                
+//            ColumnText.showTextAligned(writer.getDirectContent(),
+//                    Element.ALIGN_CENTER, new Phrase(String.format("page %d otra cosa", writer.getPageNumber())),
+//                    (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
+//        }
+//    }
 }

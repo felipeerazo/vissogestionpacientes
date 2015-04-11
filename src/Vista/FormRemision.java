@@ -5,11 +5,22 @@
  */
 package Vista;
 
+import Controlador.PDF;
+import Modelo.Paciente;
+import Modelo.Remision;
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Felipe
  */
 public class FormRemision extends javax.swing.JFrame {
+    private Paciente paciente;
 
     /**
      * Creates new form FormRemision
@@ -19,6 +30,10 @@ public class FormRemision extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Remisión");
+        Date utilDate = new Date();
+        long lnMilisegundos = utilDate.getTime();
+        java.sql.Date sqlDate = new java.sql.Date(lnMilisegundos);
+        fldFecha.setText(sqlDate.toString());
     }
 
     /**
@@ -31,14 +46,14 @@ public class FormRemision extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        fldFecha = new javax.swing.JTextField();
+        fldNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        fldCc = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        areR = new javax.swing.JTextArea();
         btnCancelar = new javax.swing.JButton();
         btnGenerarPDF = new javax.swing.JButton();
 
@@ -56,20 +71,25 @@ public class FormRemision extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("R/.");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+        areR.setColumns(20);
+        areR.setLineWrap(true);
+        areR.setRows(5);
+        areR.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextArea1KeyPressed(evt);
+                areRKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTextArea1);
+        jScrollPane1.setViewportView(areR);
 
         btnCancelar.setText("Cancelar");
 
         btnGenerarPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif"))); // NOI18N
         btnGenerarPDF.setText("Generar PDF");
+        btnGenerarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarPDFActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,12 +107,12 @@ public class FormRemision extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fldCc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fldNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -104,7 +124,7 @@ public class FormRemision extends javax.swing.JFrame {
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jTextField1, jTextField2, jTextField3});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {fldCc, fldFecha, fldNombre, jScrollPane1});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,15 +132,15 @@ public class FormRemision extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fldCc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -137,7 +157,7 @@ public class FormRemision extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
+    private void areRKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areRKeyPressed
         // TODO add your handling code here:
         //para evitar que se guarden \r
         // y se pase al siguiente elemento de la interfaz
@@ -145,7 +165,21 @@ public class FormRemision extends javax.swing.JFrame {
             btnGenerarPDF.requestFocus();
             evt.consume();
         }
-    }//GEN-LAST:event_jTextArea1KeyPressed
+    }//GEN-LAST:event_areRKeyPressed
+
+    private void btnGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFActionPerformed
+        try {
+            // TODO add your handling code here:
+            Remision remision = new Remision();
+            remision.setFecha(fldFecha.getText());
+            remision.setNombre(fldNombre.getText());
+            remision.setCc(fldCc.getText());
+            remision.setR(areR.getText());
+            new PDF().generarPdfRemision(remision);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(btnGenerarPDF,"El PDF no se há generado.\n"+ex.getMessage());
+        }
+    }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,16 +217,22 @@ public class FormRemision extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areR;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGenerarPDF;
+    private javax.swing.JTextField fldCc;
+    private javax.swing.JTextField fldFecha;
+    private javax.swing.JTextField fldNombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
+    void cargarPaciente(Paciente paciente) {
+        this.paciente=paciente;
+        fldNombre.setText(paciente.getNombre());
+        fldCc.setText(String.valueOf(paciente.getCc()));
+    }
 }

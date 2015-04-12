@@ -196,7 +196,7 @@ public class FormPaciente extends javax.swing.JFrame {
                     formHistoria.setPaciente(nuevoPaciente);
                     formHistoria.cargarProximoId();
                     formHistoria.cargarPaciente();
-                    formHistoria.ocultarBotonesPdf();
+                    formHistoria.cambiarBotonesPdfPrescripcion();
                     formHistoria.cargarFechaActual();
                     formHistoria.cargarFechaProximoControl();
                     formHistoria.seleccionarTipoParticular();
@@ -657,7 +657,7 @@ public class FormPaciente extends javax.swing.JFrame {
         formHistoria.setPaciente(paciente);
         formHistoria.cargarProximoId();
         formHistoria.cargarPaciente();
-        formHistoria.ocultarBotonesPdf();
+        formHistoria.cambiarBotonesPdfPrescripcion();
         formHistoria.cargarFechaActual();
         formHistoria.cargarFechaProximoControl();
         formHistoria.seleccionarTipoParticular();

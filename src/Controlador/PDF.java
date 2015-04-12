@@ -28,12 +28,15 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -79,6 +82,8 @@ public class PDF {
             documento.add(fecha);
             documento.add(Tabla_compleja(lp, lh));
             documento.close();
+            //abrir pdf
+            abrirPdf(ruta_destino+".pdf");
         } catch (Exception ex) {
             System.out.println((new StringBuilder()).append("error ").append(ex).append(" en metodo prueba").toString());
         }
@@ -554,17 +559,8 @@ public class PDF {
         celdaImagenFirma.setBorder(0);
         celdaImagenFirma.setColspan(2);
         table.addCell(celdaImagenFirma);
-//        table.getDefaultCell().setBorder(0);
-//        table.addCell("");
-//        table.addCell("");
-//        table.addCell("");
-//        table.addCell("");
-//        PdfPCell celdaFin = crearCeldaContenido("Firma");
-//        celdaFin.setColspan(2);
-//        celdaFin.setBorder(1);
-//        table.addCell(celdaFin);
         //abrir filechooser
-        Document documento = new Document(PageSize.LETTER);
+        Document documento = new Document(PageSize.A5.rotate());
         colocarDestino();
         if (ruta_destino != null) {
             PdfWriter.getInstance(documento, new FileOutputStream(ruta_destino + ".pdf"));
@@ -576,8 +572,15 @@ public class PDF {
             documento.add(encabezado);
             documento.add(table);
             documento.close();
+            //abrir pdf
+            abrirPdf(ruta_destino+".pdf");
         } catch (Exception ex) {
             System.out.println("Excepción método PDF.generarPdfPrescripcionFinal = " + ex.getMessage());
+            return;
+        }
+        try{
+            
+        } catch(Exception ex) {
         }
     }
 
@@ -684,36 +687,19 @@ public class PDF {
         table.addCell(cell);
         cell.setPhrase(new Paragraph("R/.: " + remision.getR()));
         table.addCell(cell);
-        //firma digitalizada
-        Image firma = Image.getInstance(getClass().getResource("/Vista/Imagenes/firma.jpg"));
-        cell.setColspan(2);
-        cell.setPhrase(new Phrase(""));
-        table.addCell(cell);
-        cell.setColspan(1);
-        cell.setImage(firma);
-        table.addCell(cell);
-        cell.setColspan(3);
-        cell.setBorder(1);
-        cell.setPaddingTop(5);
-        cell.setPhrase(new Paragraph("Kra 22 No. 26-23 - Tel (6) 872 10 13 - (311) 355 63 01 - (312) 223 93 55"
-                + "\nwww.visso.com.co - vissomanizales@hotmail.com", FontFactory.getFont("arial", // fuente
-                        10, // tamaño
-                        Font.NORMAL, // estilo
-                        BaseColor.BLACK))//color
-        );
-        cell.setHorizontalAlignment(1);
-        table.addCell(cell);
         //abrir filechooser
-        Document documento = new Document(PageSize.A5, -10,-10,10,0);
+        Document documento = new Document(PageSize.A5, -10, -10, 10, 0);
         colocarDestino();
         if (ruta_destino != null) {
+            //sin pie de pag
+            //PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta_destino + ".pdf"));
+            //con pie de pag
             PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta_destino + ".pdf"));
-//            PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta_destino + ".pdf"));
-//            Rectangle rct = new Rectangle(36, 54, 559, 788);
-//            //Definimos un nombre y un tamaño para el PageBox los nombres posibles son: “crop”, “trim”, “art” and “bleed”.
-//            writer.setBoxSize("art", rct);
-//            HeaderFooter event = new HeaderFooter();
-//            writer.setPageEvent(event);
+            Rectangle rct = new Rectangle(36, 54, 559, 788);
+            //Definimos un nombre y un tamaño para el PageBox los nombres posibles son: “crop”, “trim”, “art” and “bleed”.
+            writer.setBoxSize("art", rct);
+            HeaderFooter event = new HeaderFooter();
+            writer.setPageEvent(event);
         } else {
             return;
         }
@@ -721,41 +707,63 @@ public class PDF {
             documento.open();
             documento.add(table);
             documento.close();
+            //abrir pdf
+            abrirPdf(ruta_destino+".pdf");
         } catch (Exception ex) {
             System.out.println("Excepción método PDF.generarPdfRemision = " + ex.getMessage());
         }
-
-//        //Fecha        
-//        Paragraph fecha = new Paragraph(prescripcionFinal.getFecha(), FontFactory.getFont("arial", 9));
-//        PdfPCell celdaFecha = new PdfPCell(fecha);
-//        celdaFecha.setHorizontalAlignment(2);
-//        celdaFecha.setBorder(0);
-//        encabezado.addCell(celdaFecha);
-//        //Paciente
-//        Paragraph paraNombrePaciente = new Paragraph("Paciente: " + paciente.getNombre() + "\n\n", FontFactory.getFont("arial", 10));
     }
 
-//    static class HeaderFooter extends PdfPageEventHelper {
-//
-//        public void onEndPage (PdfWriter writer, Document document) {
-//            Rectangle rect = writer.getBoxSize("art");
-//            //Aquí definimos el encabezado de nuestro documento PDF
-////            ColumnText.showTextAligned(writer.getDirectContent(),
-////                    Element.ALIGN_RIGHT, new Phrase("Roberto León Encabezado"),
-////                    rect.getRight(), rect.getTop(), 0);
-//            //Aquí definimos el pie de página de nuestro document PDF            
-//            PdfPTable table= new PdfPTable(1);
-//            PdfPCell cell = new PdfPCell(new Phrase("Carrera 22 No. 26-23 - Teléfonos (6) 872 10 13 - (311) 355 63 01 - (312) 223 93 55"
-//                    + "\nwww.visso.com.co - vissomanizales@hotmail.com", null));
-//            Phrase phrase = new Phrase("Carrera 22 No. 26-23 - Teléfonos (6) 872 10 13 - (311) 355 63 01 - (312) 223 93 55"
-//                    + "\nwww.visso.com.co - vissomanizales@hotmail.com", null);
-//            PdfContentByte cbhead = writer.getDirectContent();
-//                PdfTemplate tp = cbhead.createTemplate(500, 250); //el área destinada para el encabezado
-//                tp.add(imghead);
-//                
+    static class HeaderFooter extends PdfPageEventHelper {
+
+        public void onEndPage(PdfWriter writer, Document document) {
+            Rectangle rect = writer.getBoxSize("art");
+            //Aquí definimos el encabezado de nuestro documento PDF
 //            ColumnText.showTextAligned(writer.getDirectContent(),
-//                    Element.ALIGN_CENTER, new Phrase(String.format("page %d otra cosa", writer.getPageNumber())),
-//                    (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
-//        }
-//    }
+//                    Element.ALIGN_RIGHT, new Phrase("Roberto León Encabezado"),
+//                    rect.getRight(), rect.getTop(), 0);
+            //Aquí definimos el pie de página de nuestro document PDF
+            Image firma=null;
+            try {
+                firma = Image.getInstance(getClass().getResource("/Vista/Imagenes/firma.jpg"));
+            } catch (BadElementException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Chunk chunk = new Chunk(firma, 168, 0); 
+            ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_RIGHT, new Phrase(chunk),
+                    210, rect.getBottom(), 0);
+            ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_CENTER, new Paragraph("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯", FontFactory.getFont("arial", // fuente
+                                    10, // tamaño
+                                    Font.NORMAL, // estilo
+                                    BaseColor.BLACK)),//color
+                    143, rect.getBottom() - 10, 0);
+            ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_CENTER, new Paragraph("Kra 22 No. 26-23 - Tel (6) 872 10 13 - (311) 355 63 01 - (312) 223 93 55", FontFactory.getFont("arial", // fuente
+                                    10, // tamaño
+                                    Font.NORMAL, // estilo
+                                    BaseColor.BLACK)),//color
+                    210, rect.getBottom() - 20, 0);
+            ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_CENTER, new Paragraph("www.visso.com.co - vissomanizales@hotmail.com",
+                            FontFactory.getFont("arial", // fuente
+                                    10, // tamaño
+                                    Font.NORMAL, // estilo
+                                    BaseColor.BLACK)),//color
+                    210, rect.getBottom() - 30, 0);
+
+        }
+    }
+    
+    public void abrirPdf(String ruta){
+        File archivoPdf = new File (ruta);
+        try {
+            Desktop.getDesktop().open(archivoPdf);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,"No fue posible abrir el archivo PDF.\n"+ex.getMessage());
+        }
+    }
 }

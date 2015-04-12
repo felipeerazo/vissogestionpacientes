@@ -82,6 +82,11 @@ public class FormRemision extends javax.swing.JFrame {
         jScrollPane1.setViewportView(areR);
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnGenerarPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/pdf icon2.gif"))); // NOI18N
         btnGenerarPDF.setText("Generar PDF");
@@ -176,10 +181,16 @@ public class FormRemision extends javax.swing.JFrame {
             remision.setCc(fldCc.getText());
             remision.setR(areR.getText());
             new PDF().generarPdfRemision(remision);
+            dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(btnGenerarPDF,"El PDF no se há generado.\n"+ex.getMessage());
         }
     }//GEN-LAST:event_btnGenerarPDFActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -8,7 +8,6 @@ package Vista;
 import Controlador.Conn;
 import Controlador.CtrlPaciente;
 import Modelo.Paciente;
-import java.awt.Toolkit;
 import java.util.LinkedList;
 
 /**
@@ -77,7 +76,6 @@ public class FormPpal extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnHistoriaClinica = new javax.swing.JButton();
         btnMiniControl = new javax.swing.JButton();
-        btnMostrarTodo = new javax.swing.JButton();
         btnPaciente = new javax.swing.JButton();
         btnBackUp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -109,14 +107,6 @@ public class FormPpal extends javax.swing.JFrame {
         btnMiniControl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMiniControlActionPerformed(evt);
-            }
-        });
-
-        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/listar.png"))); // NOI18N
-        btnMostrarTodo.setText("Mostrar todo");
-        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrarTodoActionPerformed(evt);
             }
         });
 
@@ -173,39 +163,37 @@ public class FormPpal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnBuscar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnHistoriaClinica)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnMiniControl))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnMostrarTodo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnPaciente)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBackUp)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnHistoriaClinica, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnPaciente, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMiniControl, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnBackUp, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBackUp, btnBuscar, btnHistoriaClinica, btnMiniControl, btnMostrarTodo, btnPaciente});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBackUp, btnBuscar, btnHistoriaClinica, btnMiniControl, btnPaciente});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnHistoriaClinica)
-                    .addComponent(btnMiniControl))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMostrarTodo)
-                    .addComponent(btnPaciente)
-                    .addComponent(btnBackUp))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHistoriaClinica)
+                            .addComponent(btnMiniControl))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPaciente)
+                            .addComponent(btnBackUp)))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,7 +207,7 @@ public class FormPpal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBackUp, btnBuscar, btnHistoriaClinica, btnMiniControl, btnMostrarTodo, btnPaciente});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBackUp, btnHistoriaClinica, btnMiniControl, btnPaciente});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lstVistaControlesHoy, lstVistaCumpleanos});
 
@@ -234,16 +222,6 @@ public class FormPpal extends javax.swing.JFrame {
         formBuscador = new FormBuscador();
         formBuscador.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
-        // TODO add your handling code here:
-        if (formListado != null) {
-            formListado.dispose();
-        }
-        formListado = new FormListado();
-        formListado.cargarTodo();
-        formListado.setVisible(true);
-    }//GEN-LAST:event_btnMostrarTodoActionPerformed
 
     private void btnBackUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackUpActionPerformed
         // TODO add your handling code here:
@@ -342,7 +320,6 @@ public class FormPpal extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnHistoriaClinica;
     private javax.swing.JButton btnMiniControl;
-    private javax.swing.JButton btnMostrarTodo;
     private javax.swing.JButton btnPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -350,4 +327,14 @@ public class FormPpal extends javax.swing.JFrame {
     private java.awt.List lstVistaControlesHoy;
     private java.awt.List lstVistaCumpleanos;
     // End of variables declaration//GEN-END:variables
+
+    public void mostrarTodo() {
+        if (formListado != null) {
+            formListado.dispose();
+        }
+        formListado = new FormListado();
+        formListado.cargarTodo();
+        formListado.setVisible(true);
+    }
+
 }

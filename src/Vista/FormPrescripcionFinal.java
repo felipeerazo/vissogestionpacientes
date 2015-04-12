@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author Felipe
  */
 public class FormPrescripcionFinal extends javax.swing.JFrame {
-    
+
     private Paciente paciente;
     private Historia historia;
 
@@ -420,36 +420,37 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         // TODO add your handling code here:
         PrescripcionFinal prescripcionFinal = new PrescripcionFinal();
         //lejos
-    prescripcionFinal.setLejosEsferaD(fldLejosEsferaD.getText());
-    prescripcionFinal.setLejosEsferaI(fldLejosEsferaI.getText());    
-    prescripcionFinal.setLejosCilindroD(fldLejosCilindroD.getText());
-    prescripcionFinal.setLejosCilindroI(fldLejosCilindroD.getText());
-    prescripcionFinal.setLejosEjeD(fldLejosEjeD.getText());
-    prescripcionFinal.setLejosEjeI(fldLejosEjeD.getText());
-    prescripcionFinal.setAvVlD(fldAvVlD.getText());
-    prescripcionFinal.setAvVlI(fldAvVlI.getText());
-    //cerca
-    prescripcionFinal.setCercaEsferaD(fldCercaEsferaD.getText());
-    prescripcionFinal.setCercaEsferaI(fldCercaEsferaI.getText());
-    prescripcionFinal.setCercaCilindroD(fldCercaCilindroD.getText());
-    prescripcionFinal.setCercaCilindroI(fldCercaCilindroI.getText());
-    prescripcionFinal.setCercaEjeD(fldCercaEjeD.getText());
-    prescripcionFinal.setCercaEjeI(fldCercaEjeI.getText());
-    //adicion
-    prescripcionFinal.setAdicionEsferaD(fldAddD.getText());
-    prescripcionFinal.setAdicionEsferaI(fldAddI.getText());
-    prescripcionFinal.setDp(fldDP.getText());
-    prescripcionFinal.setAvVpD(fldAvVpD.getText());
-    prescripcionFinal.setAvVpI(fldAvVpI.getText());
-    
-    prescripcionFinal.setObserv(areObserv.getText());
-    prescripcionFinal.setControl(fldControl.getText());
-    prescripcionFinal.setFecha(obtenerFechaActual());
-    
+        prescripcionFinal.setLejosEsferaD(fldLejosEsferaD.getText());
+        prescripcionFinal.setLejosEsferaI(fldLejosEsferaI.getText());
+        prescripcionFinal.setLejosCilindroD(fldLejosCilindroD.getText());
+        prescripcionFinal.setLejosCilindroI(fldLejosCilindroD.getText());
+        prescripcionFinal.setLejosEjeD(fldLejosEjeD.getText());
+        prescripcionFinal.setLejosEjeI(fldLejosEjeD.getText());
+        prescripcionFinal.setAvVlD(fldAvVlD.getText());
+        prescripcionFinal.setAvVlI(fldAvVlI.getText());
+        //cerca
+        prescripcionFinal.setCercaEsferaD(fldCercaEsferaD.getText());
+        prescripcionFinal.setCercaEsferaI(fldCercaEsferaI.getText());
+        prescripcionFinal.setCercaCilindroD(fldCercaCilindroD.getText());
+        prescripcionFinal.setCercaCilindroI(fldCercaCilindroI.getText());
+        prescripcionFinal.setCercaEjeD(fldCercaEjeD.getText());
+        prescripcionFinal.setCercaEjeI(fldCercaEjeI.getText());
+        //adicion
+        prescripcionFinal.setAdicionEsferaD(fldAddD.getText());
+        prescripcionFinal.setAdicionEsferaI(fldAddI.getText());
+        prescripcionFinal.setDp(fldDP.getText());
+        prescripcionFinal.setAvVpD(fldAvVpD.getText());
+        prescripcionFinal.setAvVpI(fldAvVpI.getText());
+
+        prescripcionFinal.setObserv(areObserv.getText());
+        prescripcionFinal.setControl(fldControl.getText());
+        prescripcionFinal.setFecha(obtenerFechaActual());
+
         try {
             new PDF().generarPdfPrescripcionFinal(paciente, prescripcionFinal);
+            dispose();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(btnGenerarPDF,"Ha ocurrido un error al generar PDF:\n"+ex.getMessage());
+            JOptionPane.showMessageDialog(btnGenerarPDF, "Ha ocurrido un error al generar PDF:\n" + ex.getMessage());
         }
     }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
@@ -462,7 +463,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         // TODO add your handling code here:
         //para evitar que se guarden \r
         // y se pase al siguiente elemento de la interfaz
-        if (evt.getKeyCode() == evt.VK_TAB){
+        if (evt.getKeyCode() == evt.VK_TAB) {
             fldControl.requestFocus();
             evt.consume();
         }
@@ -588,11 +589,11 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
      * carga los valores en la interfaz
      */
     void cargarDatos() {
-        if(paciente!=null){
+        if (paciente != null) {
             fldNombre.setText(paciente.getNombre());
-            fldDocumento.setText(String.valueOf(paciente.getCc()));            
+            fldDocumento.setText(String.valueOf(paciente.getCc()));
         }
-        if(historia!=null){
+        if (historia != null) {
             fldLejosEsferaD.setText(historia.getPrescrip_f_d());
             fldLejosEsferaI.setText(historia.getPrescrip_f_i());
             fldAvVlD.setText(historia.getAv_vl_d());
@@ -605,6 +606,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
             fldControl.setText(historia.getControl());
         }
     }
+
     String obtenerFechaActual() {
         Date utilDate = new Date();
         long lnMilisegundos = utilDate.getTime();

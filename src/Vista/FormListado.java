@@ -111,7 +111,7 @@ public class FormListado extends javax.swing.JFrame {
             formHistoria.setPaciente(listaPacientes.get(lstVistaPacientes.getSelectedIndex()));
             formHistoria.cargarProximoId();
             formHistoria.cargarPaciente();
-            formHistoria.ocultarBotonesPdf();
+            formHistoria.cambiarBotonesPdfPrescripcion();
             formHistoria.cargarFechaActual();
             formHistoria.cargarFechaProximoControl();
             formHistoria.seleccionarTipoParticular();

@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author usuario
  */
 public class FormPaciente extends javax.swing.JFrame {
-
+    
     LinkedList<Historia> listaHistorias;
     LinkedList<MiniControl> listaMiniControles;
     private Paciente paciente;
@@ -42,7 +42,7 @@ public class FormPaciente extends javax.swing.JFrame {
         edicion = false;
         
     }
-
+    
     public void cargarPaciente(Paciente paciente) {
         this.setPaciente(paciente);
         setTitle("Paciente");
@@ -50,7 +50,6 @@ public class FormPaciente extends javax.swing.JFrame {
         lblFuc.setVisible(true);
         fldEdad.setVisible(true);
         lblEdad.setVisible(true);
-        //LinkedList l = conn.reporteSQL((new StringBuilder()).append("SELECT * FROM pacientes WHERE cc=").append(cc).toString());
         fldCc.setText(String.valueOf(paciente.getCc()));
         fldNombre.setText(paciente.getNombre());
         fldEdad.setText(String.valueOf(new CtrlPaciente().consultarEdad(paciente.getCc())));
@@ -64,16 +63,15 @@ public class FormPaciente extends javax.swing.JFrame {
         fldTelefono.setText(String.valueOf(paciente.getTel()));
         fldDireccion.setText(paciente.getDirecc());
         fldFuc.setText(new CtrlPaciente().consultarFuc(paciente.getCc()));
-//        System.out.println("fuc: "+new CtrlPaciente().consultarFuc(paciente.getCc()));
-//        
         fldCelular.setText(String.valueOf(paciente.getCelular()));
         fldEmail.setText(paciente.getEmail());
         fldOcupacion.setText(paciente.getOcup());
         areObservaciones.setText(paciente.getObserv());
         areDetalles.setText(paciente.getMas());
+        btnRemision.setText("Remisión");
         bloquearCampos();
     }
-
+    
     public void cargarHistorias() {
         lstVistaHistorias.removeAll();
         listaHistorias = new CtrlHistoria().listar(paciente.getCc());
@@ -81,7 +79,7 @@ public class FormPaciente extends javax.swing.JFrame {
             lstVistaHistorias.add(listaHistorias.get(i).getFecha() + " - Motivo: " + listaHistorias.get(i).getMotivo());
         }
     }
-
+    
     public void cargarMiniControles() {
         lstVistaMinicontroles.removeAll();
         listaMiniControles = new CtrlMiniControl().listar(paciente.getCc());
@@ -89,18 +87,18 @@ public class FormPaciente extends javax.swing.JFrame {
             lstVistaMinicontroles.add(listaMiniControles.get(i).getFecha() + " - Motivo: " + listaMiniControles.get(i).getMotivo());
         }
     }
-
+    
     void limpiarForm() {
         jPanel3.setVisible(false);
         btnEditar.setVisible(false);
     }
-
+    
     private void activarEdicion(Paciente paciente) {
         cargarPaciente(paciente);
         ajustarParaEdicion();
         edicion = true;
     }
-
+    
     public void ajustarParaEdicion() {
         setSize(680, 430);
         fldFuc.setVisible(false);
@@ -125,9 +123,10 @@ public class FormPaciente extends javax.swing.JFrame {
         limpiarForm();
         btnEditar.setVisible(false);
         btnGuardarCrearHistoria.setVisible(false);
+        btnRemision.setVisible(false);
         btnSoloGuardar.setText("Guardar");
     }
-
+    
     private void bloquearCampos() {
         fldCc.setEditable(false);
         fldNombre.setEditable(false);
@@ -147,7 +146,7 @@ public class FormPaciente extends javax.swing.JFrame {
         btnSoloGuardar.setVisible(false);//btnSoloGuardar
         btnGuardarCrearHistoria.setVisible(false);
     }
-
+    
     private void guardar(int n) {
         String sexo = "FEMENINO";
         if (radMasculino.isSelected()) {
@@ -185,12 +184,15 @@ public class FormPaciente extends javax.swing.JFrame {
                 dispose();
             }
         } else {
-            //String res = conn.insertar((new StringBuilder()).append("insert into pacientes values (").append(fldCc.getText()).append(",'").append(fldNombre.getText()).append("','").append(fldFechaNac.getText()).append("','").append(sexo).append("',").append(fldTelefono.getText()).append(",'").append(fldDireccion.getText()).append("', ").append(fldCelular.getText()).append(", '").append(fldEmail.getText()).append("', '").append(fldOcupacion.getText()).append("', '").append(areObservaciones.getText()).append("', '").append(areDetalles.getText()).append("');").toString());
             String res = new CtrlPaciente().crear(nuevoPaciente);
             if ("1".equals(res)) {
-                if (n == 0) {
-                    dispose();
-                } else {
+                if (n == 2) {
+                    //guarda y crea nueva remisión
+                    FormRemision formRemision = new FormRemision();
+                    formRemision.cargarPaciente(nuevoPaciente);
+                    formRemision.setVisible(true);
+                } else if (n == 1) {
+                    //guarda y crea nueva historia
                     FormHistoria formHistoria = new FormHistoria();
                     formHistoria.setFormPaciente(this);
                     formHistoria.setPaciente(nuevoPaciente);
@@ -202,10 +204,10 @@ public class FormPaciente extends javax.swing.JFrame {
                     formHistoria.seleccionarTipoParticular();
                     formHistoria.setTitle("Nueva Historia Clinica...");
                     formHistoria.setVisible(true);
-                    dispose();
                 }
+                dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "El paciente no ha sido guardado.\nError: "+res, "Error al guardar", 0);
+                JOptionPane.showMessageDialog(null, "El paciente no ha sido guardado.\nError: " + res, "Error al guardar", 0);
             }
         }
     }
@@ -263,7 +265,7 @@ public class FormPaciente extends javax.swing.JFrame {
         btnNuevoControl = new javax.swing.JButton();
         btnNuevaHistoria = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        bntRemision = new javax.swing.JButton();
+        btnRemision = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -556,10 +558,10 @@ public class FormPaciente extends javax.swing.JFrame {
             }
         });
 
-        bntRemision.setText("Remisión");
-        bntRemision.addActionListener(new java.awt.event.ActionListener() {
+        btnRemision.setText("Guardar y crear remisión");
+        btnRemision.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntRemisionActionPerformed(evt);
+                btnRemisionActionPerformed(evt);
             }
         });
 
@@ -571,7 +573,7 @@ public class FormPaciente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(bntRemision)
+                        .addComponent(btnRemision)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -604,7 +606,7 @@ public class FormPaciente extends javax.swing.JFrame {
                     .addComponent(btnSoloGuardar)
                     .addComponent(btnGuardarCrearHistoria)
                     .addComponent(btnEditar)
-                    .addComponent(bntRemision))
+                    .addComponent(btnRemision))
                 .addContainerGap())
         );
 
@@ -695,13 +697,10 @@ public class FormPaciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_areDetallesKeyPressed
 
-    private void bntRemisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRemisionActionPerformed
-        // TODO add your handling code here:
-        FormRemision formRemision = new FormRemision();
-        formRemision.cargarPaciente(paciente);
-        formRemision.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_bntRemisionActionPerformed
+    private void btnRemisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemisionActionPerformed
+        // TODO add your handling code here:        
+        guardar(2);
+    }//GEN-LAST:event_btnRemisionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -740,12 +739,12 @@ public class FormPaciente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea areDetalles;
     private javax.swing.JTextArea areObservaciones;
-    private javax.swing.JButton bntRemision;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardarCrearHistoria;
     private javax.swing.JButton btnNuevaHistoria;
     private javax.swing.JButton btnNuevoControl;
+    private javax.swing.JButton btnRemision;
     private javax.swing.JButton btnSoloGuardar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField fldCc;

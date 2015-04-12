@@ -31,7 +31,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="bntRemision" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnRemision" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -69,7 +69,7 @@
                   <Component id="btnSoloGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnGuardarCrearHistoria" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEditar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bntRemision" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnRemision" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -528,12 +528,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="bntRemision">
+    <Component class="javax.swing.JButton" name="btnRemision">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Remisi&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Guardar y crear remisi&#xf3;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bntRemisionActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemisionActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

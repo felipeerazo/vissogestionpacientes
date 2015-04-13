@@ -602,6 +602,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
             fldAddI.setText(historia.getAdd_f_i());
             fldAvVpD.setText(historia.getAv_vp_d());
             fldAvVpI.setText(historia.getAv_vp_i());
+            fldDP.setText(historia.getDp());
             areObserv.setText(historia.getObservaciones());
             fldControl.setText(historia.getControl());
         }

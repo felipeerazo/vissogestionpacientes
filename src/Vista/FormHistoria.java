@@ -39,6 +39,7 @@ public class FormHistoria extends javax.swing.JFrame {
         fldHistoria_Id.setEditable(false);
         fldDocumento.setEditable(false);
         fldNombre.setEditable(false);
+        fldEdad.setEditable(false);
         ctrlHistoria = new CtrlHistoria();
     }
 
@@ -1842,7 +1843,7 @@ public class FormHistoria extends javax.swing.JFrame {
         Date utilDate = new Date();
         Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(utilDate.getTime());
-        cal.add(Calendar.DATE, 365);
+        cal.add(Calendar.DATE, 366);
         fldControl.setText(new java.sql.Date(cal.getTimeInMillis()).toString());
     }
 

@@ -194,7 +194,6 @@ public class FormPaciente extends javax.swing.JFrame {
                 } else if (n == 1) {
                     //guarda y crea nueva historia
                     FormHistoria formHistoria = new FormHistoria();
-                    formHistoria.setFormPaciente(this);
                     formHistoria.setPaciente(nuevoPaciente);
                     formHistoria.cargarProximoId();
                     formHistoria.cargarPaciente();
@@ -699,7 +698,14 @@ public class FormPaciente extends javax.swing.JFrame {
 
     private void btnRemisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemisionActionPerformed
         // TODO add your handling code here:        
+        if(paciente==null){
         guardar(2);
+        }
+        else{
+            FormRemision formRemision = new FormRemision();
+                    formRemision.cargarPaciente(paciente);
+                    formRemision.setVisible(true);
+        }
     }//GEN-LAST:event_btnRemisionActionPerformed
 
     /**

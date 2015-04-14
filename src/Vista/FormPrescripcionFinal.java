@@ -5,11 +5,14 @@
  */
 package Vista;
 
+import Controlador.CtrlPrescripcionFinal;
 import Controlador.PDF;
 import Modelo.Historia;
 import Modelo.Paciente;
 import Modelo.PrescripcionFinal;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -54,7 +57,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         fldCercaCilindroD = new javax.swing.JTextField();
         fldCercaEjeD = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        fldDP = new javax.swing.JTextField();
+        fldDp = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         fldAddI = new javax.swing.JTextField();
@@ -195,7 +198,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
                                 .addGap(118, 118, 118)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(fldDP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(fldDp, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
@@ -319,7 +322,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
                         .addComponent(fldAvVpD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fldDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fldDp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fldAvVpI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -417,7 +420,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         PrescripcionFinal prescripcionFinal = new PrescripcionFinal();
         //lejos
         prescripcionFinal.setLejosEsferaD(fldLejosEsferaD.getText());
@@ -438,13 +441,15 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         //adicion
         prescripcionFinal.setAdicionEsferaD(fldAddD.getText());
         prescripcionFinal.setAdicionEsferaI(fldAddI.getText());
-        prescripcionFinal.setDp(fldDP.getText());
+        prescripcionFinal.setDp(fldDp.getText());
         prescripcionFinal.setAvVpD(fldAvVpD.getText());
         prescripcionFinal.setAvVpI(fldAvVpI.getText());
 
         prescripcionFinal.setObserv(areObserv.getText());
         prescripcionFinal.setControl(fldControl.getText());
         prescripcionFinal.setFecha(obtenerFechaActual());
+        
+        new CtrlPrescripcionFinal().crear(String.valueOf(paciente.getCc()), prescripcionFinal);
 
         try {
             new PDF().generarPdfPrescripcionFinal(paciente, prescripcionFinal);
@@ -522,8 +527,8 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
     private javax.swing.JTextField fldCercaEsferaD;
     private javax.swing.JTextField fldCercaEsferaI;
     private javax.swing.JTextField fldControl;
-    private javax.swing.JTextField fldDP;
     private javax.swing.JTextField fldDocumento;
+    private javax.swing.JTextField fldDp;
     private javax.swing.JTextField fldLejosCilindroD;
     private javax.swing.JTextField fldLejosCilindroI;
     private javax.swing.JTextField fldLejosEjeD;
@@ -592,19 +597,42 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         if (paciente != null) {
             fldNombre.setText(paciente.getNombre());
             fldDocumento.setText(String.valueOf(paciente.getCc()));
-        }
-        if (historia != null) {
-            fldLejosEsferaD.setText(historia.getPrescrip_f_d());
-            fldLejosEsferaI.setText(historia.getPrescrip_f_i());
-            fldAvVlD.setText(historia.getAv_vl_d());
-            fldAvVlI.setText(historia.getAv_vl_i());
-            fldAddD.setText(historia.getAdd_f_d());
-            fldAddI.setText(historia.getAdd_f_i());
-            fldAvVpD.setText(historia.getAv_vp_d());
-            fldAvVpI.setText(historia.getAv_vp_i());
-            fldDP.setText(historia.getDp());
-            areObserv.setText(historia.getObservaciones());
-            fldControl.setText(historia.getControl());
+            if (new CtrlPrescripcionFinal().existe(String.valueOf(paciente.getCc()))) {
+                PrescripcionFinal prescripcionFinal = new CtrlPrescripcionFinal().consultar(String.valueOf(paciente.getCc()));
+                fldLejosEsferaD.setText(prescripcionFinal.getLejosEsferaD());
+                fldLejosEsferaI.setText(prescripcionFinal.getLejosEsferaI());
+                fldLejosCilindroD.setText(prescripcionFinal.getLejosCilindroD());
+                fldLejosCilindroI.setText(prescripcionFinal.getLejosCilindroI());
+                fldLejosEjeD.setText(prescripcionFinal.getLejosEjeD());
+                fldLejosEjeI.setText(prescripcionFinal.getLejosEjeI());
+                fldAvVlD.setText(prescripcionFinal.getAvVlD());
+                fldAvVlI.setText(prescripcionFinal.getAvVlI());
+                fldCercaEsferaD.setText(prescripcionFinal.getCercaEsferaD());
+                fldCercaEsferaI.setText(prescripcionFinal.getCercaEsferaI());
+                fldCercaCilindroD.setText(prescripcionFinal.getCercaCilindroD());
+                fldCercaCilindroI.setText(prescripcionFinal.getCercaCilindroI());
+                fldCercaEjeD.setText(prescripcionFinal.getCercaEjeD());
+                fldCercaEjeI.setText(prescripcionFinal.getCercaEjeI());
+                fldAddD.setText(prescripcionFinal.getAdicionEsferaD());
+                fldAddI.setText(prescripcionFinal.getAdicionEsferaI());
+                fldDp.setText(prescripcionFinal.getDp());
+                fldAvVpD.setText(prescripcionFinal.getAvVpD());
+                fldAvVpI.setText(prescripcionFinal.getAvVpI());
+                areObserv.setText(prescripcionFinal.getObserv());
+                fldControl.setText(cargarFechaProximoControl());
+            } else if (historia != null) {
+                fldLejosEsferaD.setText(historia.getPrescrip_f_d());
+                fldLejosEsferaI.setText(historia.getPrescrip_f_i());
+                fldAvVlD.setText(historia.getAv_vl_d());
+                fldAvVlI.setText(historia.getAv_vl_i());
+                fldAddD.setText(historia.getAdd_f_d());
+                fldAddI.setText(historia.getAdd_f_i());
+                fldAvVpD.setText(historia.getAv_vp_d());
+                fldAvVpI.setText(historia.getAv_vp_i());
+                fldDp.setText(historia.getDp());
+                areObserv.setText("Tipo de lente "+historia.getTipo_lente()+". Uso "+historia.getUso());
+                fldControl.setText(historia.getControl());
+            }
         }
     }
 
@@ -613,5 +641,13 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         long lnMilisegundos = utilDate.getTime();
         java.sql.Date sqlDate = new java.sql.Date(lnMilisegundos);
         return sqlDate.toString();
+    }
+    
+    private String cargarFechaProximoControl() {
+        Date utilDate = new Date();
+        Calendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(utilDate.getTime());
+        cal.add(Calendar.DATE, 366);
+        return new java.sql.Date(cal.getTimeInMillis()).toString();
     }
 }

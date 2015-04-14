@@ -195,7 +195,7 @@
                                   <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel9" max="32767" attributes="0"/>
-                                      <Component id="fldDP" min="-2" pref="82" max="-2" attributes="0"/>
+                                      <Component id="fldDp" min="-2" pref="82" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
@@ -347,7 +347,7 @@
                           <Component id="fldAvVpD" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="fldDP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fldDp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="fldAvVpI" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -375,7 +375,7 @@
             <Property name="text" type="java.lang.String" value="Cerca"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="fldDP">
+        <Component class="javax.swing.JTextField" name="fldDp">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>

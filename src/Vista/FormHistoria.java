@@ -957,6 +957,15 @@ public class FormHistoria extends javax.swing.JFrame {
 
         jLabel42.setText("AV VL");
 
+        fldAv_vl_d.setText("20/");
+
+        fldAv_vl_i.setText("20/");
+        fldAv_vl_i.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fldAv_vl_iActionPerformed(evt);
+            }
+        });
+
         jLabel43.setText("AV VP");
 
         jLabel44.setText("DP");
@@ -1548,6 +1557,10 @@ public class FormHistoria extends javax.swing.JFrame {
         formPrescripcionFinal.cargarDatos();
         dispose();
     }//GEN-LAST:event_btnPrescripcionFinalActionPerformed
+
+    private void fldAv_vl_iActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fldAv_vl_iActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fldAv_vl_iActionPerformed
 
     /**
      * @param args the command line arguments

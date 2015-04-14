@@ -69,6 +69,7 @@ public class FormPaciente extends javax.swing.JFrame {
         areObservaciones.setText(paciente.getObserv());
         areDetalles.setText(paciente.getMas());
         btnRemision.setText("Remisión");
+        btnPrescripcionFinal.setText("Prescripción Final");
         bloquearCampos();
     }
     
@@ -118,13 +119,13 @@ public class FormPaciente extends javax.swing.JFrame {
         areObservaciones.setEditable(true);
         areDetalles.setEditable(true);
         btnCancelar.setVisible(true);
-        btnSoloGuardar.setVisible(true);
+        btnGuardar.setVisible(true);
         btnGuardarCrearHistoria.setVisible(true);
         limpiarForm();
         btnEditar.setVisible(false);
         btnGuardarCrearHistoria.setVisible(false);
         btnRemision.setVisible(false);
-        btnSoloGuardar.setText("Guardar");
+        btnGuardar.setText("Guardar");
     }
     
     private void bloquearCampos() {
@@ -143,7 +144,7 @@ public class FormPaciente extends javax.swing.JFrame {
         areDetalles.setEditable(false);
         fldOcupacion.setEditable(false);
         btnCancelar.setVisible(false);
-        btnSoloGuardar.setVisible(false);//btnSoloGuardar
+        btnGuardar.setVisible(false);//btnSoloGuardar
         btnGuardarCrearHistoria.setVisible(false);
     }
     
@@ -222,7 +223,7 @@ public class FormPaciente extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         btnCancelar = new javax.swing.JButton();
-        btnSoloGuardar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         btnGuardarCrearHistoria = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -265,6 +266,7 @@ public class FormPaciente extends javax.swing.JFrame {
         btnNuevaHistoria = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnRemision = new javax.swing.JButton();
+        btnPrescripcionFinal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -275,10 +277,10 @@ public class FormPaciente extends javax.swing.JFrame {
             }
         });
 
-        btnSoloGuardar.setText("Solo guardar");
-        btnSoloGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSoloGuardarActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -564,6 +566,13 @@ public class FormPaciente extends javax.swing.JFrame {
             }
         });
 
+        btnPrescripcionFinal.setText("Prescrip");
+        btnPrescripcionFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrescripcionFinalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -572,13 +581,15 @@ public class FormPaciente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnPrescripcionFinal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemision)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnGuardarCrearHistoria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSoloGuardar)
+                        .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -602,10 +613,11 @@ public class FormPaciente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnSoloGuardar)
+                    .addComponent(btnGuardar)
                     .addComponent(btnGuardarCrearHistoria)
                     .addComponent(btnEditar)
-                    .addComponent(btnRemision))
+                    .addComponent(btnRemision)
+                    .addComponent(btnPrescripcionFinal))
                 .addContainerGap())
         );
 
@@ -617,10 +629,10 @@ public class FormPaciente extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnSoloGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoloGuardarActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         guardar(0);
-    }//GEN-LAST:event_btnSoloGuardarActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnGuardarCrearHistoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCrearHistoriaActionPerformed
         // TODO add your handling code here:
@@ -708,6 +720,14 @@ public class FormPaciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRemisionActionPerformed
 
+    private void btnPrescripcionFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescripcionFinalActionPerformed
+        // TODO add your handling code here:
+        FormPrescripcionFinal formPrescripcionFinal = new FormPrescripcionFinal();
+        formPrescripcionFinal.setPaciente(paciente);
+        formPrescripcionFinal.cargarDatos();
+        formPrescripcionFinal.setVisible(true);
+    }//GEN-LAST:event_btnPrescripcionFinalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -747,11 +767,12 @@ public class FormPaciente extends javax.swing.JFrame {
     private javax.swing.JTextArea areObservaciones;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnGuardarCrearHistoria;
     private javax.swing.JButton btnNuevaHistoria;
     private javax.swing.JButton btnNuevoControl;
+    private javax.swing.JButton btnPrescripcionFinal;
     private javax.swing.JButton btnRemision;
-    private javax.swing.JButton btnSoloGuardar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField fldCc;
     private javax.swing.JTextField fldCelular;

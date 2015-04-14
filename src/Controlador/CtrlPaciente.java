@@ -138,7 +138,7 @@ public class CtrlPaciente {
 
     public String actualizar(Long ccVieja, Paciente nuevoPaciente) {
         Conn conn = new Conn();
-        String res = conn.actualizar("update pacientes SET nombre='" + nuevoPaciente.getNombre() + "', "
+        String res = conn.actualizar("update pacientes set nombre='" + nuevoPaciente.getNombre() + "', "
                 + "cc=" + nuevoPaciente.getCc() + ", "
                 + "fechanac='" + nuevoPaciente.getFechanac() + "', "
                 + "sexo='" + nuevoPaciente.getSexo() + "', "

@@ -11,6 +11,7 @@ import Controlador.PDF;
 import Modelo.Historia;
 import Modelo.Paciente;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -32,6 +33,7 @@ public class FormHistoria extends javax.swing.JFrame {
      */
     public FormHistoria() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Imagenes/icon.png")));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Historia cl\355nica");

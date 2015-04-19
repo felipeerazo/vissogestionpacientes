@@ -6,6 +6,7 @@
 
 package Vista;
 
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +20,7 @@ public class FormLogin extends javax.swing.JFrame {
      */
     public FormLogin() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Imagenes/icon.png")));
         setLocationRelativeTo(null);
         setTitle("Acceder");
         //para acceder sin login

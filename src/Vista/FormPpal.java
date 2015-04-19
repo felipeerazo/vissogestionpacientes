@@ -8,6 +8,7 @@ package Vista;
 import Controlador.Conn;
 import Controlador.CtrlPaciente;
 import Modelo.Paciente;
+import java.awt.Toolkit;
 import java.util.LinkedList;
 
 /**
@@ -30,6 +31,7 @@ public class FormPpal extends javax.swing.JFrame {
      */
     public FormPpal() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Imagenes/icon.png")));
         setLocationRelativeTo(null);
         setTitle("Men\372 principal");
         setResizable(false);

@@ -10,6 +10,7 @@ import Controlador.PDF;
 import Modelo.Historia;
 import Modelo.Paciente;
 import Modelo.PrescripcionFinal;
+import java.awt.Toolkit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -29,6 +30,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
      */
     public FormPrescripcionFinal() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Imagenes/icon.png")));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Prescripción Final");

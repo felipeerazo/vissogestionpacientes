@@ -8,6 +8,7 @@ package Vista;
 import Controlador.CtrlMiniControl;
 import Modelo.MiniControl;
 import Modelo.Paciente;
+import java.awt.Toolkit;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -28,6 +29,7 @@ public class FormMiniControl extends javax.swing.JFrame {
      */
     public FormMiniControl() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Imagenes/icon.png")));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Mini control");

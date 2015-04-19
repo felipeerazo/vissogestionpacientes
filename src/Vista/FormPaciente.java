@@ -11,6 +11,7 @@ import Controlador.CtrlPaciente;
 import Modelo.Historia;
 import Modelo.MiniControl;
 import Modelo.Paciente;
+import java.awt.Toolkit;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
@@ -30,6 +31,7 @@ public class FormPaciente extends javax.swing.JFrame {
      */
     public FormPaciente() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Imagenes/icon.png")));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Nuevo paciente...");

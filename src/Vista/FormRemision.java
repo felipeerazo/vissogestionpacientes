@@ -8,11 +8,8 @@ package Vista;
 import Controlador.PDF;
 import Modelo.Paciente;
 import Modelo.Remision;
-import com.itextpdf.text.DocumentException;
-import java.io.IOException;
+import java.awt.Toolkit;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,6 +24,7 @@ public class FormRemision extends javax.swing.JFrame {
      */
     public FormRemision() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Imagenes/icon.png")));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Remisión");

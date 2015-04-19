@@ -8,6 +8,7 @@ package Vista;
 import Controlador.Conn;
 import Controlador.CtrlPaciente;
 import Modelo.Paciente;
+import java.awt.Toolkit;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
@@ -29,6 +30,7 @@ public class FormListado extends javax.swing.JFrame {
      */
     public FormListado() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Imagenes/icon.png")));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         setTitle("Lista de pacientes");

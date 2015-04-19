@@ -6,7 +6,6 @@
 package Vista;
 
 import Controlador.Conn;
-import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
@@ -16,9 +15,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -34,8 +30,9 @@ public class FormBackUp extends javax.swing.JFrame {
     /**
      * Creates new form FormBackUp
      */
-    public FormBackUp() {
+    public FormBackUp() {        
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Imagenes/icon.png")));
         setLocationRelativeTo(null);
         setTitle("Backup");
         setDefaultCloseOperation(2);

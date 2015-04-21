@@ -428,9 +428,9 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         prescripcionFinal.setLejosEsferaD(fldLejosEsferaD.getText());
         prescripcionFinal.setLejosEsferaI(fldLejosEsferaI.getText());
         prescripcionFinal.setLejosCilindroD(fldLejosCilindroD.getText());
-        prescripcionFinal.setLejosCilindroI(fldLejosCilindroD.getText());
+        prescripcionFinal.setLejosCilindroI(fldLejosCilindroI.getText());
         prescripcionFinal.setLejosEjeD(fldLejosEjeD.getText());
-        prescripcionFinal.setLejosEjeI(fldLejosEjeD.getText());
+        prescripcionFinal.setLejosEjeI(fldLejosEjeI.getText());
         prescripcionFinal.setAvVlD(fldAvVlD.getText());
         prescripcionFinal.setAvVlI(fldAvVlI.getText());
         //cerca

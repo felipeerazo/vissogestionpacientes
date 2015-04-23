@@ -248,7 +248,7 @@ public class FormPpal extends javax.swing.JFrame {
     private void btnPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacienteActionPerformed
         // TODO add your handling code here:
         FormPaciente formPaciente = new FormPaciente();
-        formPaciente.limpiarForm();
+        formPaciente.activarNuevoPaciente();
         formPaciente.setSize(680, 430);
         formPaciente.setVisible(true);
     }//GEN-LAST:event_btnPacienteActionPerformed

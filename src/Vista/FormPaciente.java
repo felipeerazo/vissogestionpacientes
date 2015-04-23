@@ -20,10 +20,10 @@ import javax.swing.JOptionPane;
  * @author usuario
  */
 public class FormPaciente extends javax.swing.JFrame {
-    
+
     LinkedList<Historia> listaHistorias;
     LinkedList<MiniControl> listaMiniControles;
-    private Paciente paciente;
+    private Paciente paciente = null;
     boolean edicion;
 
     /**
@@ -42,9 +42,9 @@ public class FormPaciente extends javax.swing.JFrame {
         lblEdad.setVisible(false);
         fldEdad.setVisible(false);
         edicion = false;
-        
+
     }
-    
+
     public void cargarPaciente(Paciente paciente) {
         this.setPaciente(paciente);
         setTitle("Paciente");
@@ -74,7 +74,7 @@ public class FormPaciente extends javax.swing.JFrame {
         btnPrescripcionFinal.setText("Prescripción Final");
         bloquearCampos();
     }
-    
+
     public void cargarHistorias() {
         lstVistaHistorias.removeAll();
         listaHistorias = new CtrlHistoria().listar(paciente.getCc());
@@ -82,7 +82,7 @@ public class FormPaciente extends javax.swing.JFrame {
             lstVistaHistorias.add(listaHistorias.get(i).getFecha() + " - Motivo: " + listaHistorias.get(i).getMotivo());
         }
     }
-    
+
     public void cargarMiniControles() {
         lstVistaMinicontroles.removeAll();
         listaMiniControles = new CtrlMiniControl().listar(paciente.getCc());
@@ -90,18 +90,24 @@ public class FormPaciente extends javax.swing.JFrame {
             lstVistaMinicontroles.add(listaMiniControles.get(i).getFecha() + " - Motivo: " + listaMiniControles.get(i).getMotivo());
         }
     }
-    
+
+    void activarNuevoPaciente() {
+        limpiarForm();
+        btnPrescripcionFinal.setText("Crear prescripción");
+
+    }
+
     void limpiarForm() {
         jPanel3.setVisible(false);
         btnEditar.setVisible(false);
     }
-    
+
     private void activarEdicion(Paciente paciente) {
         cargarPaciente(paciente);
         ajustarParaEdicion();
         edicion = true;
     }
-    
+
     public void ajustarParaEdicion() {
         setSize(680, 430);
         fldFuc.setVisible(false);
@@ -127,9 +133,10 @@ public class FormPaciente extends javax.swing.JFrame {
         btnEditar.setVisible(false);
         btnGuardarCrearHistoria.setVisible(false);
         btnRemision.setVisible(false);
+        btnPrescripcionFinal.setVisible(false);
         btnGuardar.setText("Guardar");
     }
-    
+
     private void bloquearCampos() {
         fldCc.setEditable(false);
         fldNombre.setEditable(false);
@@ -149,7 +156,7 @@ public class FormPaciente extends javax.swing.JFrame {
         btnGuardar.setVisible(false);//btnSoloGuardar
         btnGuardarCrearHistoria.setVisible(false);
     }
-    
+
     private void guardar(int n) {
         String sexo = "FEMENINO";
         if (radMasculino.isSelected()) {
@@ -206,6 +213,12 @@ public class FormPaciente extends javax.swing.JFrame {
                     formHistoria.seleccionarTipoParticular();
                     formHistoria.setTitle("Nueva Historia Clinica...");
                     formHistoria.setVisible(true);
+                } else if (n == 3) {
+                    //guarda y crea nueva prescripcion
+                    FormPrescripcionFinal formPrescripcionFinal = new FormPrescripcionFinal();
+                    formPrescripcionFinal.setPaciente(nuevoPaciente);
+                    formPrescripcionFinal.cargarDatos();
+                    formPrescripcionFinal.setVisible(true);
                 }
                 dispose();
             } else {
@@ -286,7 +299,7 @@ public class FormPaciente extends javax.swing.JFrame {
             }
         });
 
-        btnGuardarCrearHistoria.setText("Guardar y crear historia");
+        btnGuardarCrearHistoria.setText("Crear historia");
         btnGuardarCrearHistoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarCrearHistoriaActionPerformed(evt);
@@ -561,7 +574,7 @@ public class FormPaciente extends javax.swing.JFrame {
             }
         });
 
-        btnRemision.setText("Guardar y crear remisión");
+        btnRemision.setText("Crear remisión");
         btnRemision.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemisionActionPerformed(evt);
@@ -712,22 +725,25 @@ public class FormPaciente extends javax.swing.JFrame {
 
     private void btnRemisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemisionActionPerformed
         // TODO add your handling code here:        
-        if(paciente==null){
-        guardar(2);
-        }
-        else{
+        if (paciente == null) {
+            guardar(2);
+        } else {
             FormRemision formRemision = new FormRemision();
-                    formRemision.cargarPaciente(paciente);
-                    formRemision.setVisible(true);
+            formRemision.cargarPaciente(paciente);
+            formRemision.setVisible(true);
         }
     }//GEN-LAST:event_btnRemisionActionPerformed
 
     private void btnPrescripcionFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescripcionFinalActionPerformed
         // TODO add your handling code here:
-        FormPrescripcionFinal formPrescripcionFinal = new FormPrescripcionFinal();
-        formPrescripcionFinal.setPaciente(paciente);
-        formPrescripcionFinal.cargarDatos();
-        formPrescripcionFinal.setVisible(true);
+        if (paciente == null) {
+            guardar(3);
+        } else {
+            FormPrescripcionFinal formPrescripcionFinal = new FormPrescripcionFinal();
+            formPrescripcionFinal.setPaciente(paciente);
+            formPrescripcionFinal.cargarDatos();
+            formPrescripcionFinal.setVisible(true);
+        }
     }//GEN-LAST:event_btnPrescripcionFinalActionPerformed
 
     /**

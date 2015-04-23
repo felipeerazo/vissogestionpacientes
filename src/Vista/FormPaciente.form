@@ -98,7 +98,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnGuardarCrearHistoria">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Guardar y crear historia"/>
+        <Property name="text" type="java.lang.String" value="Crear historia"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarCrearHistoriaActionPerformed"/>
@@ -533,7 +533,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnRemision">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Guardar y crear remisi&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Crear remisi&#xf3;n"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemisionActionPerformed"/>

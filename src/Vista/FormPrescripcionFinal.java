@@ -94,6 +94,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         areObserv = new javax.swing.JTextArea();
         jLabel11 = new javax.swing.JLabel();
         fldControl = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -347,6 +348,13 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Control:");
 
+        jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -370,6 +378,8 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGenerarPDF)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar)
@@ -383,7 +393,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(fldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {fldControl, jScrollPane1});
@@ -410,9 +420,11 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(fldControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnGenerarPDF))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCancelar)
+                        .addComponent(btnGenerarPDF))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
 
@@ -423,33 +435,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
 
     private void btnGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFActionPerformed
         // TODO add your handling code here:        
-        PrescripcionFinal prescripcionFinal = new PrescripcionFinal();
-        //lejos
-        prescripcionFinal.setLejosEsferaD(fldLejosEsferaD.getText());
-        prescripcionFinal.setLejosEsferaI(fldLejosEsferaI.getText());
-        prescripcionFinal.setLejosCilindroD(fldLejosCilindroD.getText());
-        prescripcionFinal.setLejosCilindroI(fldLejosCilindroI.getText());
-        prescripcionFinal.setLejosEjeD(fldLejosEjeD.getText());
-        prescripcionFinal.setLejosEjeI(fldLejosEjeI.getText());
-        prescripcionFinal.setAvVlD(fldAvVlD.getText());
-        prescripcionFinal.setAvVlI(fldAvVlI.getText());
-        //cerca
-        prescripcionFinal.setCercaEsferaD(fldCercaEsferaD.getText());
-        prescripcionFinal.setCercaEsferaI(fldCercaEsferaI.getText());
-        prescripcionFinal.setCercaCilindroD(fldCercaCilindroD.getText());
-        prescripcionFinal.setCercaCilindroI(fldCercaCilindroI.getText());
-        prescripcionFinal.setCercaEjeD(fldCercaEjeD.getText());
-        prescripcionFinal.setCercaEjeI(fldCercaEjeI.getText());
-        //adicion
-        prescripcionFinal.setAdicionEsferaD(fldAddD.getText());
-        prescripcionFinal.setAdicionEsferaI(fldAddI.getText());
-        prescripcionFinal.setDp(fldDp.getText());
-        prescripcionFinal.setAvVpD(fldAvVpD.getText());
-        prescripcionFinal.setAvVpI(fldAvVpI.getText());
-
-        prescripcionFinal.setObserv(areObserv.getText());
-        prescripcionFinal.setControl(fldControl.getText());
-        prescripcionFinal.setFecha(obtenerFechaActual());
+        PrescripcionFinal prescripcionFinal = leerCampos();        
         
         new CtrlPrescripcionFinal().crear(String.valueOf(paciente.getCc()), prescripcionFinal);
 
@@ -475,6 +461,13 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_areObservKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        PrescripcionFinal prescripcionFinal = leerCampos();
+        new CtrlPrescripcionFinal().crear(String.valueOf(paciente.getCc()), prescripcionFinal);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -538,6 +531,7 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
     private javax.swing.JTextField fldLejosEsferaD;
     private javax.swing.JTextField fldLejosEsferaI;
     private javax.swing.JTextField fldNombre;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -651,5 +645,37 @@ public class FormPrescripcionFinal extends javax.swing.JFrame {
         cal.setTimeInMillis(utilDate.getTime());
         cal.add(Calendar.DATE, 366);
         return new java.sql.Date(cal.getTimeInMillis()).toString();
+    }
+    
+    private PrescripcionFinal leerCampos(){
+        PrescripcionFinal prescripcionFinal = new PrescripcionFinal();
+        //lejos
+        prescripcionFinal.setLejosEsferaD(fldLejosEsferaD.getText());
+        prescripcionFinal.setLejosEsferaI(fldLejosEsferaI.getText());
+        prescripcionFinal.setLejosCilindroD(fldLejosCilindroD.getText());
+        prescripcionFinal.setLejosCilindroI(fldLejosCilindroI.getText());
+        prescripcionFinal.setLejosEjeD(fldLejosEjeD.getText());
+        prescripcionFinal.setLejosEjeI(fldLejosEjeI.getText());
+        prescripcionFinal.setAvVlD(fldAvVlD.getText());
+        prescripcionFinal.setAvVlI(fldAvVlI.getText());
+        //cerca
+        prescripcionFinal.setCercaEsferaD(fldCercaEsferaD.getText());
+        prescripcionFinal.setCercaEsferaI(fldCercaEsferaI.getText());
+        prescripcionFinal.setCercaCilindroD(fldCercaCilindroD.getText());
+        prescripcionFinal.setCercaCilindroI(fldCercaCilindroI.getText());
+        prescripcionFinal.setCercaEjeD(fldCercaEjeD.getText());
+        prescripcionFinal.setCercaEjeI(fldCercaEjeI.getText());
+        //adicion
+        prescripcionFinal.setAdicionEsferaD(fldAddD.getText());
+        prescripcionFinal.setAdicionEsferaI(fldAddI.getText());
+        prescripcionFinal.setDp(fldDp.getText());
+        prescripcionFinal.setAvVpD(fldAvVpD.getText());
+        prescripcionFinal.setAvVpI(fldAvVpI.getText());
+
+        prescripcionFinal.setObserv(areObserv.getText());
+        prescripcionFinal.setControl(fldControl.getText());
+        prescripcionFinal.setFecha(obtenerFechaActual());
+        
+        return prescripcionFinal;
     }
 }
